@@ -1,11 +1,11 @@
-#ifndef Capture_H
-#define Capture_H
+#ifndef SShootOnce_H
+#define SShootOnce_H
 
 #include "Commands/Command.h"
 
-class Capture : public Command {
+class SShootOnce : public Command {
 public:
-	Capture();
+	SShootOnce();
 	void Initialize();
 	void Execute();
 	bool IsFinished();
@@ -13,4 +13,4 @@ public:
 	void Interrupted();
 };
 
-#endif  // Capture_H
+#endif  // SShootOnce_H
