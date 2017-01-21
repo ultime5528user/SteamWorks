@@ -45,8 +45,6 @@ $RECYCLE.BIN/
 Network Trash Folder
 Temporary Items
 .apdisk
-*.cproject
-.project
 *.xml
 .settings/org.eclipse.cdt.managedbuilder.core.prefs
 *.properties
