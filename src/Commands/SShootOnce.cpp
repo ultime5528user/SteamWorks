@@ -1,34 +1,34 @@
-#include "Capture.h"
-#include <Robot.h>
+#include "SShootOnce.h"
+#include "Robot.h"
 
-Capture::Capture(): Command("Capture") {
+SShootOnce::SShootOnce() {
 	// Use Requires() here to declare subsystem dependencies
 	// eg. Requires(Robot::chassis.get());
-	Requires (Robot::camera.get());
+	Requires(Robot::shooter.get());
 }
 
 // Called just before this Command runs the first time
-void Capture::Initialize( ) {
-	Robot::camera->StartThread();
+void SShootOnce::Initialize() {
+	Robot::shooter->Shoot();
 }
 
 // Called repeatedly when this Command is scheduled to run
-void Capture::Execute() {
+void SShootOnce::Execute() {
 
 }
 
 // Make this return true when this Command no longer needs to run execute()
-bool Capture::IsFinished() {
-	return false;
+bool SShootOnce::IsFinished() {
+	return true;
 }
 
 // Called once after isFinished returns true
-void Capture::End() {
-	Robot::camera->EndThread();
+void SShootOnce::End() {
+	Robot::shooter->ShootStop();
 }
 
 // Called when another command which requires one or more of the same
 // subsystems is scheduled to run
-void Capture::Interrupted() {
+void SShootOnce::Interrupted() {
 	End();
 }
