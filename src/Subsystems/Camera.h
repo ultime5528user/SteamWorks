@@ -3,6 +3,11 @@
 
 #include <Commands/Subsystem.h>
 #include <atomic>
+#include <Commands/Capture.h>
+#include "opencv2/core/core.hpp"
+#include <thread>
+#include "CameraServer.h"
+
 
 class Camera : public Subsystem {
 private:
