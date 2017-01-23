@@ -30,7 +30,7 @@ public:
 
 	//Shooter
 	static std::shared_ptr<SpeedController> shooterMoteur;
-
+	static std::shared_ptr<Encoder> shooterEncoder;
 
 	static void init();
 };
