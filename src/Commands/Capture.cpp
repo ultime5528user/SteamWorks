@@ -8,8 +8,8 @@ Capture::Capture(): Command("Capture") {
 }
 
 // Called just before this Command runs the first time
-void Capture::Initialize() {
-
+void Capture::Initialize( ) {
+	Robot::camera->StartThread();
 }
 
 // Called repeatedly when this Command is scheduled to run
@@ -24,11 +24,11 @@ bool Capture::IsFinished() {
 
 // Called once after isFinished returns true
 void Capture::End() {
-
+	Robot::camera->EndThread();
 }
 
 // Called when another command which requires one or more of the same
 // subsystems is scheduled to run
 void Capture::Interrupted() {
-
+	End();
 }
