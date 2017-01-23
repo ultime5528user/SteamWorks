@@ -6,7 +6,6 @@ double Shooter::SHOOT_VALUE(0);
 
 Shooter::Shooter() : Subsystem("ExampleSubsystem") {
 	moteur = RobotMap::shooterMoteur;
-	encoder = RobotMap::shooterEncoder;
 }
 
 void Shooter::InitDefaultCommand() {
@@ -17,7 +16,6 @@ void Shooter::InitDefaultCommand() {
 void Shooter::Shoot() {
 	moteur->Set(SHOOT_VALUE);
 }
-
 
 void Shooter::ShootStop() {
 	moteur->Set(0);
