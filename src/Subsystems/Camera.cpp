@@ -4,14 +4,14 @@
 
 Camera::Camera() :
 	Subsystem("Camera"),
-	camera{ "USB Camera 0", 0},
+	camera{"USB Camera 0", 0},
 	cvSink{"serve_USB Camera 0"},
 	visionThread(nullptr),
 	stopThread(false)
 
 {
 
-    camera.SetResolution(640, 480);
+	camera.SetResolution(640, 480);
 
     cvSink.SetSource(camera);
 

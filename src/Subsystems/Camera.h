@@ -13,8 +13,8 @@ class Camera : public Subsystem {
 private:
 	cv::Mat output;
 	cv::Mat source;
-	cs::CvSink cvSink;
 	cs::UsbCamera camera;
+	cs::CvSink cvSink;
 	cs::CvSource outputStreamStd;
 	std::thread* visionThread;
 	std::atomic<bool> stopThread;
