@@ -2,15 +2,20 @@
 #include "../RobotMap.h"
 
 
-Camera::Camera() : Subsystem("Camera") {
+Camera::Camera() :
+	Subsystem("Camera"),
+	camera{ "USB Camera 0", 0},
+	cvSink{"serve_USB Camera 0"},
+	visionThread(nullptr),
+	stopThread(false)
 
-    camera = frc::CameraServer::GetInstance()->StartAutomaticCapture();
+{
+
     camera.SetResolution(640, 480);
-    cvSink = frc::CameraServer::GetInstance()->GetVideo();
-    outputStreamStd = frc::CameraServer::GetInstance()->PutVideo("Standard", 640, 480);
-    visionThread = nullptr;
 
-    stopThread = false;
+    cvSink.SetSource(camera);
+
+    outputStreamStd = frc::CameraServer::GetInstance()->PutVideo("Standard", 640, 480);
 }
 
 
