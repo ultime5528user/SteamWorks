@@ -20,6 +20,7 @@ public:
 	void InitDefaultCommand();
 	void Shoot();
 	void ShootStop();
+	double GetEncoder();
 
 };
 
