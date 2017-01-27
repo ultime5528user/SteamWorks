@@ -4,10 +4,10 @@
 
 Camera::Camera() : Subsystem("Camera") {
 
-    camera = CameraServer::GetInstance()->StartAutomaticCapture();
+    camera = frc::CameraServer::GetInstance()->StartAutomaticCapture();
     camera.SetResolution(640, 480);
-    cvSink = CameraServer::GetInstance()->GetVideo();
-    outputStreamStd = CameraServer::GetInstance()->PutVideo("Standard", 640, 480);
+    cvSink = frc::CameraServer::GetInstance()->GetVideo();
+    outputStreamStd = frc::CameraServer::GetInstance()->PutVideo("Standard", 640, 480);
     visionThread = nullptr;
 
     stopThread = false;
