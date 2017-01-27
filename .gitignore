@@ -49,3 +49,6 @@ Temporary Items
 .settings/org.eclipse.cdt.managedbuilder.core.prefs
 *.properties
 *.o
+*.cproject
+/Debug/FRCUserProgram
+*.project
