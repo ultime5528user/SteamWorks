@@ -17,7 +17,7 @@ private:
 	cs::CvSource* outputStream;
 	std::thread* visionThread;
 	std::atomic<bool> stopThread;
-
+	grip::GripPipeline pipeline;
 	// It's desirable that everything possible under private except
 	// for methods that implement subsystem capabilities
 
@@ -31,6 +31,7 @@ public:
 	void EndThread();
 	void EndGripThread();
 	void Analyse();
+
 
 
 

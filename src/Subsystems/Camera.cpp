@@ -87,5 +87,29 @@ void Camera::EndGripThread(){
 
 }
 void Camera::Analyse(){
+	cvSink->GrabFrame(source);
+	pipeline.process(source);
+	std::vector<std::vector<cv::Point> >* contours = pipeline.getfilterContoursOutput();
 
+	if(contours->size() < 2){
+
+	}
+	else if(contours->size() == 2){
+
+	}
+	else {
+		std::vector<double> scores;
+		double minuUn();
+		double minDeux();
+		for(auto it = contours->begin(); it != contours->end(); ++it)
+		{
+			cv::Rect rect = cv::boundingRect(*it);
+			cv::rectangle(Widthe)
+
+		}
+
+
+
+		}
+	}
 }
