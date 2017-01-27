@@ -11,11 +11,10 @@
 
 class Camera : public Subsystem {
 private:
-	cv::Mat output;
 	cv::Mat source;
-	cs::UsbCamera camera;
-	cs::CvSink cvSink;
-	cs::CvSource outputStreamStd;
+	cs::UsbCamera* camera;
+	cs::CvSink* cvSink;
+	cs::CvSource* outputStream;
 	std::thread* visionThread;
 	std::atomic<bool> stopThread;
 

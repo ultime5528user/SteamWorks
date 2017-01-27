@@ -26,7 +26,7 @@ void RobotMap::init() {
     basePilotableMoteurG.reset(new VictorSP(0));
     lw->AddActuator("BasePilotable", "MoteurG", std::static_pointer_cast<VictorSP>(basePilotableMoteurG));
     
-    basePilotableMoteurD.reset(new VictorSP(1));
+    basePilotableMoteurD.reset(new VictorSP(2));
     lw->AddActuator("BasePilotable", "MoteurD", std::static_pointer_cast<VictorSP>(basePilotableMoteurD));
     
     basePilotableRobotDrive.reset(new RobotDrive(basePilotableMoteurG, basePilotableMoteurD));
@@ -39,7 +39,7 @@ void RobotMap::init() {
         basePilotableRobotDrive->SetInvertedMotor(RobotDrive::kRearRightMotor, true);
     
 
-    shooterMoteur.reset(new VictorSP(2));
+    shooterMoteur.reset(new VictorSP(4));
     lw->AddActuator("Shooter", "Moteur", std::static_pointer_cast<VictorSP>(shooterMoteur));
 
 
