@@ -1,7 +1,7 @@
 #include "SShootOnce.h"
 #include "Robot.h"
 
-SShootOnce::SShootOnce() {
+SShootOnce::SShootOnce() : Command("SShootOnce") {
 	// Use Requires() here to declare subsystem dependencies
 	// eg. Requires(Robot::chassis.get());
 	Requires(Robot::shooter.get());

@@ -82,6 +82,8 @@ void Robot::TeleopPeriodic() {
 	SmartDashboard::PutNumber("encoder", shooter->GetEncoder());
 	SmartDashboard::PutNumber("encoderD", basePilotable->GetEncoderG());
 	SmartDashboard::PutNumber("encoderG", basePilotable->GetEncoderD());
+	//SmartDashboard::PutNumber("gyro", basePilotable->GetGyro());
+	basePilotable->GetGyro();
 }
 
 void Robot::TestPeriodic() {

@@ -15,6 +15,8 @@
 #include "Commands/Pilotage.h"
 #include "Commands/SShootOnce.h"
 #include "Commands/Capture.h"
+#include "Commands/Avancer.h"
+#include "Commands/Tourner.h"
 
 OI::OI() {
 
@@ -28,9 +30,16 @@ OI::OI() {
     bouton2.reset(new JoystickButton(stick.get(), 2));
     bouton2->WhenPressed(new Capture());
 
+    bouton3.reset(new JoystickButton(stick.get(), 3));
+    bouton3->WhenPressed(new Avancer(1.0));
+
+    bouton4.reset(new JoystickButton(stick.get(), 4));
+    bouton4->WhenPressed(new Tourner());
 
     SmartDashboard::PutData("Pilotage", new Pilotage());
-
+    SmartDashboard::PutData("Avancer", new Avancer());
+    SmartDashboard::PutData("Tourner", new Tourner());
+    SmartDashboard::PutData(frc::Scheduler::GetInstance());
 
 }
 
