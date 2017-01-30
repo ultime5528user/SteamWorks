@@ -2,10 +2,11 @@
 #include "../RobotMap.h"
 #include "../Commands/Capture.h"
 
+int Camera::EXPOSURE(0);
+
 Camera::Camera() :
 	Subsystem("Camera"),
 	visionRunning(false)
-	//stopThread(false)
 {
 	frc::CameraServer* cs = frc::CameraServer::GetInstance();
 
@@ -13,16 +14,8 @@ Camera::Camera() :
 
 	camera = new cs::UsbCamera{"MainCam", 0};
 	camera->SetResolution(320, 240);
-/*
-	cvSink = new cs::CvSink("sink_MainCam");
-	cvSink->SetSource(*camera);
 
-	//MainStream
-	mainStream = new cs::CvSource("MainStream", cs::VideoMode::kMJPEG, 320, 240, 30);
-	cs->AddCamera(*mainStream);
-	auto mainServer = cs->AddServer("serve_MainStream");
-	mainServer.SetSource(*mainStream);
-*/
+	//Thread vision
 	std::thread mainThread([this, cs](){
 
 		cv::Mat img;
@@ -43,7 +36,8 @@ Camera::Camera() :
 		auto gripServer = cs->AddServer("serve_GripStream");
 		gripServer.SetSource(gripStream);
 
-		cv::Mat output(2, 2, CV_8UC3, cv::Scalar(255, 0, 0));
+		//cv::Mat output(2, 2, CV_8UC3, cv::Scalar(255, 0, 0));
+		cv::Mat output(240, 320, CV_8UC3, cv::Scalar(255, 0, 0));
 
 		while(true)
 		{
@@ -73,12 +67,13 @@ Camera::Camera() :
 
 void Camera::InitDefaultCommand() {
 
-
-
 }
+
 
 void Camera::StartGrip() {
 	light->Set(1);
+
+	camera->SetExposureManual(EXPOSURE);
 
 	frc::DriverStation::ReportError("StartGrip called.");
 
@@ -92,31 +87,24 @@ void Camera::EndGrip(){
 
 	visionRunning = false;
 
+	camera->SetExposureAuto();
+
 }
 
-void Camera::Analyse(const cv::Mat& img, const cv::Mat& output)
+void Camera::Analyse(const cv::Mat& img, cv::Mat& output)
 {
 
 	pipeline.process(img);
-	cv::Mat* image = pipeline.gethsvThresholdOutput();
+	cv::Mat* image = pipeline.getcvDilateOutput();
 
-	//cv::Mat image;
-	//pipeline.getHsv...()->copyTo(image);
+	frc::DriverStation::ReportError("# Contours : " + std::to_string(pipeline.getfilterContoursOutput()->size()));
 
-	frc::DriverStation::ReportError("HSV Threshold output # channels : " + std::to_string(image->channels()));
+	cv::cvtColor(*image, output, cv::COLOR_GRAY2BGR, 3);
 
-	/*
-	cv::Mat tab[] = {*image, *image, *image};
-	cv::merge(tab, 3, output);
-	*/
-
-	cv::cvtColor(*image, output, cv::COLOR_GRAY2BGR);
-
-	frc::DriverStation::ReportError("GRAY2BGR output # channels : " + std::to_string(image->channels()));
-
-	cv::rectangle(output, cv::Point(0, 0), cv::Point(10, 10), cv::Scalar(0, 255, 0), 2);
-
+	//DEBUG (enlever)
 	return;
+
+	//À compléter
 
 	double a(1.0), b(2.0);
 

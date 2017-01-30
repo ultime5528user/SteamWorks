@@ -30,6 +30,9 @@ private:
 	// for methods that implement subsystem capabilities
 
 public:
+
+	static int EXPOSURE;
+
 	Camera();
 	void InitDefaultCommand();
 
@@ -50,7 +53,7 @@ public:
 
 	void EndGrip();
 
-	void Analyse(const cv::Mat& img, const cv::Mat& output);
+	void Analyse(const cv::Mat& img, cv::Mat& output);
 
 };
 

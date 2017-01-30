@@ -26,7 +26,7 @@ OI::OI() {
     
 
     bouton2.reset(new JoystickButton(stick.get(), 2));
-    bouton2->WhenPressed(new Capture());
+    bouton2->ToggleWhenPressed(new Capture());
 
 
     SmartDashboard::PutData("Pilotage", new Pilotage());
