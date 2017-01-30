@@ -31,6 +31,8 @@ public:
 	//Shooter
 	static std::shared_ptr<SpeedController> shooterMoteur;
 
+	//Camera
+	static std::shared_ptr<frc::Spark> cameraLight;
 
 	static void init();
 };

@@ -5,6 +5,13 @@
 
 namespace grip {
 
+double GripPipeline::H_MIN(61);
+double GripPipeline::H_MAX(80);
+double GripPipeline::S_MIN(241);
+double GripPipeline::S_MAX(255);
+double GripPipeline::V_MIN(96);
+double GripPipeline::V_MAX(190);
+
 GripPipeline::GripPipeline() {
 }
 /**
@@ -17,9 +24,9 @@ void GripPipeline::process(cv::Mat source0){
 	//Step HSV_Threshold0:
 	//input
 	cv::Mat hsvThresholdInput = source0;
-	double hsvThresholdHue[] = {61.510791366906474, 80.17064846416382};
-	double hsvThresholdSaturation[] = {240.7823741007194, 255.0};
-	double hsvThresholdValue[] = {96.31294964028777, 189.72696245733786};
+	double hsvThresholdHue[] = {H_MIN, H_MAX};
+	double hsvThresholdSaturation[] = {S_MIN, S_MAX};
+	double hsvThresholdValue[] = {V_MIN, V_MAX};
 	hsvThreshold(hsvThresholdInput, hsvThresholdHue, hsvThresholdSaturation, hsvThresholdValue, this->hsvThresholdOutput);
 	//Step CV_dilate0:
 	//input

@@ -34,6 +34,15 @@ class GripPipeline {
 		void filterContours(std::vector<std::vector<cv::Point> > &, double , double , double , double , double , double , double [], double , double , double , double , std::vector<std::vector<cv::Point> > &);
 		void setsource0(cv::Mat &source0);
 	public:
+
+		static double H_MIN;
+		static double H_MAX;
+		static double S_MIN;
+		static double S_MAX;
+		static double V_MIN;
+		static double V_MAX;
+
+
 		GripPipeline();
 		void process(cv::Mat source0);
 		cv::Mat* gethsvThresholdOutput();

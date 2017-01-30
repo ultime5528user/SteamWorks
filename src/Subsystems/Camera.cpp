@@ -4,89 +4,127 @@
 
 Camera::Camera() :
 	Subsystem("Camera"),
-	source(),
-	visionThread(nullptr),
-	stopThread(false)
+	visionRunning(false)
+	//stopThread(false)
 {
 	frc::CameraServer* cs = frc::CameraServer::GetInstance();
 
-	camera = new cs::UsbCamera{"MainCam", 0};
-	//camera->SetResolution(640, 480);
+	//Camera
 
+	camera = new cs::UsbCamera{"MainCam", 0};
+	camera->SetResolution(320, 240);
+/*
 	cvSink = new cs::CvSink("sink_MainCam");
 	cvSink->SetSource(*camera);
 
-	outputStream = new cs::CvSource("MainStream", cs::VideoMode::kMJPEG, 160, 120, 30);
-
-	cs->AddCamera(*outputStream);
-	auto server = cs->AddServer("serve_MainStream");
-	server.SetSource(*outputStream);
-
-/*
-	visionThread = new std::thread([this](){
-		while(true)
-			{
-				SendImage();
-				std::this_thread::sleep_for(std::chrono::milliseconds(5));
-			}
-	});
+	//MainStream
+	mainStream = new cs::CvSource("MainStream", cs::VideoMode::kMJPEG, 320, 240, 30);
+	cs->AddCamera(*mainStream);
+	auto mainServer = cs->AddServer("serve_MainStream");
+	mainServer.SetSource(*mainStream);
 */
+	std::thread mainThread([this, cs](){
+
+		cv::Mat img;
+
+		//MainCamera
+		cs::CvSink cvSink("sink_MainCam");
+		cvSink.SetSource(*camera);
+
+		//MainServer
+		cs::CvSource mainStream("MainStream", cs::VideoMode::kMJPEG, 320, 240, 30);
+		cs->AddCamera(mainStream);
+		auto mainServer = cs->AddServer("serve_MainStream");
+		mainServer.SetSource(mainStream);
+
+		//GripServer
+		cs::CvSource gripStream("GripStream", cs::VideoMode::kMJPEG, 320, 240, 30);
+		cs->AddCamera(gripStream);
+		auto gripServer = cs->AddServer("serve_GripStream");
+		gripServer.SetSource(gripStream);
+
+		cv::Mat output(2, 2, CV_8UC3, cv::Scalar(255, 0, 0));
+
+		while(true)
+		{
+			cvSink.GrabFrame(img);
+			mainStream.PutFrame(img);
+
+			if(visionRunning.load())
+			{
+				frc::DriverStation::ReportError("Vision running loop...");
+				Analyse(img, output);
+			}
+
+			gripStream.PutFrame(output);
+
+
+		}
+
+	});
+	mainThread.detach();
+
+	//Green light ring
+	light = RobotMap::cameraLight;
+	light->SetSafetyEnabled(false);
 
 }
 
 
 void Camera::InitDefaultCommand() {
 
-	SetDefaultCommand(new Capture());
+
 
 }
 
+void Camera::StartGrip() {
+	light->Set(1);
 
+	frc::DriverStation::ReportError("StartGrip called.");
 
-// Put methods for controlling this subsystem
-// here. Call these from Commands.
-void Camera::SendImage(){
-	cvSink->GrabFrame(source);
-	outputStream->PutFrame(source);
+	visionRunning = true;
 }
 
-void Camera::StartThread(){
 
-	frc::DriverStation::ReportError("StartThread called...");
+void Camera::EndGrip(){
 
-	stopThread = false;
+	light->Set(0);
 
-	visionThread = new std::thread( [this](){
-
-		frc::DriverStation::ReportError("Thread beginning...");
-
-		while(!stopThread.load())
-		{
-			this->SendImage();
-			std::this_thread::sleep_for(std::chrono::milliseconds(5));
-		}
-
-		frc::DriverStation::ReportError("Thread ending...");
-
-	} );
-
-	frc::DriverStation::ReportError("Exting StartThread...");
+	visionRunning = false;
 
 }
-void Camera::StartGripThread(){
 
-}
-void Camera::EndThread(){
+void Camera::Analyse(const cv::Mat& img, const cv::Mat& output)
+{
 
-	stopThread = true;
-	visionThread->join();
-	delete visionThread;
+	pipeline.process(img);
+	cv::Mat* image = pipeline.gethsvThresholdOutput();
 
-}
-void Camera::EndGripThread(){
+	//cv::Mat image;
+	//pipeline.getHsv...()->copyTo(image);
 
-}
-void Camera::Analyse(){
+	frc::DriverStation::ReportError("HSV Threshold output # channels : " + std::to_string(image->channels()));
+
+	/*
+	cv::Mat tab[] = {*image, *image, *image};
+	cv::merge(tab, 3, output);
+	*/
+
+	cv::cvtColor(*image, output, cv::COLOR_GRAY2BGR);
+
+	frc::DriverStation::ReportError("GRAY2BGR output # channels : " + std::to_string(image->channels()));
+
+	cv::rectangle(output, cv::Point(0, 0), cv::Point(10, 10), cv::Scalar(0, 255, 0), 2);
+
+	return;
+
+	double a(1.0), b(2.0);
+
+	if(callbackFunc)
+		callbackFunc(a, b);
+
+
+	/*
 	cvSink->GrabFrame(source);
 	pipeline.process(source);
 	std::vector<std::vector<cv::Point> >* contours = pipeline.getfilterContoursOutput();
@@ -112,4 +150,5 @@ void Camera::Analyse(){
 
 		}
 	}
+	*/
 }
