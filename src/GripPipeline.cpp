@@ -28,6 +28,7 @@ void GripPipeline::process(cv::Mat source0){
 	double hsvThresholdSaturation[] = {S_MIN, S_MAX};
 	double hsvThresholdValue[] = {V_MIN, V_MAX};
 	hsvThreshold(hsvThresholdInput, hsvThresholdHue, hsvThresholdSaturation, hsvThresholdValue, this->hsvThresholdOutput);
+
 	//Step CV_dilate0:
 	//input
 	cv::Mat cvDilateSrc = hsvThresholdOutput;
@@ -46,9 +47,11 @@ void GripPipeline::process(cv::Mat source0){
     int cvErodeBordertype = cv::BORDER_CONSTANT;
 	cv::Scalar cvErodeBordervalue(-1);
 	cvErode(cvErodeSrc, cvErodeKernel, cvErodeAnchor, cvErodeIterations, cvErodeBordertype, cvErodeBordervalue, this->cvErodeOutput);
+
 	//Step Find_Contours0:
 	//input
-	cv::Mat findContoursInput = cvErodeOutput;
+	cv::Mat findContoursInput;
+	cvErodeOutput.copyTo(findContoursInput);
 	bool findContoursExternalOnly = false;  // default Boolean
 	findContours(findContoursInput, findContoursExternalOnly, this->findContoursOutput);
 	//Step Filter_Contours0:

@@ -1,7 +1,7 @@
 #include "Capture.h"
 #include <Robot.h>
 
-Capture::Capture(): Command("Capture") {
+Capture::Capture(): Command("Capture"), m_centreX(0.0), m_largeur(0.0) {
 	// Use Requires() here to declare subsystem dependencies
 	// eg. Requires(Robot::chassis.get());
 	Requires (Robot::camera.get());
@@ -20,11 +20,22 @@ void Capture::Initialize( ) {
 	grip::GripPipeline::V_MAX = prefs->GetDouble("vmax", 190.0);
 	Camera::EXPOSURE = (int)prefs->GetDouble("exposure", 0);
 
-	Robot::camera->StartGrip();
+	Robot::camera->StartGrip(&Capture::SetParam, this);
 }
 
 // Called repeatedly when this Command is scheduled to run
 void Capture::Execute() {
+
+	double centreX, largeur;
+
+	{
+		std::lock_guard<priority_mutex> lock(mutex);
+		centreX = m_centreX;
+		largeur = m_largeur;
+	}
+
+	frc::SmartDashboard::PutNumber("Centre X", centreX);
+	frc::SmartDashboard::PutNumber("Largeur particule", largeur);
 
 }
 
@@ -42,4 +53,11 @@ void Capture::End() {
 // subsystems is scheduled to run
 void Capture::Interrupted() {
 	End();
+}
+
+void Capture::SetParam(double centreX, double largeur)
+{
+	std::lock_guard<priority_mutex> lock(mutex);
+	m_centreX = centreX;
+	m_largeur = largeur;
 }

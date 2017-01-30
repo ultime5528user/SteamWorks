@@ -2,7 +2,7 @@
 #include "../RobotMap.h"
 #include "../Commands/Capture.h"
 
-int Camera::EXPOSURE(0);
+int Camera::EXPOSURE(25);
 
 Camera::Camera() :
 	Subsystem("Camera"),
@@ -14,6 +14,7 @@ Camera::Camera() :
 
 	camera = new cs::UsbCamera{"MainCam", 0};
 	camera->SetResolution(320, 240);
+	camera->SetExposureManual(25);
 
 	//Thread vision
 	std::thread mainThread([this, cs](){
@@ -36,7 +37,6 @@ Camera::Camera() :
 		auto gripServer = cs->AddServer("serve_GripStream");
 		gripServer.SetSource(gripStream);
 
-		//cv::Mat output(2, 2, CV_8UC3, cv::Scalar(255, 0, 0));
 		cv::Mat output(240, 320, CV_8UC3, cv::Scalar(255, 0, 0));
 
 		while(true)
@@ -51,8 +51,6 @@ Camera::Camera() :
 			}
 
 			gripStream.PutFrame(output);
-
-
 		}
 
 	});
@@ -87,29 +85,28 @@ void Camera::EndGrip(){
 
 	visionRunning = false;
 
-	camera->SetExposureAuto();
-
+	camera->SetExposureManual(25);
 }
 
 void Camera::Analyse(const cv::Mat& img, cv::Mat& output)
 {
 
 	pipeline.process(img);
-	cv::Mat* image = pipeline.getcvDilateOutput();
+	cv::Mat* image = pipeline.getcvErodeOutput();
 
 	frc::DriverStation::ReportError("# Contours : " + std::to_string(pipeline.getfilterContoursOutput()->size()));
 
-	cv::cvtColor(*image, output, cv::COLOR_GRAY2BGR, 3);
+	image->copyTo(output);
 
 	//DEBUG (enlever)
 	return;
 
 	//À compléter
 
-	double a(1.0), b(2.0);
-
 	if(callbackFunc)
-		callbackFunc(a, b);
+		callbackFunc(0, 0);
+
+
 
 
 	/*
