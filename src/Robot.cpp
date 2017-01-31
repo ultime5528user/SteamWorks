@@ -10,6 +10,7 @@
 
 
 #include "Robot.h"
+#include <cmath>
 
 std::shared_ptr<BasePilotable> Robot::basePilotable;
 std::shared_ptr<Shooter> Robot::shooter;
@@ -24,8 +25,6 @@ void Robot::RobotInit() {
     shooter.reset (new Shooter());
     camera.reset(new Camera());
 
-    prefs = Preferences::GetInstance();
-    Shooter::SHOOT_VALUE = prefs->GetDouble("ShooterValue",0);
 
 
 
@@ -62,6 +61,7 @@ void Robot::AutonomousInit() {
 
 void Robot::AutonomousPeriodic() {
 	Scheduler::GetInstance()->Run();
+
 }
 
 void Robot::TeleopInit() {

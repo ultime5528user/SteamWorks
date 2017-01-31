@@ -2,6 +2,8 @@
 #include "../RobotMap.h"
 
 double Shooter::SHOOT_VALUE(0);
+double Shooter::THRESHOLD(10);
+double Shooter::MOTEUR(0.75);
 
 
 Shooter::Shooter() : Subsystem("Shooter") {
@@ -14,8 +16,8 @@ void Shooter::InitDefaultCommand() {
 	// SetDefaultCommand(new MySpecialCommand());
 }
 
-void Shooter::Shoot() {
-	moteur->Set(SHOOT_VALUE);
+void Shooter::Shoot(double value) {
+	moteur->Set(value);
 }
 
 

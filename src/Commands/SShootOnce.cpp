@@ -1,5 +1,7 @@
 #include "SShootOnce.h"
 #include "Robot.h"
+#include <cmath>
+
 
 SShootOnce::SShootOnce() : Command("SShootOnce") {
 	// Use Requires() here to declare subsystem dependencies
@@ -9,7 +11,8 @@ SShootOnce::SShootOnce() : Command("SShootOnce") {
 
 // Called just before this Command runs the first time
 void SShootOnce::Initialize() {
-	Robot::shooter->Shoot();
+	Robot::shooter->Shoot(Shooter::MOTEUR);
+
 }
 
 // Called repeatedly when this Command is scheduled to run

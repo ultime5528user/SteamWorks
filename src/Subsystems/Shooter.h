@@ -15,10 +15,13 @@ private:
 public:
 
 	static double SHOOT_VALUE;
+	static double THRESHOLD;
+	static double MOTEUR;
+
 
 	Shooter();
 	void InitDefaultCommand();
-	void Shoot();
+	void Shoot(double value);
 	void ShootStop();
 	double GetEncoder();
 
