@@ -34,6 +34,10 @@ void Capture::Execute() {
 		largeur = m_largeur;
 	}
 
+
+
+	//Coeur de la commande
+
 	frc::SmartDashboard::PutNumber("Centre X", centreX);
 	frc::SmartDashboard::PutNumber("Largeur particule", largeur);
 

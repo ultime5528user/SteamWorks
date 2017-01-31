@@ -1,7 +1,7 @@
 #include "Camera.h"
 #include "../RobotMap.h"
 #include "../Commands/Capture.h"
-
+#include <cmath>
 int Camera::EXPOSURE(25);
 
 Camera::Camera() :
@@ -103,37 +103,67 @@ void Camera::Analyse(const cv::Mat& img, cv::Mat& output)
 
 	//À compléter
 
-	if(callbackFunc)
-		callbackFunc(0, 0);
 
 
 
+	std::vector<std::vector<cv::Point> >* contours = pipeline.getfindContoursOutput();
 
-	/*
-	cvSink->GrabFrame(source);
-	pipeline.process(source);
-	std::vector<std::vector<cv::Point> >* contours = pipeline.getfilterContoursOutput();
+	double centreX, hauteur;
 
-	if(contours->size() < 2){
+	if(contours->size() == 1){
+		cv::Rect rect = cv::boundingRect(contours->at(0));
+		centreX = rect.x + rect.width / 2.0;
+		hauteur = rect.height;
+
+
 
 	}
 	else if(contours->size() == 2){
 
+		std::vector<cv::Point> tableau;
+		tableau = contours->at(0);
+		tableau.insert(tableau.end(),contours->at(1).begin(),contours->at(1).end()) = contours->at(1);
+		cv::Rect rect = cv::boundingRect(tableau);
+		centreX = rect.x + rect.width / 2.0;
+		hauteur = rect.height;
 	}
 	else {
 		std::vector<double> scores;
-		double minuUn();
-		double minDeux();
-		for(auto it = contours->begin(); it != contours->end(); ++it)
+		int min1, min2, dist, distMin(241);
+		//trouve min
+		for(int i = 0; i < contours->size() - 1; i++)
 		{
-			cv::Rect rect = cv::boundingRect(*it);
-			cv::rectangle(Widthe)
+			for(int j = i + 1; j < contours->size(); j++){
+				cv::Rect rect1 = cv::boundingRect(i);
+				cv::Rect rect2 = cv::boundingRect(j);
+				dist = std::abs(rect2.height - rect1.height);
 
+				if( dist < distMin){
+					distMin = dist;
+					min1 = i;
+					min2 = j;
+				}
+			}
 		}
 
 
+		        /* std::vector<cv::Point> ;
+				tableau = contours->at(0);
+				tableau.insert(tableau.end(),contours->at(1).begin(),contours->at(1).end()) = contours->at(1);
+				cv::Rect rect = cv::boundingRect(tableau);
+				centreX = rect.x + rect.width / 2.0;
+				hauteur = rect.height;
+		*/
 
-		}
 	}
-	*/
-}
+
+
+		if(callbackFunc)
+			callbackFunc(0, 0);
+
+	}
+
+
+
+
+
