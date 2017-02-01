@@ -108,12 +108,11 @@ void Camera::Analyse(const cv::Mat& img, cv::Mat& output)
 
 	std::vector<std::vector<cv::Point> >* contours = pipeline.getfindContoursOutput();
 
-	double centreX, hauteur;
-
+	double centreX, largeur;
+	cv::Rect rect;
 	if(contours->size() == 1){
-		cv::Rect rect = cv::boundingRect(contours->at(0));
-		centreX = rect.x + rect.width / 2.0;
-		hauteur = rect.height;
+		 rect = cv::boundingRect(contours->at(0));
+
 
 
 
@@ -122,23 +121,25 @@ void Camera::Analyse(const cv::Mat& img, cv::Mat& output)
 
 		std::vector<cv::Point> tableau;
 		tableau = contours->at(0);
-		tableau.insert(tableau.end(),contours->at(1).begin(),contours->at(1).end()) = contours->at(1);
-		cv::Rect rect = cv::boundingRect(tableau);
-		centreX = rect.x + rect.width / 2.0;
-		hauteur = rect.height;
+		tableau.insert(tableau.end(),contours->at(1) .begin(),contours->at(1).end());
+		rect = cv::boundingRect(tableau);
+
 	}
-	else {
+	else
+	{
 		std::vector<double> scores;
 		int min1, min2, dist, distMin(241);
 		//trouve min
-		for(int i = 0; i < contours->size() - 1; i++)
+		for(unsigned int i = 0; i < contours->size() - 1; i++)
 		{
-			for(int j = i + 1; j < contours->size(); j++){
+			for(unsigned int j = i + 1; j < contours->size(); j++)
+			{
 				cv::Rect rect1 = cv::boundingRect(i);
 				cv::Rect rect2 = cv::boundingRect(j);
-				dist = std::abs(rect2.height - rect1.height);
+				dist = std::abs(rect2.y - rect1.y);
 
-				if( dist < distMin){
+				if( dist < distMin)
+				{
 					distMin = dist;
 					min1 = i;
 					min2 = j;
@@ -147,19 +148,21 @@ void Camera::Analyse(const cv::Mat& img, cv::Mat& output)
 		}
 
 
-		        /* std::vector<cv::Point> ;
-				tableau = contours->at(0);
-				tableau.insert(tableau.end(),contours->at(1).begin(),contours->at(1).end()) = contours->at(1);
-				cv::Rect rect = cv::boundingRect(tableau);
-				centreX = rect.x + rect.width / 2.0;
-				hauteur = rect.height;
-		*/
+		std::vector<cv::Point> board ;
+		board = contours->at(min1);
+		board.insert(board.end(), contours->at(min2).begin(), contours->at(min2).end());
+		rect = cv::boundingRect(board);
+
+
+
 
 	}
 
+		centreX = rect.x + rect.width / 2.0;
+		largeur = rect.width;
 
 		if(callbackFunc)
-			callbackFunc(0, 0);
+			callbackFunc(centreX, largeur);
 
 	}
 
