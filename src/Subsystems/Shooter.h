@@ -17,6 +17,10 @@ public:
 	static double SHOOT_VALUE;
 	static double THRESHOLD;
 	static double MOTEUR;
+	static double AJUST;
+	static double INTERVAL;
+	static double SERVO_UP;
+	static double SERVO_DOWN;
 
 
 	Shooter();

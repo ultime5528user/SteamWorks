@@ -33,7 +33,10 @@ OI::OI() {
     bouton3.reset(new JoystickButton(stick.get(), 3));
     bouton3->WhenPressed(new Avancer(1.0));
 
-    bouton4.reset(new JoystickButton(stick.get(), 4));
+    bouton4.reset(new JoystickButton(stick.get(), 5));
+    bouton4->WhenPressed(new Tourner());
+
+    bouton4.reset(new JoystickButton(stick.get(), 6));
     bouton4->WhenPressed(new Tourner());
 
     SmartDashboard::PutData("Pilotage", new Pilotage());

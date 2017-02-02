@@ -6,7 +6,9 @@
 class Shoot : public Command {
 private:
 	double value;
-
+	bool ajust;
+	frc::Timer timer;
+	frc::Servo servo;
 public:
 	Shoot();
 	void Initialize();
@@ -14,6 +16,7 @@ public:
 	bool IsFinished();
 	void End();
 	void Interrupted();
+
 };
 
-#endif  // Shoot_H
+#endif //cancer

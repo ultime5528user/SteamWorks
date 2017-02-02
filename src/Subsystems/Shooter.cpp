@@ -4,6 +4,10 @@
 double Shooter::SHOOT_VALUE(0);
 double Shooter::THRESHOLD(10);
 double Shooter::MOTEUR(0.75);
+double Shooter::AJUST(0.05);
+double Shooter::INTERVAL(1);
+double Shooter::SERVO_UP(90);
+double Shooter::SERVO_DOWN(90);
 
 
 Shooter::Shooter() : Subsystem("Shooter") {
