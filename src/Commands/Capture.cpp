@@ -34,6 +34,13 @@ void Capture::Execute() {
 		largeur = m_largeur;
 	}
 
+	double move, value;
+
+		if ()
+
+
+
+
 
 
 	//Coeur de la commande

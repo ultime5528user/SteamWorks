@@ -98,13 +98,6 @@ void Camera::Analyse(const cv::Mat& img, cv::Mat& output)
 
 	image->copyTo(output);
 
-	//DEBUG (enlever)
-	return;
-
-	//À compléter
-
-
-
 
 	std::vector<std::vector<cv::Point> >* contours = pipeline.getfindContoursOutput();
 
@@ -112,8 +105,6 @@ void Camera::Analyse(const cv::Mat& img, cv::Mat& output)
 	cv::Rect rect;
 	if(contours->size() == 1){
 		 rect = cv::boundingRect(contours->at(0));
-
-
 
 
 	}
@@ -160,9 +151,9 @@ void Camera::Analyse(const cv::Mat& img, cv::Mat& output)
 
 		centreX = rect.x + rect.width / 2.0;
 		largeur = rect.width;
-
+		centreX = (2(centreX/image->cols))-1;
 		if(callbackFunc)
-			callbackFunc(centreX, largeur);
+			callbackFunc(centreX, largeur );
 
 	}
 
