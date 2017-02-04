@@ -20,6 +20,7 @@
 #include "Subsystems/Shooter.h"
 #include "Subsystems/BasePilotable.h"
 #include "Subsystems/Camera.h"
+#include "Subsystems/remonteBalle.h"
 
 #include "OI.h"
 
@@ -37,6 +38,7 @@ public:
     static std::shared_ptr<BasePilotable> basePilotable;
     static std::shared_ptr<Shooter> shooter;
     static std::shared_ptr<Camera> camera;
+    static std::shared_ptr<RemonteBalle> remonteBalle;
 
 
 

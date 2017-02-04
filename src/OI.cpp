@@ -17,18 +17,19 @@
 #include "Commands/Capture.h"
 #include "Commands/Avancer.h"
 #include "Commands/Tourner.h"
-
+#include "Commands/Shoot.h"
+#include "Commands/StopShoot.h"
 OI::OI() {
 
     stick.reset(new Joystick(0));
 
 
     bouton1.reset(new JoystickButton(stick.get(), 1));
-    bouton1->WhileHeld(new SShootOnce());
+    bouton1->WhenPressed(new Shoot());
     
 
     bouton2.reset(new JoystickButton(stick.get(), 2));
-    bouton2->WhenPressed(new Capture());
+    bouton2->WhenPressed(new StopShoot());
 
     bouton3.reset(new JoystickButton(stick.get(), 3));
     bouton3->WhenPressed(new Avancer(1.0));

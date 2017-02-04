@@ -35,6 +35,7 @@ public:
 	//Shooter
 	static std::shared_ptr<SpeedController> shooterMoteur;
 	static std::shared_ptr<Encoder> shooterEncoder;
+	static std::shared_ptr<Servo> shooterServo;
 
 
 	static void init();

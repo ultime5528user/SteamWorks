@@ -12,7 +12,7 @@
 #include "RobotMap.h"
 #include "LiveWindow/LiveWindow.h"
 
-
+std::shared_ptr<Servo> RobotMap::shooterServo;
 std::shared_ptr<SpeedController> RobotMap::basePilotableMoteurG;
 std::shared_ptr<SpeedController> RobotMap::basePilotableMoteurD;
 std::shared_ptr<RobotDrive> RobotMap::basePilotableRobotDrive;

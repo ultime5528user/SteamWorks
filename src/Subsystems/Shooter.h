@@ -1,6 +1,7 @@
 #ifndef Shooter_H
 #define Shooter_H
 
+#include <Servo.h>
 #include <Commands/Subsystem.h>
 #include <SpeedController.h>
 #include <Encoder.h>
@@ -11,7 +12,8 @@ private:
 	// for methods that implement subsystem capabilities
 	std::shared_ptr<SpeedController> moteur;
 	std::shared_ptr<Encoder> encoder;
-
+	std::shared_ptr<Servo> servo;
+	double servoPosition;
 public:
 
 	static double SHOOT_VALUE;
@@ -28,7 +30,8 @@ public:
 	void Shoot(double value);
 	void ShootStop();
 	double GetEncoder();
-
+	void SetServoUp();
+	void SetServoDown();
 };
 
 #endif  // Shooter_H

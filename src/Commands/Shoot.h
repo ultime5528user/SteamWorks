@@ -2,13 +2,14 @@
 #define Shoot_H
 
 #include "Commands/Command.h"
+#include <Timer.h>
+#include <Servo.h>
 
 class Shoot : public Command {
 private:
 	double value;
 	bool ajust;
 	frc::Timer timer;
-	frc::Servo servo;
 public:
 	Shoot();
 	void Initialize();
