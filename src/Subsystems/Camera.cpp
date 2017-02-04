@@ -2,7 +2,12 @@
 #include "../RobotMap.h"
 #include "../Commands/Capture.h"
 #include <cmath>
+
+
 int Camera::EXPOSURE(25);
+double Camera::XTHRESHOLD(0.05);
+
+
 
 Camera::Camera() :
 	Subsystem("Camera"),

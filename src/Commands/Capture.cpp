@@ -1,5 +1,6 @@
 #include "Capture.h"
 #include <Robot.h>
+#include <cmath>
 
 Capture::Capture(): Command("Capture"), m_centreX(0.0), m_largeur(0.0) {
 	// Use Requires() here to declare subsystem dependencies
@@ -34,15 +35,20 @@ void Capture::Execute() {
 		largeur = m_largeur;
 	}
 
-	double move, value;
+	double move, turn;
+	turn = centreX;
 
-		if ()
+	if(){
+
+	}
 
 
 
 
 
 
+
+	Robot::basePilotable->Drive(move, turn);
 	//Coeur de la commande
 
 	frc::SmartDashboard::PutNumber("Centre X", centreX);
