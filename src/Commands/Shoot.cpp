@@ -2,6 +2,7 @@
 #include "Robot.h"
 #include <cmath>
 #include <Timer.h>
+#include "../Subsystems/Shooter.h"
 
 Shoot::Shoot() {
 	// Use Requires() here to declare subsystem dependencies
@@ -39,16 +40,16 @@ void Shoot::Execute() {
 
 	if (timer.Get() >= Shooter::INTERVAL){
 		if (timer.Get() >= 1.2*Shooter::INTERVAL){
-			servo.SetAngle(Shooter::SERVO_DOWN);
+			Robot::shooter->SetServoUp();
 			timer.Reset();
 		}
 		else
 		{
-			servo.SetAngle(Shooter::SERVO_UP);
+			Robot::shooter->SetServoDown();
 		}
 	}
 
-	servo.SetAngle(servo.GetAngle());
+
 
 	Robot::shooter->Shoot(value);
 

@@ -16,6 +16,7 @@ std::shared_ptr<BasePilotable> Robot::basePilotable;
 std::shared_ptr<Shooter> Robot::shooter;
 std::shared_ptr<Camera> Robot::camera;
 std::unique_ptr<OI> Robot::oi;
+std::shared_ptr<RemonteBalle> Robot::remonteBalle;
 
 
 void Robot::RobotInit() {
