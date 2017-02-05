@@ -17,7 +17,7 @@ std::shared_ptr<Shooter> Robot::shooter;
 std::shared_ptr<Camera> Robot::camera;
 std::unique_ptr<OI> Robot::oi;
 std::shared_ptr<RemonteBalle> Robot::remonteBalle;
-
+std::shared_ptr<Treuil> Robot::treuil;
 
 void Robot::RobotInit() {
 	RobotMap::init();

@@ -17,9 +17,10 @@ void Shoot::Initialize() {
     Shooter::SHOOT_VALUE = frc::Preferences::GetInstance()->GetDouble("ShooterValue",0);
     Shooter::THRESHOLD = frc::Preferences::GetInstance()->GetDouble("Threshold",0);
     Shooter::AJUST = frc::Preferences::GetInstance()->GetDouble("AjustementShooter",0);
-    Shooter::INTERVAL = frc::Preferences::GetInstance()->GetDouble("Interval_de_tire",0);
-    Shooter::SERVO_UP = frc::Preferences::GetInstance()->GetDouble("Servo_up",0);
-    Shooter::SERVO_DOWN = frc::Preferences::GetInstance()->GetDouble("Servo_down",0);
+    Shooter::INTERVAL_CLOSE = frc::Preferences::GetInstance()->GetDouble("Interval_Close",0);
+    Shooter::INTERVAL_OPEN = frc::Preferences::GetInstance()->GetDouble("Interval_Open",0);
+    Shooter::SERVO_OPEN = frc::Preferences::GetInstance()->GetDouble("Servo_open",0);
+    Shooter::SERVO_CLOSE = frc::Preferences::GetInstance()->GetDouble("Servo_close",0);
     timer.Reset();
 }
 
@@ -38,16 +39,17 @@ void Shoot::Execute() {
 		timer.Start();
 	}
 
-	if (timer.Get() >= Shooter::INTERVAL){
-		if (timer.Get() >= 1.2*Shooter::INTERVAL){
-			Robot::shooter->SetServoUp();
+	if (timer.Get() >= Shooter::INTERVAL_CLOSE){
+		if (timer.Get() >= Shooter::INTERVAL_OPEN + Shooter::INTERVAL_CLOSE){
+			Robot::shooter->SetServoClose();
 			timer.Reset();
 		}
 		else
 		{
-			Robot::shooter->SetServoDown();
+			Robot::shooter->SetServoOpen();
 		}
 	}
+	Robot::shooter->ServoMove();
 
 
 

@@ -19,6 +19,8 @@
 #include "Commands/Tourner.h"
 #include "Commands/Shoot.h"
 #include "Commands/StopShoot.h"
+#include "Commands/TTreuil.h"
+#include "Commands/TTreuilD.h"
 OI::OI() {
 
     stick.reset(new Joystick(0));
@@ -34,11 +36,15 @@ OI::OI() {
     bouton3.reset(new JoystickButton(stick.get(), 3));
     bouton3->WhenPressed(new Avancer(1.0));
 
-    bouton4.reset(new JoystickButton(stick.get(), 5));
+    bouton4.reset(new JoystickButton(stick.get(), 4));
     bouton4->WhenPressed(new Tourner());
 
-    bouton4.reset(new JoystickButton(stick.get(), 6));
-    bouton4->WhenPressed(new Tourner());
+    bouton5.reset(new JoystickButton(stick.get(), 5));
+    bouton5->WhileHeld(new TTreuil());
+
+    bouton6.reset(new JoystickButton(stick.get(), 6));
+    bouton6->WhenPressed(new TTreuilD());
+
 
     SmartDashboard::PutData("Pilotage", new Pilotage());
     SmartDashboard::PutData("Avancer", new Avancer());

@@ -32,11 +32,14 @@ public:
 	static std::shared_ptr<Encoder> basePilotableEncoderD;
 	static std::shared_ptr<ADIS16448_IMU> basePilotableGyro;
 
+
 	//Shooter
 	static std::shared_ptr<SpeedController> shooterMoteur;
 	static std::shared_ptr<Encoder> shooterEncoder;
 	static std::shared_ptr<Servo> shooterServo;
 
+	//Treuil
+	static std::shared_ptr<SpeedController> treuilMoteur;
 
 	static void init();
 };

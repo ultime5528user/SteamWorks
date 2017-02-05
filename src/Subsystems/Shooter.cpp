@@ -5,16 +5,18 @@ double Shooter::SHOOT_VALUE(0);
 double Shooter::THRESHOLD(10);
 double Shooter::MOTEUR(0.75);
 double Shooter::AJUST(0.05);
-double Shooter::INTERVAL(1);
-double Shooter::SERVO_UP(100);
-double Shooter::SERVO_DOWN(90);
+double Shooter::INTERVAL_CLOSE(1);
+double Shooter::INTERVAL_OPEN(0.2);
+double Shooter::SERVO_OPEN(100);
+double Shooter::SERVO_CLOSE(90);
 
 
 Shooter::Shooter() : Subsystem("Shooter") {
 	moteur = RobotMap::shooterMoteur;
 	encoder = RobotMap::shooterEncoder;
 	servo = RobotMap::shooterServo;
-	servoPosition = SERVO_DOWN;
+	servoPosition = SERVO_CLOSE;
+
 
 
 }
@@ -37,11 +39,15 @@ double Shooter::GetEncoder(){
 	return encoder->GetRate();
 }
 
-void Shooter::SetServoUp(){
-	servoPosition = SERVO_UP ;
+void Shooter::SetServoOpen(){
+	servoPosition = SERVO_OPEN ;
 }
-void Shooter::SetServoDown(){
-	servoPosition = SERVO_DOWN ;
+void Shooter::SetServoClose(){
+	servoPosition = SERVO_CLOSE ;
+}
+
+void Shooter::ServoMove(){
+	servo->SetAngle(servoPosition);
 }
 
 

@@ -20,9 +20,10 @@ public:
 	static double THRESHOLD;
 	static double MOTEUR;
 	static double AJUST;
-	static double INTERVAL;
-	static double SERVO_UP;
-	static double SERVO_DOWN;
+	static double INTERVAL_CLOSE;
+	static double INTERVAL_OPEN;
+	static double SERVO_OPEN;
+	static double SERVO_CLOSE;
 
 
 	Shooter();
@@ -30,8 +31,9 @@ public:
 	void Shoot(double value);
 	void ShootStop();
 	double GetEncoder();
-	void SetServoUp();
-	void SetServoDown();
+	void SetServoOpen();
+	void SetServoClose();
+	void ServoMove();
 };
 
 #endif  // Shooter_H
