@@ -19,7 +19,14 @@ void Capture::Initialize( ) {
 	grip::GripPipeline::S_MAX = prefs->GetDouble("smax", 255.0);
 	grip::GripPipeline::V_MIN = prefs->GetDouble("vmin", 96.0);
 	grip::GripPipeline::V_MAX = prefs->GetDouble("vmax", 190.0);
+
 	Camera::EXPOSURE = (int)prefs->GetDouble("exposure", 0);
+	Camera::WIDTH_THRESHOLD = prefs->GetDouble("widthThreshold");
+	Camera::X_THRESHOLD = prefs->GetDouble("xThreshold");
+	BasePilotable::B_MOVE = prefs->GetDouble("bMove");
+	BasePilotable::B_TURN = prefs->GetDouble("bTurn");
+	BasePilotable::K_MOVE = prefs->GetDouble("kMove");
+	BasePilotable::K_TURN = prefs->GetDouble("kTurn");
 
 	Robot::camera->StartGrip(&Capture::SetParam, this);
 }
@@ -36,12 +43,20 @@ void Capture::Execute() {
 	}
 
 	double move, turn;
-	turn = centreX;
 
-	if(){
-
+	if(abs(centreX) > Camera::X_THRESHOLD){
+		turn = centreX*BasePilotable::K_TURN + BasePilotable::B_TURN;
+	}
+	else {
+		turn = 0;
 	}
 
+	if(largeur <= Camera::WIDTH_THRESHOLD){
+		move = BasePilotable::K_MOVE/largeur + BasePilotable::B_MOVE;
+	}
+	else {
+		move = 0;
+	}
 
 
 
