@@ -6,6 +6,7 @@
 
 int Camera::EXPOSURE(25);
 double Camera::XTHRESHOLD(0.05);
+double Camera::LTHRESHOLD(150);
 
 
 
@@ -156,9 +157,13 @@ void Camera::Analyse(const cv::Mat& img, cv::Mat& output)
 
 		centreX = rect.x + rect.width / 2.0;
 		largeur = rect.width;
-		centreX = (2(centreX/image->cols))-1;
-		if(callbackFunc)
+		centreXCentered = centreX;
+		centreX = ((centreXCentered/image->cols)*2)-1;
+		// est-ce correct ?
+		if(callbackFunc){
 			callbackFunc(centreX, largeur );
+		}
+
 
 	}
 

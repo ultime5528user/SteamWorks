@@ -30,7 +30,8 @@ private:
 	// for methods that implement subsystem capabilities
 
 public:
-
+	double centreXCentered;
+	static double LTHRESHOLD;
 	static int EXPOSURE;
 	static double XTHRESHOLD;
 	Camera();

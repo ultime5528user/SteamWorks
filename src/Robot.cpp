@@ -8,7 +8,6 @@
 // update. Deleting the comments indicating the section will prevent
 // it from being updated in the future.
 
-
 #include "Robot.h"
 
 std::shared_ptr<BasePilotable> Robot::basePilotable;
@@ -16,24 +15,19 @@ std::shared_ptr<Shooter> Robot::shooter;
 std::shared_ptr<Camera> Robot::camera;
 std::unique_ptr<OI> Robot::oi;
 
-Command *autonomousCommand;
-SendableChooser *chooser;
-virtual void Robot::RobotInit() {
+
+void Robot::RobotInit() {
 	RobotMap::init();
 
 	basePilotable.reset(new BasePilotable());
-    shooter.reset (new Shooter());
-    camera.reset(new Camera());
+	shooter.reset(new Shooter());
+	camera.reset(new Camera());
 
-    prefs = Preferences::GetInstance();
-    Shooter::SHOOT_VALUE = prefs->GetDouble("ShooterValue",0);
+	prefs = Preferences::GetInstance();
+	Shooter::SHOOT_VALUE = prefs->GetDouble("ShootValue,0");
 
 	oi.reset(new OI());
-
-	chooser = new SendableChooser();
-
-  }
-
+}
 /**
  * This function is called when the disabled button is hit.
  * You can use it to reset subsystems before shutting down.
