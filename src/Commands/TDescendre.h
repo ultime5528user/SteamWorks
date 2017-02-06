@@ -1,14 +1,11 @@
-#ifndef SShootOnce_H
-#define SShootOnce_H
+#ifndef TDescendre_H
+#define TDescendre_H
 
 #include "Commands/Command.h"
 
-class SShootOnce : public Command {
-
-
-
+class TDescendre : public Command {
 public:
-	SShootOnce();
+	TDescendre();
 	void Initialize();
 	void Execute();
 	bool IsFinished();
@@ -16,4 +13,4 @@ public:
 	void Interrupted();
 };
 
-#endif  // SShootOnce_H
+#endif  // TDescendre_H

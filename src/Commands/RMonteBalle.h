@@ -1,14 +1,11 @@
-#ifndef SShootOnce_H
-#define SShootOnce_H
+#ifndef RMonteBalle_H
+#define RMonteBalle_H
 
 #include "Commands/Command.h"
 
-class SShootOnce : public Command {
-
-
-
+class RMonteBalle : public Command {
 public:
-	SShootOnce();
+	RMonteBalle();
 	void Initialize();
 	void Execute();
 	bool IsFinished();
@@ -16,4 +13,4 @@ public:
 	void Interrupted();
 };
 
-#endif  // SShootOnce_H
+#endif  // RMonteBalle_H

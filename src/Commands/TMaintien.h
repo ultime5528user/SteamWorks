@@ -1,14 +1,11 @@
-#ifndef SShootOnce_H
-#define SShootOnce_H
+#ifndef TMaintien_H
+#define TMaintien_H
 
 #include "Commands/Command.h"
 
-class SShootOnce : public Command {
-
-
-
+class TMaintien : public Command {
 public:
-	SShootOnce();
+	TMaintien();
 	void Initialize();
 	void Execute();
 	bool IsFinished();
@@ -16,4 +13,4 @@ public:
 	void Interrupted();
 };
 
-#endif  // SShootOnce_H
+#endif  // TMaintien_H

@@ -1,14 +1,11 @@
-#ifndef SShootOnce_H
-#define SShootOnce_H
+#ifndef StopShoot_H
+#define StopShoot_H
 
 #include "Commands/Command.h"
 
-class SShootOnce : public Command {
-
-
-
+class StopShoot : public Command {
 public:
-	SShootOnce();
+	StopShoot();
 	void Initialize();
 	void Execute();
 	bool IsFinished();
@@ -16,4 +13,4 @@ public:
 	void Interrupted();
 };
 
-#endif  // SShootOnce_H
+#endif  // StopShoot_H

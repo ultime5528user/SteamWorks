@@ -12,6 +12,7 @@
 #ifndef ROBOTMAP_H
 #define ROBOTMAP_H
 #include "WPILib.h"
+#include "ADIS16448_IMU.h"
 
 
 /**
@@ -27,10 +28,21 @@ public:
 	static std::shared_ptr<SpeedController> basePilotableMoteurG;
 	static std::shared_ptr<SpeedController> basePilotableMoteurD;
 	static std::shared_ptr<RobotDrive> basePilotableRobotDrive;
+	static std::shared_ptr<Encoder> basePilotableEncoderG;
+	static std::shared_ptr<Encoder> basePilotableEncoderD;
+	static std::shared_ptr<ADIS16448_IMU> basePilotableGyro;
+
 
 	//Shooter
 	static std::shared_ptr<SpeedController> shooterMoteur;
 	static std::shared_ptr<Encoder> shooterEncoder;
+	static std::shared_ptr<Servo> shooterServo;
+
+	//Treuil
+	static std::shared_ptr<SpeedController> treuilMoteur;
+
+	//RemonteBalle
+	static std::shared_ptr<SpeedController> remonteBalle;
 
 	static void init();
 };
