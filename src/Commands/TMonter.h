@@ -1,11 +1,11 @@
-#ifndef TTreuil_H
-#define TTreuil_H
+#ifndef TMonter_H
+#define TMonter_H
 
 #include "commands/Command.h"
 
-class TTreuil : public Command {
+class TMonter : public Command {
 public:
-	TTreuil();
+	TMonter();
 	void Initialize();
 	void Execute();
 	bool IsFinished();
@@ -13,4 +13,4 @@ public:
 	void Interrupted();
 };
 
-#endif  // TTreuil_H
+#endif  // TMonter_H

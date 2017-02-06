@@ -1,8 +1,8 @@
 #include "RemonteBalle.h"
 #include "../RobotMap.h"
 #include "../Commands/RMonteBalle.h"
-
-RemonteBalle::RemonteBalle() : Subsystem("ExampleSubsystem") {
+#include "Robot.h"
+RemonteBalle::RemonteBalle() : Subsystem("RemonteBalle") {
 
 }
 

@@ -9,6 +9,8 @@
 // it from being updated in the future.
 
 
+#include <Commands/TDescendre.h>
+#include <Commands/TMonter.h>
 #include "OI.h"
 
 #include "SmartDashboard/SmartDashboard.h"
@@ -19,8 +21,6 @@
 #include "Commands/Tourner.h"
 #include "Commands/Shoot.h"
 #include "Commands/StopShoot.h"
-#include "Commands/TTreuil.h"
-#include "Commands/TTreuilD.h"
 OI::OI() {
 
     stick.reset(new Joystick(0));
@@ -40,10 +40,10 @@ OI::OI() {
     bouton4->WhenPressed(new Tourner());
 
     bouton5.reset(new JoystickButton(stick.get(), 5));
-    bouton5->WhileHeld(new TTreuil());
+    bouton5->WhileHeld(new TMonter());
 
     bouton6.reset(new JoystickButton(stick.get(), 6));
-    bouton6->WhenPressed(new TTreuilD());
+    bouton6->WhenPressed(new TDescendre());
 
 
     SmartDashboard::PutData("Pilotage", new Pilotage());

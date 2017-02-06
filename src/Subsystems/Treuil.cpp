@@ -1,5 +1,7 @@
 #include <Subsystems/Treuil.h>
 #include "../RobotMap.h"
+#include "Robot.h"
+#include "RobotBase.h"
 
 Treuil::Treuil() : Subsystem("Treuil") {
 	moteur = RobotMap::treuilMoteur;

@@ -41,6 +41,9 @@ public:
 	//Treuil
 	static std::shared_ptr<SpeedController> treuilMoteur;
 
+	//RemonteBalle
+	static std::shared_ptr<SpeedController> remonteBalle;
+
 	static void init();
 };
 #endif

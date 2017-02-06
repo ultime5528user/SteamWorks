@@ -1,11 +1,11 @@
-#ifndef TTreuilD_H
-#define TTreuilD_H
+#ifndef TMaintien_H
+#define TMaintien_H
 
 #include "Commands/Command.h"
 
-class TTreuilD : public Command {
+class TMaintien : public Command {
 public:
-	TTreuilD();
+	TMaintien();
 	void Initialize();
 	void Execute();
 	bool IsFinished();
@@ -13,4 +13,4 @@ public:
 	void Interrupted();
 };
 
-#endif  // TTreuilD_H
+#endif  // TMaintien_H
