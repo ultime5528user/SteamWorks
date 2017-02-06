@@ -22,24 +22,21 @@ std::unique_ptr<OI> Robot::oi;
 
 
 void Robot::RobotInit() {
-	RobotMap::init();
+	
+  RobotMap::init();
 
 	basePilotable.reset(new BasePilotable());
-	shooter.reset(new Shooter());
-	camera.reset(new Camera());
-	treuil.reset(new Treuil());
-	remonteBalle.reset(new RemonteBalle());
-
-
-	prefs = Preferences::GetInstance();
-	Shooter::SHOOT_VALUE = prefs->GetDouble("ShootValue,0");
+  shooter.reset (new Shooter());
+  camera.reset(new Camera());
+  treuil.reset(new Treuil());
+  remonteBalle.reset(new RemonteBalle());
+  
+  prefs = Preferences::GetInstance();
+  Shooter::SHOOT_VALUE = prefs->GetDouble("ShooterValue",0);
 
 	oi.reset(new OI());
-//<<<<<<< HEAD
-
-
-
-  }
+	
+}
 
 //=======
 

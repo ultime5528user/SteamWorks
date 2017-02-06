@@ -21,6 +21,7 @@
 #include "Commands/Tourner.h"
 #include "Commands/Shoot.h"
 #include "Commands/StopShoot.h"
+
 OI::OI() {
 
     stick.reset(new Joystick(0));
@@ -31,7 +32,7 @@ OI::OI() {
     
 
     bouton2.reset(new JoystickButton(stick.get(), 2));
-    bouton2->WhenPressed(new StopShoot());
+    bouton2->ToggleWhenPressed(new Capture());
 
     bouton3.reset(new JoystickButton(stick.get(), 3));
     bouton3->WhenPressed(new Avancer(1.0));
