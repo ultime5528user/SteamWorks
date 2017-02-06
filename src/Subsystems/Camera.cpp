@@ -5,8 +5,8 @@
 
 
 int Camera::EXPOSURE(25);
-double Camera::XTHRESHOLD(0.05);
-
+double Camera::X_THRESHOLD(0.05);
+double Camera::WIDTH_THRESHOLD(150);
 
 
 Camera::Camera() :
@@ -124,7 +124,7 @@ void Camera::Analyse(const cv::Mat& img, cv::Mat& output)
 	else
 	{
 		std::vector<double> scores;
-		int min1, min2, dist, distMin(241);
+		int min1(0), min2(1), dist, distMin(241);
 		//trouve min
 		for(unsigned int i = 0; i < contours->size() - 1; i++)
 		{
@@ -147,6 +147,7 @@ void Camera::Analyse(const cv::Mat& img, cv::Mat& output)
 		std::vector<cv::Point> board ;
 		board = contours->at(min1);
 		board.insert(board.end(), contours->at(min2).begin(), contours->at(min2).end());
+
 		rect = cv::boundingRect(board);
 
 
@@ -156,7 +157,7 @@ void Camera::Analyse(const cv::Mat& img, cv::Mat& output)
 
 		centreX = rect.x + rect.width / 2.0;
 		largeur = rect.width;
-		centreX = (2(centreX/image->cols))-1;
+		centreX = (2*(centreX/image->cols))-1;
 		if(callbackFunc)
 			callbackFunc(centreX, largeur );
 

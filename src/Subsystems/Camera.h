@@ -32,7 +32,9 @@ private:
 public:
 
 	static int EXPOSURE;
-	static double XTHRESHOLD;
+	static double X_THRESHOLD;
+	static double WIDTH_THRESHOLD;
+
 	Camera();
 	void InitDefaultCommand();
 

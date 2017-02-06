@@ -20,6 +20,7 @@ private:
 	double m_centreX;
 	double m_largeur;
 	priority_mutex mutex;
+
 };
 
 #endif  // Capture_H
