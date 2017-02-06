@@ -16,8 +16,9 @@ std::shared_ptr<Shooter> Robot::shooter;
 std::shared_ptr<Camera> Robot::camera;
 std::unique_ptr<OI> Robot::oi;
 
-
-void Robot::RobotInit() {
+Command *autonomousCommand;
+SendableChooser *chooser;
+virtual void Robot::RobotInit() {
 	RobotMap::init();
 
 	basePilotable.reset(new BasePilotable());
@@ -29,7 +30,7 @@ void Robot::RobotInit() {
 
 	oi.reset(new OI());
 
-
+	chooser = new SendableChooser();
 
   }
 
