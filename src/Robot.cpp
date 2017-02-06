@@ -8,29 +8,39 @@
 // update. Deleting the comments indicating the section will prevent
 // it from being updated in the future.
 
-
 #include "Robot.h"
 
 std::shared_ptr<BasePilotable> Robot::basePilotable;
 std::shared_ptr<Shooter> Robot::shooter;
 std::shared_ptr<Camera> Robot::camera;
+
+std::shared_ptr<Treuil> Robot::treuil;
+
+std::shared_ptr<RemonteBalle> Robot::remonteBalle;
+
 std::unique_ptr<OI> Robot::oi;
 
 
 void Robot::RobotInit() {
-	RobotMap::init();
+	
+  RobotMap::init();
 
 	basePilotable.reset(new BasePilotable());
-    shooter.reset (new Shooter());
-    camera.reset(new Camera());
-
-    prefs = Preferences::GetInstance();
-    Shooter::SHOOT_VALUE = prefs->GetDouble("ShooterValue",0);
+  shooter.reset (new Shooter());
+  camera.reset(new Camera());
+  treuil.reset(new Treuil());
+  remonteBalle.reset(new RemonteBalle());
+  
+  prefs = Preferences::GetInstance();
+  Shooter::SHOOT_VALUE = prefs->GetDouble("ShooterValue",0);
 
 	oi.reset(new OI());
+	
+}
 
-  }
+//=======
 
+//>>>>>>> origin/Vision
 /**
  * This function is called when the disabled button is hit.
  * You can use it to reset subsystems before shutting down.

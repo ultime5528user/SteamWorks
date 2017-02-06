@@ -9,12 +9,18 @@
 // it from being updated in the future.
 
 
+#include <Commands/TDescendre.h>
+#include <Commands/TMonter.h>
 #include "OI.h"
 
 #include "SmartDashboard/SmartDashboard.h"
 #include "Commands/Pilotage.h"
 #include "Commands/SShootOnce.h"
 #include "Commands/Capture.h"
+#include "Commands/Avancer.h"
+#include "Commands/Tourner.h"
+#include "Commands/Shoot.h"
+#include "Commands/StopShoot.h"
 
 OI::OI() {
 
@@ -22,15 +28,29 @@ OI::OI() {
 
 
     bouton1.reset(new JoystickButton(stick.get(), 1));
-    bouton1->WhileHeld(new SShootOnce());
+    bouton1->WhenPressed(new Shoot());
     
 
     bouton2.reset(new JoystickButton(stick.get(), 2));
     bouton2->ToggleWhenPressed(new Capture());
 
+    bouton3.reset(new JoystickButton(stick.get(), 3));
+    bouton3->WhenPressed(new Avancer(1.0));
+
+    bouton4.reset(new JoystickButton(stick.get(), 4));
+    bouton4->WhenPressed(new Tourner());
+
+    bouton5.reset(new JoystickButton(stick.get(), 5));
+    bouton5->WhileHeld(new TMonter());
+
+    bouton6.reset(new JoystickButton(stick.get(), 6));
+    bouton6->WhenPressed(new TDescendre());
+
 
     SmartDashboard::PutData("Pilotage", new Pilotage());
-
+    SmartDashboard::PutData("Avancer", new Avancer());
+    SmartDashboard::PutData("Tourner", new Tourner());
+    SmartDashboard::PutData(frc::Scheduler::GetInstance());
 
 }
 

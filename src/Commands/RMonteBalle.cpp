@@ -1,37 +1,35 @@
-#include "SShootOnce.h"
+#include "RMonteBalle.h"
+#include "../Subsystems/RemonteBalle.h"
 #include "Robot.h"
-#include <cmath>
+#include "RobotMap.h"
 
-
-SShootOnce::SShootOnce() : Command("SShootOnce") {
+RMonteBalle::RMonteBalle() {
 	// Use Requires() here to declare subsystem dependencies
 	// eg. Requires(Robot::chassis.get());
-	Requires(Robot::shooter.get());
 }
 
 // Called just before this Command runs the first time
-void SShootOnce::Initialize() {
-	Robot::shooter->Shoot(Shooter::MOTEUR);
+void RMonteBalle::Initialize() {
 
 }
 
 // Called repeatedly when this Command is scheduled to run
-void SShootOnce::Execute() {
-
+void RMonteBalle::Execute() {
+	Robot::remonteBalle->Monte();
 }
 
 // Make this return true when this Command no longer needs to run execute()
-bool SShootOnce::IsFinished() {
-	return true;
+bool RMonteBalle::IsFinished() {
+	return false;
 }
 
 // Called once after isFinished returns true
-void SShootOnce::End() {
-	Robot::shooter->ShootStop();
+void RMonteBalle::End() {
+	Robot::remonteBalle->Stop();
 }
 
 // Called when another command which requires one or more of the same
 // subsystems is scheduled to run
-void SShootOnce::Interrupted() {
+void RMonteBalle::Interrupted() {
 	End();
 }
