@@ -3,7 +3,7 @@
 #include "Robot.h"
 #include "RobotBase.h"
 
-double Treuil::VALEUR_MONTER(0.5);
+double Treuil::VALEUR_MONTER(1);
 double Treuil::VALEUR_MAINTIEN(0.15);
 
 Treuil::Treuil() : Subsystem("Treuil") {

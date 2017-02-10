@@ -14,7 +14,7 @@ TMonter::TMonter() : Command("TMonter") {
 // Called just before this Command runs the first time
 void TMonter::Initialize() {
 
-	Treuil::VALEUR_MONTER = frc::Preferences::GetInstance()->GetDouble("treuil_monter", 0.5);
+	Treuil::VALEUR_MONTER = frc::Preferences::GetInstance()->GetDouble("treuil_monter", 1);
 
 	Robot::treuil->Monter();
 

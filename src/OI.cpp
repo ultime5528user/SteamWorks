@@ -22,17 +22,19 @@
 #include "Commands/Shoot.h"
 #include "Commands/StopShoot.h"
 
+#include "Commands/MonterBalle.h"
+
 OI::OI() {
 
     stick.reset(new Joystick(0));
 
 
     bouton1.reset(new JoystickButton(stick.get(), 1));
-    bouton1->WhenPressed(new TMonter());
+    //bouton1->WhenPressed(new TMonter());
     
 
     bouton2.reset(new JoystickButton(stick.get(), 2));
-    bouton2->ToggleWhenPressed(new TDescendre());
+    //bouton2->ToggleWhenPressed(new TDescendre());
 
     bouton3.reset(new JoystickButton(stick.get(), 3));
     bouton3->WhenPressed(new Shoot());
@@ -44,8 +46,7 @@ OI::OI() {
     bouton5->WhileHeld(new TMonter());
 
     bouton6.reset(new JoystickButton(stick.get(), 6));
-    bouton6->WhenPressed(new TDescendre());
-
+    bouton6->ToggleWhenPressed(new MonterBalle());
 
     SmartDashboard::PutData("Pilotage", new Pilotage());
     SmartDashboard::PutData("Avancer", new Avancer());

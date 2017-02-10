@@ -49,12 +49,13 @@ void BasePilotable::InitDefaultCommand() {
 }
 
 void BasePilotable::Drive() {
-	robotDrive->ArcadeDrive(Robot::oi->getStick().get());
+	robotDrive->ArcadeDrive(Robot::oi->getStick().get()->GetX(), -Robot::oi->getStick().get()->GetY());
+
 }
 
 
 void BasePilotable::Drive(double move, double turn) {
-
+	robotDrive->ArcadeDrive(move, turn);
 }
 
 
