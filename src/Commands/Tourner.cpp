@@ -3,14 +3,15 @@
 #include <cmath>
 
 Tourner::Tourner() : Command ("Tourner"){
-	// Use Requires() here to declare subsystem dependencies
-	// eg. Requires(Robot::chassis.get());
+
+	Requires(Robot::basePilotable.get());
+
 	af=45;
 	ai=0.5;
 	vi=0.5;
 	vf=0.3;
 	pente=0;
-	Requires(Robot::basePilotable.get());
+
 }
 
 // Called just before this Command runs the first time

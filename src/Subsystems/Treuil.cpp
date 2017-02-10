@@ -3,25 +3,27 @@
 #include "Robot.h"
 #include "RobotBase.h"
 
+double Treuil::VALEUR_MONTER(0.5);
+double Treuil::VALEUR_MAINTIEN(0.15);
+
 Treuil::Treuil() : Subsystem("Treuil") {
 	moteur = RobotMap::treuilMoteur;
 }
 
 void Treuil::InitDefaultCommand() {
-	// Set the default command for a subsystem here.
-	// SetDefaultCommand(new MySpecialCommand());
+
 }
 
-void Treuil::TreuilMoteur(){
-	moteur->Set(0.5);
+void Treuil::Monter(){
+	moteur->Set(VALEUR_MONTER);
 }
 
-void Treuil::TreuilMaintien(){
-	moteur->Set(0.15);
+void Treuil::Maintien(){
+	moteur->Set(VALEUR_MAINTIEN);
 }
 
-void Treuil::TreuilStop(){
-	moteur->Set(0.08);
+void Treuil::Stop(){
+	moteur->Set(0);
 }
 // Put methods for controlling this subsystem
 // here. Call these from Commands.

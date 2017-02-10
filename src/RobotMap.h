@@ -45,7 +45,7 @@ public:
 	static std::shared_ptr<frc::Spark> cameraLight;
 
 	//RemonteBalle
-	static std::shared_ptr<SpeedController> remonteBalle;
+	static std::shared_ptr<SpeedController> remonteBalleMoteur;
 
 
 	static void init();

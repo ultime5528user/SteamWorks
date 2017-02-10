@@ -1,15 +1,12 @@
 #include "Avancer.h"
 #include <Robot.h>
 
-Avancer::Avancer() : Avancer(1.0)
-{
-
-}
+Avancer::Avancer() : Avancer(1.0) { }
 
 Avancer::Avancer(double dist) : Command("Avancer") {
-	// Use Requires() here to declare subsystem dependencies
-	// eg. Requires(Robot::chassis.get());
+
 	Requires(Robot::basePilotable.get());
+
 	df=dist;
 	terminus=false;
 	moyenne = 0;
@@ -18,8 +15,6 @@ Avancer::Avancer(double dist) : Command("Avancer") {
 	vi=0.5;
 	calc=0;
 	pente=(vf-vi/df-di);
-
-
 
 }
 
@@ -44,7 +39,7 @@ void Avancer::Initialize() {
 	Robot::basePilotable->EncoderReset();
 
 
-}//cancer
+}
 
 
 // Called repeatedly when this Command is scheduled to run

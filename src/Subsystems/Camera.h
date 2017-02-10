@@ -2,8 +2,8 @@
 #define Camera_H
 
 #include <Commands/Subsystem.h>
+#include <Commands/Viser.h>
 #include <atomic>
-#include <Commands/Capture.h>
 #include "opencv2/core/core.hpp"
 #include <thread>
 #include "CameraServer.h"

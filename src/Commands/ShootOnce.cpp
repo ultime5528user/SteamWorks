@@ -1,37 +1,36 @@
-#include "SShootOnce.h"
+#include "ShootOnce.h"
 #include "Robot.h"
 #include <cmath>
 
 
-SShootOnce::SShootOnce() : Command("SShootOnce") {
-	// Use Requires() here to declare subsystem dependencies
-	// eg. Requires(Robot::chassis.get());
+ShootOnce::ShootOnce() : Command("ShootOnce") {
+
 	Requires(Robot::shooter.get());
 }
 
 // Called just before this Command runs the first time
-void SShootOnce::Initialize() {
-	Robot::shooter->Shoot(Shooter::MOTEUR);
+void ShootOnce::Initialize() {
+	Robot::shooter->Shoot(Shooter::VALEUR_INIT);
 
 }
 
 // Called repeatedly when this Command is scheduled to run
-void SShootOnce::Execute() {
+void ShootOnce::Execute() {
 
 }
 
 // Make this return true when this Command no longer needs to run execute()
-bool SShootOnce::IsFinished() {
+bool ShootOnce::IsFinished() {
 	return true;
 }
 
 // Called once after isFinished returns true
-void SShootOnce::End() {
+void ShootOnce::End() {
 	Robot::shooter->ShootStop();
 }
 
 // Called when another command which requires one or more of the same
 // subsystems is scheduled to run
-void SShootOnce::Interrupted() {
+void ShootOnce::Interrupted() {
 	End();
 }

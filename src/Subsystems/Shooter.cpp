@@ -1,24 +1,20 @@
 #include "Shooter.h"
 #include "../RobotMap.h"
 
-double Shooter::SHOOT_VALUE(0);
+double Shooter::VITESSE(0);
 double Shooter::THRESHOLD(10);
-double Shooter::MOTEUR(0.75);
+double Shooter::VALEUR_INIT(0.75);
 double Shooter::AJUST(0.05);
 double Shooter::INTERVAL_CLOSE(1);
 double Shooter::INTERVAL_OPEN(0.2);
 double Shooter::SERVO_OPEN(100);
 double Shooter::SERVO_CLOSE(90);
 
-
 Shooter::Shooter() : Subsystem("Shooter") {
 	moteur = RobotMap::shooterMoteur;
 	encoder = RobotMap::shooterEncoder;
 	servo = RobotMap::shooterServo;
 	servoPosition = SERVO_CLOSE;
-
-
-
 }
 
 void Shooter::InitDefaultCommand() {

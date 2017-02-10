@@ -1,11 +1,12 @@
-#ifndef RMonteBalle_H
-#define RMonteBalle_H
+#ifndef ShootOnce_H
+#define ShootOnce_H
 
 #include "Commands/Command.h"
 
-class RMonteBalle : public Command {
+class ShootOnce : public Command {
+
 public:
-	RMonteBalle();
+	ShootOnce();
 	void Initialize();
 	void Execute();
 	bool IsFinished();
@@ -13,4 +14,4 @@ public:
 	void Interrupted();
 };
 
-#endif  // RMonteBalle_H
+#endif  // ShootOnce_H

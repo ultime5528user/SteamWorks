@@ -1,34 +1,36 @@
 #include "TDescendre.h"
 #include "Robot.h"
 #include "../Subsystems/Treuil.h"
-TDescendre::TDescendre() {
-	// Use Requires() here to declare subsystem dependencies
-	// eg. Requires(Robot::chassis.get());
+
+
+TDescendre::TDescendre() : Command("TDescendre") {
 	Requires(Robot::treuil.get());
 }
 
-// Called just before this Command runs the first time
+
 void TDescendre::Initialize() {
+
+	//Aucune méthode de Treuil disponible pour descendre?
+	//Est-ce physiquement possible ?
 
 }
 
-// Called repeatedly when this Command is scheduled to run
+
 void TDescendre::Execute() {
 
 }
 
-// Make this return true when this Command no longer needs to run execute()
+
 bool TDescendre::IsFinished() {
-	return true;
+	return false;
 }
 
-// Called once after isFinished returns true
+
 void TDescendre::End() {
-	Robot::treuil->TreuilStop();
+	Robot::treuil->Stop();
 }
 
-// Called when another command which requires one or more of the same
-// subsystems is scheduled to run
+
 void TDescendre::Interrupted() {
 	End();
 }

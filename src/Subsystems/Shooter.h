@@ -16,9 +16,9 @@ private:
 	double servoPosition;
 public:
 
-	static double SHOOT_VALUE;
+	static double VITESSE;
 	static double THRESHOLD;
-	static double MOTEUR;
+	static double VALEUR_INIT;
 	static double AJUST;
 	static double INTERVAL_CLOSE;
 	static double INTERVAL_OPEN;

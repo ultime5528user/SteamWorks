@@ -28,16 +28,16 @@ std::shared_ptr<SpeedController> RobotMap::shooterMoteur;
 
 std::shared_ptr<SpeedController> RobotMap::treuilMoteur;
 
-std::shared_ptr<SpeedController> RobotMap::remonteBalle;
+std::shared_ptr<SpeedController> RobotMap::remonteBalleMoteur;
 
 
 void RobotMap::init() {
     LiveWindow *lw = LiveWindow::GetInstance();
 
-    basePilotableMoteurG.reset(new VictorSP(0));
+    basePilotableMoteurG.reset(new VictorSP(5));
     lw->AddActuator("BasePilotable", "MoteurG", std::static_pointer_cast<VictorSP>(basePilotableMoteurG));
     
-    basePilotableMoteurD.reset(new VictorSP(1));
+    basePilotableMoteurD.reset(new VictorSP(6));
     lw->AddActuator("BasePilotable", "MoteurD", std::static_pointer_cast<VictorSP>(basePilotableMoteurD));
     
     basePilotableRobotDrive.reset(new RobotDrive(basePilotableMoteurG, basePilotableMoteurD));
@@ -47,38 +47,38 @@ void RobotMap::init() {
         basePilotableRobotDrive->SetSensitivity(0.5);
         basePilotableRobotDrive->SetMaxOutput(1.0);
         basePilotableRobotDrive->SetInvertedMotor(RobotDrive::kRearLeftMotor, true);
-        basePilotableRobotDrive->SetInvertedMotor(RobotDrive::kRearRightMotor, true);
+        basePilotableRobotDrive->SetInvertedMotor(RobotDrive::kRearRightMotor, false);
     
 
-    shooterMoteur.reset(new VictorSP(4));
+    shooterMoteur.reset(new VictorSP(7));
     lw->AddActuator("Shooter", "Moteur", std::static_pointer_cast<VictorSP>(shooterMoteur));
 
 
-    cameraLight.reset(new Spark(9));
+    cameraLight.reset(new Spark(0));
     lw->AddActuator("Camera", "Light", cameraLight);
 
-    shooterEncoder.reset(new Encoder(4,5));
+    shooterEncoder.reset(new Encoder(4, 5));
     lw->AddSensor("Shooter", "Encoder",  shooterEncoder);
 
-    basePilotableEncoderD.reset(new Encoder(2,3));
+    basePilotableEncoderD.reset(new Encoder(0, 1));
     lw->AddSensor("BasePilotable", "EncoderD",  basePilotableEncoderD);
     basePilotableEncoderD->SetDistancePerPulse(-0.001544);
 
-    basePilotableEncoderG.reset(new Encoder(0,1));
+    basePilotableEncoderG.reset(new Encoder(2, 3));
     basePilotableEncoderG->SetDistancePerPulse(0.001544);
     lw->AddSensor("BasePilotable", "EncoderG",  basePilotableEncoderG);
 
     basePilotableGyro.reset(new ADIS16448_IMU());
     lw->AddSensor("BasePilotable", "Gyro", basePilotableGyro);
 
-    shooterServo.reset(new Servo(3));
+    shooterServo.reset(new Servo(4));
     lw->AddActuator("Servo", "Shooter", std::static_pointer_cast<Servo>(shooterServo));
 
-    treuilMoteur.reset(new VictorSP(4));
+    treuilMoteur.reset(new VictorSP(8));
     lw->AddActuator("Treuil", "Treuil", std::static_pointer_cast<VictorSP>(treuilMoteur));
 
-    remonteBalle.reset(new VictorSP(5));
-    lw->AddActuator("RemonteBalle", "RemonteBalle", std::static_pointer_cast<VictorSP>(remonteBalle));
+    remonteBalleMoteur.reset(new VictorSP(9));
+    lw->AddActuator("RemonteBalle", "RemonteBalle", std::static_pointer_cast<VictorSP>(remonteBalleMoteur));
     
 
 }

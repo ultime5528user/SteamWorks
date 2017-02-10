@@ -22,29 +22,21 @@ std::unique_ptr<OI> Robot::oi;
 
 
 void Robot::RobotInit() {
-	
-  RobotMap::init();
+	RobotMap::init();
 
 	basePilotable.reset(new BasePilotable());
-  shooter.reset (new Shooter());
-  camera.reset(new Camera());
-  treuil.reset(new Treuil());
-  remonteBalle.reset(new RemonteBalle());
+	shooter.reset (new Shooter());
+	camera.reset(new Camera());
+	treuil.reset(new Treuil());
+	remonteBalle.reset(new RemonteBalle());
   
-  prefs = Preferences::GetInstance();
-  Shooter::SHOOT_VALUE = prefs->GetDouble("ShooterValue",0);
+	prefs = Preferences::GetInstance();
 
 	oi.reset(new OI());
 	
 }
 
-//=======
 
-//>>>>>>> origin/Vision
-/**
- * This function is called when the disabled button is hit.
- * You can use it to reset subsystems before shutting down.
- */
 void Robot::DisabledInit(){
 
 }

@@ -1,9 +1,11 @@
 #include "StopShoot.h"
 #include "Robot.h"
-StopShoot::StopShoot() {
+
+
+StopShoot::StopShoot() : Command("StopShoot") {
+
 	Requires(Robot::shooter.get());
-	// Use Requires() here to declare subsystem dependencies
-	// eg. Requires(Robot::chassis.get());
+
 }
 
 // Called just before this Command runs the first time

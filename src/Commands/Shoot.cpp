@@ -4,31 +4,31 @@
 #include <Timer.h>
 #include "../Subsystems/Shooter.h"
 
-Shoot::Shoot() {
-	// Use Requires() here to declare subsystem dependencies
-	// eg. Requires(Robot::chassis.get());
+Shoot::Shoot() : Command("Shoot") {
+
 	Requires(Robot::shooter.get());
-	value = Shooter::MOTEUR;
+
+	value = Shooter::VALEUR_INIT;
 	ajust = false;
 }
 
 // Called just before this Command runs the first time
 void Shoot::Initialize() {
-    Shooter::SHOOT_VALUE = frc::Preferences::GetInstance()->GetDouble("ShooterValue",0);
-    Shooter::THRESHOLD = frc::Preferences::GetInstance()->GetDouble("Threshold",0);
-    Shooter::AJUST = frc::Preferences::GetInstance()->GetDouble("AjustementShooter",0);
-    Shooter::INTERVAL_CLOSE = frc::Preferences::GetInstance()->GetDouble("Interval_Close",0);
-    Shooter::INTERVAL_OPEN = frc::Preferences::GetInstance()->GetDouble("Interval_Open",0);
-    Shooter::SERVO_OPEN = frc::Preferences::GetInstance()->GetDouble("Servo_open",0);
-    Shooter::SERVO_CLOSE = frc::Preferences::GetInstance()->GetDouble("Servo_close",0);
+    Shooter::VITESSE = frc::Preferences::GetInstance()->GetDouble("shoot_vitesse",0);
+    Shooter::THRESHOLD = frc::Preferences::GetInstance()->GetDouble("shoot_threshold",0);
+    Shooter::AJUST = frc::Preferences::GetInstance()->GetDouble("shoot_ajust",0);
+    Shooter::INTERVAL_CLOSE = frc::Preferences::GetInstance()->GetDouble("interval_close",0);
+    Shooter::INTERVAL_OPEN = frc::Preferences::GetInstance()->GetDouble("interval_open",0);
+    Shooter::SERVO_OPEN = frc::Preferences::GetInstance()->GetDouble("servo_open",0);
+    Shooter::SERVO_CLOSE = frc::Preferences::GetInstance()->GetDouble("servo_close",0);
     timer.Reset();
 }
 
 // Called repeatedly when this Command is scheduled to run
 void Shoot::Execute() {
-	ajust = std::abs(Robot::shooter->GetEncoder() - Shooter::SHOOT_VALUE) > Shooter::THRESHOLD;
+	ajust = std::abs(Robot::shooter->GetEncoder() - Shooter::VITESSE) > Shooter::THRESHOLD;
 	if (ajust){
-		if (Robot::shooter->GetEncoder() < Shooter::SHOOT_VALUE && value <= 1-Shooter::AJUST){
+		if (Robot::shooter->GetEncoder() < Shooter::VITESSE && value <= 1-Shooter::AJUST){
 			value += Shooter::AJUST;
 		}
 		else {

@@ -1,24 +1,23 @@
+#include "Commands/MonterBalle.h"
 #include "RemonteBalle.h"
 #include "../RobotMap.h"
-#include "../Commands/RMonteBalle.h"
 #include "Robot.h"
-RemonteBalle::RemonteBalle() : Subsystem("RemonteBalle") {
 
+double RemonteBalle::VITESSE(0.5);
+
+RemonteBalle::RemonteBalle() : Subsystem("RemonteBalle") {
+	moteur = RobotMap::remonteBalleMoteur;
 }
 
 void RemonteBalle::InitDefaultCommand() {
-	// Set the default command for a subsystem here.
-	// SetDefaultCommand(new MySpecialCommand());
-    SetDefaultCommand(new RMonteBalle());
+    SetDefaultCommand(new MonterBalle());
 }
 
 void RemonteBalle::Monte(){
-	Remonte->Set(0.5);
+	moteur->Set(VITESSE);
 }
 
 void RemonteBalle::Stop(){
-	Remonte->Set(0);
+	moteur->Set(0);
 }
 
-// Put methods for controlling this subsystem
-// here. Call these from Commands.

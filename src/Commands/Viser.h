@@ -1,12 +1,12 @@
-#ifndef Capture_H
-#define Capture_H
+#ifndef Viser_H
+#define Viser_H
 
 #include "Commands/Command.h"
 #include <mutex>
 
-class Capture : public frc::Command {
+class Viser : public frc::Command {
 public:
-	Capture();
+	Viser();
 	void Initialize();
 	void Execute();
 	bool IsFinished();
@@ -23,4 +23,4 @@ private:
 
 };
 
-#endif  // Capture_H
+#endif  // Viser_H
