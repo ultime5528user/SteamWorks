@@ -17,12 +17,12 @@ void Viser::Initialize( ) {
 
 	frc::Preferences* prefs = frc::Preferences::GetInstance();
 
-	grip::GripPipeline::H_MIN = prefs->GetDouble("hmin", 61);
-	grip::GripPipeline::H_MAX = prefs->GetDouble("hmax", 80.0);
-	grip::GripPipeline::S_MIN = prefs->GetDouble("smin", 241.0);
-	grip::GripPipeline::S_MAX = prefs->GetDouble("smax", 255.0);
-	grip::GripPipeline::V_MIN = prefs->GetDouble("vmin", 96.0);
-	grip::GripPipeline::V_MAX = prefs->GetDouble("vmax", 190.0);
+	grip::GripPipeline::H_MIN = prefs->GetDouble("h_min", 61);
+	grip::GripPipeline::H_MAX = prefs->GetDouble("h_max", 80.0);
+	grip::GripPipeline::S_MIN = prefs->GetDouble("s_min", 241.0);
+	grip::GripPipeline::S_MAX = prefs->GetDouble("s_max", 255.0);
+	grip::GripPipeline::V_MIN = prefs->GetDouble("v_min", 96.0);
+	grip::GripPipeline::V_MAX = prefs->GetDouble("v_max", 190.0);
 
 	Camera::EXPOSURE = (int)prefs->GetDouble("exposure", 0);
 	Camera::WIDTH_THRESHOLD = prefs->GetDouble("width_threshold");
@@ -37,6 +37,7 @@ void Viser::Initialize( ) {
 
 // Called repeatedly when this Command is scheduled to run
 void Viser::Execute() {
+
 
 	double centreX, largeur;
 
@@ -61,9 +62,6 @@ void Viser::Execute() {
 	else {
 		move = 0;
 	}
-
-
-
 
 
 

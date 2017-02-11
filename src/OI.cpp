@@ -20,6 +20,7 @@
 #include "Commands/Avancer.h"
 #include "Commands/Tourner.h"
 #include "Commands/Shoot.h"
+#include "Commands/Spin.h"
 #include "Commands/StopShoot.h"
 
 #include "Commands/MonterBalle.h"
@@ -30,20 +31,20 @@ OI::OI() {
 
 
     bouton1.reset(new JoystickButton(stick.get(), 1));
-    //bouton1->WhenPressed(new TMonter());
+    bouton1->ToggleWhenPressed(new Viser());
     
 
     bouton2.reset(new JoystickButton(stick.get(), 2));
     //bouton2->ToggleWhenPressed(new TDescendre());
 
     bouton3.reset(new JoystickButton(stick.get(), 3));
-    bouton3->WhenPressed(new Shoot());
+    bouton3->WhenPressed(new Spin());
 
     bouton4.reset(new JoystickButton(stick.get(), 4));
     bouton4->WhenPressed(new StopShoot());
 
     bouton5.reset(new JoystickButton(stick.get(), 5));
-    bouton5->WhileHeld(new TMonter());
+    bouton5->WhenPressed(new Shoot());
 
     bouton6.reset(new JoystickButton(stick.get(), 6));
     bouton6->ToggleWhenPressed(new MonterBalle());

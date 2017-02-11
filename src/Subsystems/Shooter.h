@@ -33,7 +33,6 @@ public:
 	double GetEncoder();
 	void SetServoOpen();
 	void SetServoClose();
-	void ServoMove();
 };
 
 #endif  // Shooter_H

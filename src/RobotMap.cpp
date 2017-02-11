@@ -54,11 +54,12 @@ void RobotMap::init() {
     lw->AddActuator("Shooter", "Moteur", std::static_pointer_cast<VictorSP>(shooterMoteur));
 
 
-    cameraLight.reset(new Spark(0));
+    cameraLight.reset(new Spark(1));
     lw->AddActuator("Camera", "Light", cameraLight);
 
     shooterEncoder.reset(new Encoder(4, 5));
     lw->AddSensor("Shooter", "Encoder",  shooterEncoder);
+    shooterEncoder->SetDistancePerPulse(0.001544);
 
     basePilotableEncoderD.reset(new Encoder(0, 1));
     lw->AddSensor("BasePilotable", "EncoderD",  basePilotableEncoderD);
@@ -71,7 +72,7 @@ void RobotMap::init() {
     basePilotableGyro.reset(new ADIS16448_IMU());
     lw->AddSensor("BasePilotable", "Gyro", basePilotableGyro);
 
-    shooterServo.reset(new Servo(4));
+    shooterServo.reset(new Servo(0));
     lw->AddActuator("Servo", "Shooter", std::static_pointer_cast<Servo>(shooterServo));
 
     treuilMoteur.reset(new VictorSP(8));

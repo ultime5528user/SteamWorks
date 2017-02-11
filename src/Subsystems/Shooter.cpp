@@ -36,17 +36,11 @@ double Shooter::GetEncoder(){
 }
 
 void Shooter::SetServoOpen(){
-	servoPosition = SERVO_OPEN ;
+	servo->SetAngle(SERVO_OPEN);
 }
 void Shooter::SetServoClose(){
-	servoPosition = SERVO_CLOSE ;
-}
-
-void Shooter::ServoMove(){
-	servo->SetAngle(servoPosition);
+	servo->SetAngle(SERVO_CLOSE);
 }
 
 
 
-// Put methods for controlling this subsystem
-// here. Call these from Commands.

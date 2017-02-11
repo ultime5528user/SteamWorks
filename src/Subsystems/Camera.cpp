@@ -99,21 +99,43 @@ void Camera::Analyse(const cv::Mat& img, cv::Mat& output)
 	pipeline.process(img);
 	cv::Mat* image = pipeline.getcvErodeOutput();
 
-	frc::DriverStation::ReportError("# Contours : " + std::to_string(pipeline.getfilterContoursOutput()->size()));
+	frc::DriverStation::ReportError("# Contours : " + std::to_string(pipeline.getfindContoursOutput()->size()));
 
 	image->copyTo(output);
 
+	frc::DriverStation::ReportError("Etape 1");
 
 	std::vector<std::vector<cv::Point> >* contours = pipeline.getfindContoursOutput();
 
+	frc::DriverStation::ReportError("Etape 2");
+
 	double centreX, largeur;
+	int size = contours->size();
 	cv::Rect rect;
-	if(contours->size() == 1){
-		 rect = cv::boundingRect(contours->at(0));
+
+	frc::DriverStation::ReportError("Etape 3");
+
+	if(contours->size() == 0) {
+
+		frc::DriverStation::ReportError("Dans if 0");
+	}
+	else if(contours->size() == 1) {
+
+		frc::DriverStation::ReportError("Dans if 1");
+
+		if(!contours->at(0).empty())
+		{
+			frc::DriverStation::ReportError("!empty avant");
+			rect = cv::boundingRect(contours->at(0));
+			frc::DriverStation::ReportError("!empty apres");
+		}
+
 
 
 	}
 	else if(contours->size() == 2){
+
+		frc::DriverStation::ReportError("Dans if 2");
 
 		std::vector<cv::Point> tableau;
 		tableau = contours->at(0);
@@ -123,6 +145,8 @@ void Camera::Analyse(const cv::Mat& img, cv::Mat& output)
 	}
 	else
 	{
+		frc::DriverStation::ReportError("Dans else");
+
 		std::vector<double> scores;
 		int min1(0), min2(1), dist, distMin(241);
 		//trouve min
@@ -130,8 +154,8 @@ void Camera::Analyse(const cv::Mat& img, cv::Mat& output)
 		{
 			for(unsigned int j = i + 1; j < contours->size(); j++)
 			{
-				cv::Rect rect1 = cv::boundingRect(i);
-				cv::Rect rect2 = cv::boundingRect(j);
+				cv::Rect rect1 = cv::boundingRect(contours->at(i));
+				cv::Rect rect2 = cv::boundingRect(contours->at(j));
 				dist = std::abs(rect2.y - rect1.y);
 
 				if( dist < distMin)
@@ -150,16 +174,17 @@ void Camera::Analyse(const cv::Mat& img, cv::Mat& output)
 
 		rect = cv::boundingRect(board);
 
-
-
-
 	}
+
+	frc::DriverStation::ReportError("Etape 4");
 
 		centreX = rect.x + rect.width / 2.0;
 		largeur = rect.width;
 		centreX = (2*(centreX/image->cols))-1;
 		if(callbackFunc)
 			callbackFunc(centreX, largeur );
+
+		frc::DriverStation::ReportError("fin analyse");
 
 	}
 
