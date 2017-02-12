@@ -68,8 +68,6 @@ void Robot::TeleopInit() {
 
 void Robot::TeleopPeriodic() {
 
-	frc::SmartDashboard::PutNumber("Angle X", basePilotable->GetGyro());
-
 	Scheduler::GetInstance()->Run();
 }
 
