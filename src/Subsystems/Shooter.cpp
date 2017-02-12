@@ -7,10 +7,10 @@ double Shooter::VALEUR_INIT(0.75);
 double Shooter::AJUST(0.05);
 double Shooter::INTERVAL_CLOSE(1);
 double Shooter::INTERVAL_OPEN(0.2);
-double Shooter::SERVO_OPEN(100);
-double Shooter::SERVO_CLOSE(90);
+double Shooter::SERVO_OPEN(70);
+double Shooter::SERVO_CLOSE(20);
 
-Shooter::Shooter() : PIDSubsystem("Shooter", 0.0, 0.0, 0.0) {
+Shooter::Shooter() : PIDSubsystem("Shooter", 0.005, 0.002, 0.0) {
 
 	moteur = RobotMap::shooterMoteur;
 	encoder = RobotMap::shooterEncoder;
@@ -22,6 +22,9 @@ Shooter::Shooter() : PIDSubsystem("Shooter", 0.0, 0.0, 0.0) {
 
 	GetPIDController()->SetContinuous(false);
 	frc::LiveWindow::GetInstance()->AddActuator("Shooter", "PID Controller", GetPIDController());
+
+	Disable();
+	SetServoClose();
 }
 
 void Shooter::InitDefaultCommand() {
