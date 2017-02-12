@@ -2,14 +2,19 @@
 #include "Robot.h"
 #include <cmath>
 
-Tourner::Tourner() : Command ("Tourner"){
+Tourner::Tourner() : Tourner(90) {}
+
+Tourner::Tourner(double angle) : Tourner(0, angle, 0, 0)  {}
+
+Tourner::Tourner(double ai, double af, double vi, double vf) : Command ("Tourner"){
 
 	Requires(Robot::basePilotable.get());
 
-	af=45;
-	ai=0.5;
-	vi=0.5;
-	vf=0.3;
+	this->ai = ai;
+	this->af = af;
+	this->vi = vi;
+	this->vf = vf;
+
 	pente=0;
 
 }
@@ -17,17 +22,24 @@ Tourner::Tourner() : Command ("Tourner"){
 // Called just before this Command runs the first time
 void Tourner::Initialize() {
 
-	frc::Preferences* prefs = frc::Preferences::GetInstance();
 
 	Robot::basePilotable->GyroReset();
 
-	vi = prefs->GetDouble("vi", 0.5);
 
-	vf = prefs->GetDouble("vf", 0.3);
+#ifdef SMARTDASHBOARD_VARIABLES
 
-	ai = prefs->GetDouble("ai", 0.5);
+	if(vi == 0)
+	{
+		frc::Preferences* prefs = frc::Preferences::GetInstance();
 
-	af = prefs->GetDouble("af", 0.5);
+		ai = prefs->GetDouble("ai", 0.8 * af);
+		af = prefs->GetDouble("af", af);
+		vi = prefs->GetDouble("vi", 0.5);
+		vf = prefs->GetDouble("vf", 0.3);
+	}
+
+
+#endif
 
 	pente = ((vf-vi)/(af-ai));
 
@@ -35,7 +47,7 @@ void Tourner::Initialize() {
 		vi = std::abs(vi);
 	}
 	else {
-		vi = -1*std::abs(vi);
+		vi = -1 * std::abs(vi);
 	}
 
 }
@@ -47,9 +59,9 @@ void Tourner::Execute() {
 		Robot::basePilotable->Tourner(vi);
 	}
 	else {
-
 		Robot::basePilotable->Tourner( pente * (Robot::basePilotable->GetGyro() - ai) + vi);
 	}
+
 	SmartDashboard::PutNumber("angle", Robot::basePilotable->GetGyro());
 
 }

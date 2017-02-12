@@ -14,6 +14,9 @@ Spin::Spin() : Command("Spin") {
 
 // Called just before this Command runs the first time
 void Spin::Initialize() {
+
+#ifdef SMARTDASHBOARD_VARIABLES
+
     Shooter::VITESSE = frc::Preferences::GetInstance()->GetDouble("shoot_vitesse",0);
     Shooter::THRESHOLD = frc::Preferences::GetInstance()->GetDouble("shoot_threshold",0);
     Shooter::AJUST = frc::Preferences::GetInstance()->GetDouble("shoot_ajust",0);
@@ -22,7 +25,7 @@ void Spin::Initialize() {
     Shooter::SERVO_OPEN = frc::Preferences::GetInstance()->GetDouble("servo_open",0);
     Shooter::SERVO_CLOSE = frc::Preferences::GetInstance()->GetDouble("servo_close",0);
 
-    //Robot::shooter->SetServoOpen();
+#endif
 
     timer.Reset();
 }

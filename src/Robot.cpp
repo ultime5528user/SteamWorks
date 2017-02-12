@@ -22,6 +22,11 @@ std::unique_ptr<OI> Robot::oi;
 
 
 void Robot::RobotInit() {
+
+#ifdef DASHBOARD_VARIABLES
+	frc::DriverStation::ReportError("DASHBOARD_VARIABLES is defined.");
+#endif
+
 	RobotMap::init();
 
 	basePilotable.reset(new BasePilotable());
@@ -56,15 +61,15 @@ void Robot::AutonomousPeriodic() {
 
 void Robot::TeleopInit() {
 
-	// This makes sure that the autonomous stops running when
-	// teleop starts running. If you want the autonomous to
-	// continue until interrupted by another command, remove
-	// these lines or comment it out.
 	if (autonomousCommand.get() != nullptr)
 		autonomousCommand->Cancel();
+
 }
 
 void Robot::TeleopPeriodic() {
+
+	frc::SmartDashboard::PutNumber("Angle X", basePilotable->GetGyro());
+
 	Scheduler::GetInstance()->Run();
 }
 

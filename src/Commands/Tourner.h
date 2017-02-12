@@ -1,18 +1,23 @@
 #ifndef Tourner_H
 #define Tourner_H
 
-#include "commands/Command.h"
+#include "Commands/Command.h"
 
 class Tourner : public Command {
 private:
-	double af;
+
 	double ai;
-	double vf;
+	double af;
 	double vi;
+	double vf;
+
 	double pente;
+
 
 public:
 	Tourner();
+	Tourner(double angle);
+	Tourner(double ai, double af, double vi, double vf);
 
 	void Initialize();
 	void Execute();

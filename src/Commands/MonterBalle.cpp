@@ -12,8 +12,9 @@ MonterBalle::MonterBalle() : Command("MonterBalle") {
 // Called just before this Command runs the first time
 void MonterBalle::Initialize() {
 
+#ifdef SMARTDASHBOARD_VARIABLES
 	RemonteBalle::VITESSE = frc::Preferences::GetInstance()->GetDouble("vitesse_remonte", 0.5);
-
+#endif
 }
 
 // Called repeatedly when this Command is scheduled to run

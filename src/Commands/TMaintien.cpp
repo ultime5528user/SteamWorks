@@ -9,7 +9,9 @@ TMaintien::TMaintien() : Command("TMonter") {
 // Called just before this Command runs the first time
 void TMaintien::Initialize() {
 
+#ifdef SMARTDASHBOARD_VARIABLES
 	Treuil::VALEUR_MAINTIEN = frc::Preferences::GetInstance()->GetDouble("treuil_maintien", 0.5);
+#endif
 
 	Robot::treuil->Maintien();
 }

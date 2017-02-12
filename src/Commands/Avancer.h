@@ -6,17 +6,20 @@
 class Avancer : public Command {
 private:
 	bool terminus;
+
+	double di;
 	double df;
 	double vi;
 	double vf;
-	double di;
+
 	double pente;
-	double calc;
 	double moyenne;
 
 public:
 	Avancer();
 	Avancer(double dist);
+	Avancer(double di, double df, double vi, double vf);
+
 	void Initialize();
 	void Execute();
 	bool IsFinished();

@@ -33,9 +33,8 @@ OI::OI() {
     bouton1.reset(new JoystickButton(stick.get(), 1));
     bouton1->ToggleWhenPressed(new Viser());
     
-
     bouton2.reset(new JoystickButton(stick.get(), 2));
-    //bouton2->ToggleWhenPressed(new TDescendre());
+    bouton2->WhileHeld(new TMonter());
 
     bouton3.reset(new JoystickButton(stick.get(), 3));
     bouton3->WhenPressed(new Spin());

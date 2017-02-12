@@ -3,39 +3,45 @@
 
 Avancer::Avancer() : Avancer(1.0) { }
 
-Avancer::Avancer(double dist) : Command("Avancer") {
+Avancer::Avancer(double dist) : Avancer(0, dist, 0, 0) {}
+
+Avancer::Avancer(double di, double df, double vi, double vf) : Command("Avancer") {
 
 	Requires(Robot::basePilotable.get());
 
-	df=dist;
-	terminus=false;
-	moyenne = 0;
-	di=0.5;
-	vf=0.3;
-	vi=0.5;
-	calc=0;
-	pente=(vf-vi/df-di);
+	this->di = di;
+	this->df = df;
+	this->vi = vi;
+	this->vf = vf;
+
+	terminus = false;
+	moyenne = 0.0;
+
+	pente = (vf-vi)/(df-di);
 
 }
 
 // Called just before this Command runs the first time
 void Avancer::Initialize() {
 
-	frc::Preferences* prefs = frc::Preferences::GetInstance();
+#ifdef SMARTDASHBOARD_VARIABLES
 
-	vi = prefs->GetDouble("vi", 0.5);
+	if(vi == 0)
+	{
+		frc::Preferences* prefs = frc::Preferences::GetInstance();
 
-	vf = prefs->GetDouble("vf", 0.3);
+		vi = prefs->GetDouble("vi", 0.5);
+		vf = prefs->GetDouble("vf", 0.3);
+		di = prefs->GetDouble("di", 0.8*df);
+		df = prefs->GetDouble("df", df);
+	}
 
-	di = prefs->GetDouble("di", 0.5);
-
-	df = prefs->GetDouble("df", 0.5);
+#endif
 
 	pente = ((vf-vi)/(df-di));
 
 	moyenne = 0.0;
 
-	calc = (moyenne-di);
 	Robot::basePilotable->EncoderReset();
 
 
@@ -61,7 +67,7 @@ bool Avancer::IsFinished() {
 	if(Robot::basePilotable->GetEncoderD() >= df || Robot::basePilotable->GetEncoderG() >= df){
 		terminus = true;
 	}
-	else{
+	else {
 		terminus = false;
 	}
 	return terminus;

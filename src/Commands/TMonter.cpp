@@ -14,7 +14,9 @@ TMonter::TMonter() : Command("TMonter") {
 // Called just before this Command runs the first time
 void TMonter::Initialize() {
 
+#ifdef SMARTDASHBOARD_VARIABLES
 	Treuil::VALEUR_MONTER = frc::Preferences::GetInstance()->GetDouble("treuil_monter", 1);
+#endif
 
 	Robot::treuil->Monter();
 
