@@ -53,7 +53,7 @@ void BasePilotable::Drive()
 
 void BasePilotable::Drive(double move, double turn)
 {
-	robotDrive->ArcadeDrive(move, turn);
+	robotDrive->ArcadeDrive(turn, move);
 }
 
 

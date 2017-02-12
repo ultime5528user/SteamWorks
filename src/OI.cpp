@@ -29,7 +29,6 @@ OI::OI() {
 
     stick.reset(new Joystick(0));
 
-
     bouton1.reset(new JoystickButton(stick.get(), 1));
     bouton1->ToggleWhenPressed(new Viser());
     
