@@ -68,6 +68,7 @@ void Robot::TeleopInit() {
 
 void Robot::TeleopPeriodic() {
 
+	frc::SmartDashboard::PutNumber("Accel Y", basePilotable->GetAccelY());
 	Scheduler::GetInstance()->Run();
 }
 

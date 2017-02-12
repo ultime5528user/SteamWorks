@@ -86,6 +86,10 @@ double BasePilotable::GetGyro()
 	return gyro->GetAngleX();
 }
 
+double BasePilotable::GetAccelY()
+{
+}
+
 void BasePilotable::EncoderReset()
 {
 	encoderD->Reset();
