@@ -20,7 +20,7 @@
 #include "Commands/Avancer.h"
 #include "Commands/Tourner.h"
 #include "Commands/Shoot.h"
-#include "Commands/Spin.h"
+#include "Commands/SafeSpin.h"
 #include "Commands/StopShoot.h"
 
 #include "Commands/MonterBalle.h"
@@ -28,24 +28,38 @@
 OI::OI() {
 
     stick.reset(new Joystick(0));
+    gamepad.reset(new Joystick(1));
 
     bouton1.reset(new JoystickButton(stick.get(), 1));
-    bouton1->ToggleWhenPressed(new Viser());
+    //bouton1->ToggleWhenPressed(new Viser());
     
     bouton2.reset(new JoystickButton(stick.get(), 2));
-    bouton2->WhileHeld(new TMonter());
+    bouton2->ToggleWhenPressed(new MonterBalle());
+
 
     bouton3.reset(new JoystickButton(stick.get(), 3));
-    bouton3->WhenPressed(new Spin());
-
+    bouton3->ToggleWhenPressed(new Viser());
+/*
     bouton4.reset(new JoystickButton(stick.get(), 4));
     bouton4->WhenPressed(new StopShoot());
 
     bouton5.reset(new JoystickButton(stick.get(), 5));
     bouton5->WhenPressed(new Shoot());
+*/
+    //bouton6.reset(new JoystickButton(stick.get(), 6));
+    //bouton6->ToggleWhenPressed(new MonterBalle());
 
-    bouton6.reset(new JoystickButton(stick.get(), 6));
-    bouton6->ToggleWhenPressed(new MonterBalle());
+    bouton11.reset(new JoystickButton(stick.get(), 11));
+    bouton11->ToggleWhenPressed(new TMonter());
+
+    gboutonA.reset(new JoystickButton(gamepad.get(), 1));
+    gboutonA->WhenPressed(new SafeSpin());
+
+    gboutonB.reset(new JoystickButton(gamepad.get(), 2));
+    gboutonB->WhenPressed(new Shoot());
+
+    gboutonX.reset(new JoystickButton(gamepad.get(), 3));
+    gboutonX->WhenPressed(new StopShoot());
 
     SmartDashboard::PutData("Pilotage", new Pilotage());
     SmartDashboard::PutData("Avancer", new Avancer());

@@ -40,6 +40,7 @@ public:
 	static double B_TURN;
 	static double K_MOVE;
 	static double B_MOVE;
+	static double ACCEL_THRESHOLD;
 
 	BasePilotable();
 	void InitDefaultCommand();

@@ -26,7 +26,7 @@ void Tourner::Initialize() {
 	Robot::basePilotable->GyroReset();
 
 
-#ifdef SMARTDASHBOARD_VARIABLES
+#ifdef DASHBOARD_VARIABLES
 
 	if(vi == 0)
 	{

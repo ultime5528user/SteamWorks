@@ -22,6 +22,7 @@ public:
 	static double INTERVAL_OPEN;
 	static double SERVO_OPEN;
 	static double SERVO_CLOSE;
+	static double VALEUR_UNLOAD;
 
 
 	Shooter();
