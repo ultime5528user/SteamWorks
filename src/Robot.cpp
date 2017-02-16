@@ -8,8 +8,13 @@
 // update. Deleting the comments indicating the section will prevent
 // it from being updated in the future.
 
-#include "Robot.h"
-
+#include <Commands/AutoGearBleuDroite.h>
+#include <Commands/AutoGearRougeGauche.h>
+#include <Robot.h>
+#include "Commands/AutoBallesGearRouge.h"
+#include "Commands/AutoBallesGearBleu.h"
+#include "Commands/NoMotion.h"
+#include "Commands/ForwardToGlory.h"
 std::shared_ptr<BasePilotable> Robot::basePilotable;
 std::shared_ptr<Shooter> Robot::shooter;
 std::shared_ptr<Camera> Robot::camera;
@@ -39,7 +44,18 @@ void Robot::RobotInit() {
 
 	oi.reset(new OI());
 	
+	chooser.AddDefault("Porter_Gear_Devant", new Viser());
+	chooser.AddObject("Auto_Balles_Gear_Rouge", new AutoBallesGearRouge());
+	chooser.AddObject("Auto_Balles_Gear_Bleu", new AutoBallesGearBleu());
+	chooser.AddObject("Auto_Gear_Bleu_Droite", new AutoGearBleuDroite());
+	chooser.AddObject("Auto_Gear_Rouge_Gauche", new AutoGearRougeGauche());
+	chooser.AddObject("No_Motion" , new NoMotion());
+	chooser.AddObject("Forward_To_Glory" ,new ForwardToGlory());
+	frc::SmartDashboard::PutData("Modes autonomes", &chooser);
+
+
 }
+
 
 
 void Robot::DisabledInit(){
@@ -51,9 +67,12 @@ void Robot::DisabledPeriodic() {
 }
 
 void Robot::AutonomousInit() {
+	autonomousCommand.reset(chooser.GetSelected());
+
 	if (autonomousCommand.get() != nullptr)
 		autonomousCommand->Start();
 }
+
 
 void Robot::AutonomousPeriodic() {
 	Scheduler::GetInstance()->Run();
