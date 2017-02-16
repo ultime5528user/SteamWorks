@@ -68,7 +68,9 @@ void Robot::TeleopInit() {
 
 void Robot::TeleopPeriodic() {
 
-	frc::SmartDashboard::PutNumber("Accel Y", basePilotable->GetAccelY());
+	frc::SmartDashboard::PutNumber("Encodeur Gauche", basePilotable->GetEncoderG());
+	frc::SmartDashboard::PutNumber("Encodeur Droite", basePilotable->GetEncoderD());
+	frc::SmartDashboard::PutNumber("Angle X", basePilotable->GetGyro());
 	Scheduler::GetInstance()->Run();
 }
 

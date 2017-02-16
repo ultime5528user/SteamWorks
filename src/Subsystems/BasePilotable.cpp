@@ -59,16 +59,20 @@ void BasePilotable::Drive(double move, double turn)
 
 void BasePilotable::Stop()
 {
-
 	moteurG->Set(0);
 	moteurD->Set(0);
-
 }
 
 void BasePilotable::Avancer(double value)
 {
-	robotDrive->ArcadeDrive(0.0, -value);
+	Drive(value, 0.0);
 }
+
+void BasePilotable::Tourner(double value)
+{
+	Drive(0.0, value);
+}
+
 
 double BasePilotable::GetEncoderD()
 {
@@ -102,8 +106,5 @@ void BasePilotable::GyroReset()
 	gyro->Reset();
 }
 
-void BasePilotable::Tourner(double value)
-{
-	robotDrive->ArcadeDrive(value, 0.0);
-}
+
 

@@ -7,9 +7,7 @@
 
 class Shoot : public Command {
 private:
-	double value;
-	bool ajust;
-	frc::Timer timer;
+
 public:
 	Shoot();
 	void Initialize();

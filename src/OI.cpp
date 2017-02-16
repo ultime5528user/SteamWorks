@@ -50,7 +50,7 @@ OI::OI() {
     //bouton6->ToggleWhenPressed(new MonterBalle());
 
     bouton11.reset(new JoystickButton(stick.get(), 11));
-    bouton11->ToggleWhenPressed(new TMonter());
+    bouton11->WhileHeld(new TMonter());
 
     gboutonA.reset(new JoystickButton(gamepad.get(), 1));
     gboutonA->WhenPressed(new SafeSpin());

@@ -10,10 +10,12 @@ private:
 public:
 
 	static double VITESSE;
+	static double VITESSE_LENT;
 
 	RemonteBalle();
 	void InitDefaultCommand();
 	void Monte();
+	void MonteLent();
 	void Stop();
 };
 

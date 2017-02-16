@@ -13,13 +13,13 @@ MonterBalle::MonterBalle() : Command("MonterBalle") {
 void MonterBalle::Initialize() {
 
 #ifdef DASHBOARD_VARIABLES
-	RemonteBalle::VITESSE = frc::Preferences::GetInstance()->GetDouble("vitesse_remonte", 0.5);
+	RemonteBalle::VITESSE_LENT = frc::Preferences::GetInstance()->GetDouble("vitesse_remonte_lent", -0.2);
 #endif
 }
 
 // Called repeatedly when this Command is scheduled to run
 void MonterBalle::Execute() {
-	Robot::remonteBalle->Monte();
+	Robot::remonteBalle->MonteLent();
 }
 
 // Make this return true when this Command no longer needs to run execute()

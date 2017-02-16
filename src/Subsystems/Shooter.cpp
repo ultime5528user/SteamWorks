@@ -7,9 +7,9 @@ double Shooter::VALEUR_INIT(0.75);
 double Shooter::AJUST(0.05);
 double Shooter::INTERVAL_CLOSE(1);
 double Shooter::INTERVAL_OPEN(0.2);
-double Shooter::SERVO_OPEN(70);
-double Shooter::SERVO_CLOSE(20);
-double Shooter::VALEUR_UNLOAD(-0.3);
+double Shooter::SERVO_OPEN(150);
+double Shooter::SERVO_CLOSE(100);
+double Shooter::VALEUR_UNLOAD(-0.25);
 
 Shooter::Shooter() : PIDSubsystem("Shooter", 0.005, 0.002, 0.0) {
 
