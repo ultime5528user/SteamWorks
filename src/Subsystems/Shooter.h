@@ -2,18 +2,16 @@
 #define Shooter_H
 
 #include <Servo.h>
-#include <Commands/Subsystem.h>
+#include <Commands/PIDSubsystem.h>
 #include <SpeedController.h>
 #include <Encoder.h>
 
-class Shooter : public Subsystem {
+class Shooter : public PIDSubsystem {
 private:
-	// It's desirable that everything possible under private except
-	// for methods that implement subsystem capabilities
 	std::shared_ptr<SpeedController> moteur;
 	std::shared_ptr<Encoder> encoder;
 	std::shared_ptr<Servo> servo;
-	double servoPosition;
+
 public:
 
 	static double VITESSE;
@@ -24,6 +22,7 @@ public:
 	static double INTERVAL_OPEN;
 	static double SERVO_OPEN;
 	static double SERVO_CLOSE;
+	static double VALEUR_UNLOAD;
 
 
 	Shooter();
@@ -33,6 +32,11 @@ public:
 	double GetEncoder();
 	void SetServoOpen();
 	void SetServoClose();
+
+protected:
+	virtual double ReturnPIDInput();
+	virtual void UsePIDOutput(double output);
+
 };
 
 #endif  // Shooter_H

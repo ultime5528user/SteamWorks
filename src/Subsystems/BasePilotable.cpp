@@ -20,7 +20,7 @@ double BasePilotable::K_MOVE(1);
 double BasePilotable::K_TURN(1);
 double BasePilotable::B_TURN(0);
 double BasePilotable::B_MOVE(0);
-
+double BasePilotable::ACCEL_THRESHOLD(-2);
 
 BasePilotable::BasePilotable() : Subsystem("BasePilotable")
 {
@@ -53,22 +53,26 @@ void BasePilotable::Drive()
 
 void BasePilotable::Drive(double move, double turn)
 {
-	robotDrive->ArcadeDrive(move, turn);
+	robotDrive->ArcadeDrive(turn, move);
 }
 
 
 void BasePilotable::Stop()
 {
-
 	moteurG->Set(0);
 	moteurD->Set(0);
-
 }
 
 void BasePilotable::Avancer(double value)
 {
-	robotDrive->ArcadeDrive(-value, 0.0);
+	Drive(value, 0.0);
 }
+
+void BasePilotable::Tourner(double value)
+{
+	Drive(0.0, value);
+}
+
 
 double BasePilotable::GetEncoderD()
 {
@@ -86,6 +90,11 @@ double BasePilotable::GetGyro()
 	return gyro->GetAngleX();
 }
 
+double BasePilotable::GetAccelY()
+{
+	return -1 * gyro->GetAccelY();
+}
+
 void BasePilotable::EncoderReset()
 {
 	encoderD->Reset();
@@ -97,8 +106,5 @@ void BasePilotable::GyroReset()
 	gyro->Reset();
 }
 
-void BasePilotable::Tourner(double value)
-{
-	robotDrive->ArcadeDrive(0.0, value);
-}
+
 

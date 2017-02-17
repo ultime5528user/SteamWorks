@@ -26,21 +26,18 @@ void Tourner::Initialize() {
 	Robot::basePilotable->GyroReset();
 
 
-#ifdef SMARTDASHBOARD_VARIABLES
+#ifdef DASHBOARD_VARIABLES
 
-	if(vi == 0)
-	{
-		frc::Preferences* prefs = frc::Preferences::GetInstance();
+	frc::Preferences* prefs = frc::Preferences::GetInstance();
 
-		ai = prefs->GetDouble("ai", 0.8 * af);
-		af = prefs->GetDouble("af", af);
-		vi = prefs->GetDouble("vi", 0.5);
-		vf = prefs->GetDouble("vf", 0.3);
-	}
-
+	ai = prefs->GetDouble("ai", 0.8 * af);
+	af = prefs->GetDouble("af", af);
+	vi = prefs->GetDouble("vi", 0.5);
+	vf = prefs->GetDouble("vf", 0.3);
 
 #endif
 
+	/*
 	pente = ((vf-vi)/(af-ai));
 
 	if (af > 0) {
@@ -49,7 +46,7 @@ void Tourner::Initialize() {
 	else {
 		vi = -1 * std::abs(vi);
 	}
-
+*/
 }
 
 // Called repeatedly when this Command is scheduled to run
@@ -61,8 +58,6 @@ void Tourner::Execute() {
 	else {
 		Robot::basePilotable->Tourner( pente * (Robot::basePilotable->GetGyro() - ai) + vi);
 	}
-
-	SmartDashboard::PutNumber("angle", Robot::basePilotable->GetGyro());
 
 }
 

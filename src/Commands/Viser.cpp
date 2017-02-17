@@ -15,22 +15,27 @@ Viser::Viser():
 // Called just before this Command runs the first time
 void Viser::Initialize( ) {
 
+#ifdef DASHBOARD_VARIABLES
+
 	frc::Preferences* prefs = frc::Preferences::GetInstance();
 
-	grip::GripPipeline::H_MIN = prefs->GetDouble("h_min", 61);
+	grip::GripPipeline::H_MIN = prefs->GetDouble("h_min", 70.0);
 	grip::GripPipeline::H_MAX = prefs->GetDouble("h_max", 80.0);
-	grip::GripPipeline::S_MIN = prefs->GetDouble("s_min", 241.0);
+	grip::GripPipeline::S_MIN = prefs->GetDouble("s_min", 230.0);
 	grip::GripPipeline::S_MAX = prefs->GetDouble("s_max", 255.0);
-	grip::GripPipeline::V_MIN = prefs->GetDouble("v_min", 96.0);
-	grip::GripPipeline::V_MAX = prefs->GetDouble("v_max", 190.0);
+	grip::GripPipeline::V_MIN = prefs->GetDouble("v_min", 40.0);
+	grip::GripPipeline::V_MAX = prefs->GetDouble("v_max", 255.0);
 
 	Camera::EXPOSURE = (int)prefs->GetDouble("exposure", 0);
-	Camera::WIDTH_THRESHOLD = prefs->GetDouble("width_threshold");
-	Camera::X_THRESHOLD = prefs->GetDouble("x_threshold");
-	BasePilotable::B_MOVE = prefs->GetDouble("b_move");
-	BasePilotable::B_TURN = prefs->GetDouble("b_turn");
-	BasePilotable::K_MOVE = prefs->GetDouble("k_move");
-	BasePilotable::K_TURN = prefs->GetDouble("k_turn");
+	Camera::WIDTH_THRESHOLD = prefs->GetDouble("width_threshold", 5.0);
+	Camera::X_THRESHOLD = prefs->GetDouble("x_threshold", 0.1);
+	BasePilotable::B_MOVE = prefs->GetDouble("b_move", 0.0);
+	BasePilotable::B_TURN = prefs->GetDouble("b_turn", 0.0);
+	BasePilotable::K_MOVE = prefs->GetDouble("k_move", 0.0);
+	BasePilotable::K_TURN = prefs->GetDouble("k_turn", 0.0);
+
+	BasePilotable::ACCEL_THRESHOLD = prefs->GetDouble("accel_threshold", -2);
+#endif
 
 	Robot::camera->StartGrip(&Viser::SetParam, this);
 }
@@ -47,35 +52,46 @@ void Viser::Execute() {
 		largeur = m_largeur;
 	}
 
-	double move, turn;
+	double move(0.0), turn(0.0);
 
-	if(abs(centreX) > Camera::X_THRESHOLD){
-		turn = centreX*BasePilotable::K_TURN + BasePilotable::B_TURN;
+	if(std::abs(centreX) > Camera::X_THRESHOLD){
+		turn = centreX * BasePilotable::K_TURN + (centreX > 0 ? 1.0 : -1.0) * BasePilotable::B_TURN;
 	}
 	else {
 		turn = 0;
 	}
 
+	if(largeur == 0) {
+		move = 0;
+	}
+	else {
+		move = BasePilotable::K_MOVE;
+	}
+
+	/*
 	if(largeur <= Camera::WIDTH_THRESHOLD){
 		move = BasePilotable::K_MOVE/largeur + BasePilotable::B_MOVE;
 	}
 	else {
 		move = 0;
 	}
-
+	 */
 
 
 	Robot::basePilotable->Drive(move, turn);
-	//Coeur de la commande
 
 	frc::SmartDashboard::PutNumber("Centre X", centreX);
 	frc::SmartDashboard::PutNumber("Largeur particule", largeur);
+	frc::SmartDashboard::PutNumber("X_Threshold", Camera::X_THRESHOLD);
+	frc::SmartDashboard::PutNumber("Width threshold", Camera::WIDTH_THRESHOLD);
+	frc::SmartDashboard::PutNumber("Move", move);
+	frc::SmartDashboard::PutNumber("Turn", turn);
 
 }
 
 // Make this return true when this Command no longer needs to run execute()
 bool Viser::IsFinished() {
-	return false;
+	return (Robot::basePilotable->GetAccelY() < BasePilotable::ACCEL_THRESHOLD);
 }
 
 // Called once after isFinished returns true

@@ -12,14 +12,14 @@ MonterBalle::MonterBalle() : Command("MonterBalle") {
 // Called just before this Command runs the first time
 void MonterBalle::Initialize() {
 
-#ifdef SMARTDASHBOARD_VARIABLES
-	RemonteBalle::VITESSE = frc::Preferences::GetInstance()->GetDouble("vitesse_remonte", 0.5);
+#ifdef DASHBOARD_VARIABLES
+	RemonteBalle::VITESSE_LENT = frc::Preferences::GetInstance()->GetDouble("vitesse_remonte_lent", -0.2);
 #endif
 }
 
 // Called repeatedly when this Command is scheduled to run
 void MonterBalle::Execute() {
-	Robot::remonteBalle->Monte();
+	Robot::remonteBalle->MonteLent();
 }
 
 // Make this return true when this Command no longer needs to run execute()

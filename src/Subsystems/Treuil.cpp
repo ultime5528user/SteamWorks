@@ -25,5 +25,3 @@ void Treuil::Maintien(){
 void Treuil::Stop(){
 	moteur->Set(0);
 }
-// Put methods for controlling this subsystem
-// here. Call these from Commands.

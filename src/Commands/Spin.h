@@ -7,9 +7,7 @@
 
 class Spin : public Command {
 private:
-	double value;
-	bool ajust;
-	frc::Timer timer;
+
 public:
 	Spin();
 	void Initialize();

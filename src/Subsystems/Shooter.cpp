@@ -7,19 +7,29 @@ double Shooter::VALEUR_INIT(0.75);
 double Shooter::AJUST(0.05);
 double Shooter::INTERVAL_CLOSE(1);
 double Shooter::INTERVAL_OPEN(0.2);
-double Shooter::SERVO_OPEN(100);
-double Shooter::SERVO_CLOSE(90);
+double Shooter::SERVO_OPEN(150);
+double Shooter::SERVO_CLOSE(100);
+double Shooter::VALEUR_UNLOAD(-0.25);
 
-Shooter::Shooter() : Subsystem("Shooter") {
+Shooter::Shooter() : PIDSubsystem("Shooter", 0.005, 0.002, 0.0) {
+
 	moteur = RobotMap::shooterMoteur;
 	encoder = RobotMap::shooterEncoder;
 	servo = RobotMap::shooterServo;
-	servoPosition = SERVO_CLOSE;
+
+	SetAbsoluteTolerance(5.5);
+	SetInputRange(0.0, 100.0);
+	SetOutputRange(-1.0, 1.0);
+
+	GetPIDController()->SetContinuous(false);
+	frc::LiveWindow::GetInstance()->AddActuator("Shooter", "PID Controller", GetPIDController());
+
+	Disable();
+	SetServoClose();
 }
 
 void Shooter::InitDefaultCommand() {
 
-	// SetDefaultCommand(new MySpecialCommand());
 }
 
 void Shooter::Shoot(double value) {
@@ -42,5 +52,15 @@ void Shooter::SetServoClose(){
 	servo->SetAngle(SERVO_CLOSE);
 }
 
+double Shooter::ReturnPIDInput()
+{
+	return encoder->GetRate();
+}
+
+void Shooter::UsePIDOutput(double output)
+{
+	frc::SmartDashboard::PutNumber("Shooter PID Output", output);
+	moteur->Set(output);
+}
 
 

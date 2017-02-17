@@ -24,7 +24,7 @@ Avancer::Avancer(double di, double df, double vi, double vf) : Command("Avancer"
 // Called just before this Command runs the first time
 void Avancer::Initialize() {
 
-#ifdef SMARTDASHBOARD_VARIABLES
+#ifdef DASHBOARD_VARIABLES
 
 	if(vi == 0)
 	{
