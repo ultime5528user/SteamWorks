@@ -45,7 +45,7 @@ void Robot::RobotInit() {
 
 	oi.reset(new OI());
 	
-	chooser.AddDefault("No_Motion" , new NoMotion());
+	chooser.AddDefault("No_Motion" , nullptr);
 	chooser.AddObject("Porter_Gear_Devant", new Viser());
 	chooser.AddObject("Auto_Balles_Gear_Rouge", new AutoBallesGearRouge());
 	chooser.AddObject("Auto_Balles_Gear_Bleu", new AutoBallesGearBleu());

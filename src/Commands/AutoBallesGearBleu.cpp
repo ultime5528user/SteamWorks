@@ -12,7 +12,7 @@ AutoBallesGearBleu::AutoBallesGearBleu() {
 
 	AddParallel(new MonterBalle());
 	AddParallel(new Shoot());
-	AddSequential(new TimedCommand("Attente AutoBallesGearBleu", 5.0));
+	AddSequential(new WaitCommand("Attente AutoBallesGearBleu", 5.0));
 	AddParallel(new StopShoot());
 
 	AddSequential(new Avancer(-1.32));

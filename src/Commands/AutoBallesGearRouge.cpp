@@ -10,7 +10,7 @@ AutoBallesGearRouge::AutoBallesGearRouge() {
 
 	AddParallel(new MonterBalle());
 	AddParallel(new Shoot());
-	AddSequential(new TimedCommand("Attente AutoBallesGearRouge", 5.0));
+	AddSequential(new WaitCommand("Attente AutoBallesGearRouge", 5.0));
 	AddParallel(new StopShoot());
 
 	AddSequential (new Avancer(-1.32));
