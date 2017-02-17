@@ -8,8 +8,12 @@
 class Shoot : public Command {
 private:
 
+	double setpoint;
+
 public:
 	Shoot();
+	Shoot(double setpoint);
+
 	void Initialize();
 	void Execute();
 	bool IsFinished();

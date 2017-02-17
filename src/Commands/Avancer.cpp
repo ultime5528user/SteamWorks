@@ -3,7 +3,20 @@
 
 Avancer::Avancer() : Avancer(1.0) { }
 
-Avancer::Avancer(double dist) : Avancer(0, dist, 0, 0) {}
+Avancer::Avancer(double dist) : Command("Avancer")
+{
+	Requires(Robot::basePilotable.get());
+
+	di = 0;
+	df = dist;
+	vi = 0;
+	vf = 0;
+
+	pente = 0;
+	moyenne = 0;
+
+	getDB = true;
+}
 
 Avancer::Avancer(double di, double df, double vi, double vf) : Command("Avancer") {
 
@@ -14,10 +27,11 @@ Avancer::Avancer(double di, double df, double vi, double vf) : Command("Avancer"
 	this->vi = vi;
 	this->vf = vf;
 
-	terminus = false;
 	moyenne = 0.0;
 
 	pente = (vf-vi)/(df-di);
+
+	getDB = false;
 
 }
 
@@ -26,14 +40,14 @@ void Avancer::Initialize() {
 
 #ifdef DASHBOARD_VARIABLES
 
-	if(vi == 0)
+	if(getDB)
 	{
-		frc::Preferences* prefs = frc::Preferences::GetInstance();
+			frc::Preferences* prefs = frc::Preferences::GetInstance();
 
-		vi = prefs->GetDouble("vi", 0.5);
-		vf = prefs->GetDouble("vf", 0.3);
-		di = prefs->GetDouble("di", 0.8*df);
-		df = prefs->GetDouble("df", df);
+			vi = prefs->GetDouble("vi", 0.5);
+			vf = prefs->GetDouble("vf", 0.3);
+			di = prefs->GetDouble("di", 0.8*df);
+			df = prefs->GetDouble("df", df);
 	}
 
 #endif
@@ -51,7 +65,7 @@ void Avancer::Initialize() {
 // Called repeatedly when this Command is scheduled to run
 void Avancer::Execute() {
 
-	if(Robot::basePilotable->GetEncoderD() < di && Robot::basePilotable->GetEncoderG() < di){
+	if(std::abs(Robot::basePilotable->GetEncoderD()) < std::abs(di) || std::abs(Robot::basePilotable->GetEncoderG()) < std::abs(di)){
 		Robot::basePilotable->Avancer(vi);
 	}
 	else {
@@ -64,13 +78,8 @@ void Avancer::Execute() {
 // Make this return true when this Command no longer needs to run execute()
 bool Avancer::IsFinished() {
 
-	if(Robot::basePilotable->GetEncoderD() >= df || Robot::basePilotable->GetEncoderG() >= df){
-		terminus = true;
-	}
-	else {
-		terminus = false;
-	}
-	return terminus;
+	return std::abs(Robot::basePilotable->GetEncoderD()) >= std::abs(df) || std::abs(Robot::basePilotable->GetEncoderG()) >= std::abs(df);
+
 }
 
 // Called once after isFinished returns true

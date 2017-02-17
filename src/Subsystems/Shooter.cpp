@@ -1,7 +1,7 @@
 #include "Shooter.h"
 #include "../RobotMap.h"
 
-double Shooter::VITESSE(0);
+double Shooter::VITESSE(77);
 double Shooter::THRESHOLD(10);
 double Shooter::VALEUR_INIT(0.75);
 double Shooter::AJUST(0.05);

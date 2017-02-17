@@ -27,6 +27,7 @@ std::shared_ptr<Servo> RobotMap::shooterServo;
 std::shared_ptr<SpeedController> RobotMap::shooterMoteur;
 
 std::shared_ptr<SpeedController> RobotMap::treuilMoteur;
+std::shared_ptr<frc::Servo> RobotMap::treuilServo;
 
 std::shared_ptr<SpeedController> RobotMap::remonteBalleMoteur;
 
@@ -76,7 +77,11 @@ void RobotMap::init() {
     lw->AddActuator("Servo", "Shooter", std::static_pointer_cast<Servo>(shooterServo));
 
     treuilMoteur.reset(new VictorSP(8));
-    lw->AddActuator("Treuil", "Treuil", std::static_pointer_cast<VictorSP>(treuilMoteur));
+    lw->AddActuator("Treuil", "Moteur", std::static_pointer_cast<VictorSP>(treuilMoteur));
+
+    treuilServo.reset(new frc::Servo(2));
+    lw->AddActuator("Treuil", "Servo", treuilServo);
+
 
     remonteBalleMoteur.reset(new VictorSP(9));
     lw->AddActuator("RemonteBalle", "RemonteBalle", std::static_pointer_cast<VictorSP>(remonteBalleMoteur));

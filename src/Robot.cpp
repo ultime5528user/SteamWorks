@@ -13,7 +13,7 @@
 #include <Robot.h>
 #include "Commands/AutoBallesGearRouge.h"
 #include "Commands/AutoBallesGearBleu.h"
-#include "Commands/NoMotion.h"
+
 
 
 std::shared_ptr<BasePilotable> Robot::basePilotable;

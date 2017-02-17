@@ -13,6 +13,7 @@ private:
 
 	double pente;
 
+	bool getDB;
 
 public:
 	Tourner();

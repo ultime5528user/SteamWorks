@@ -6,7 +6,7 @@
 #include "StopShoot.h"
 #include "Avancer.h"
 #include "Viser.h"
-#include <Commands/TimedCommand.h>
+#include <Commands/WaitCommand.h>
 
 AutoBallesGearBleu::AutoBallesGearBleu() {
 

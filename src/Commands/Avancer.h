@@ -5,7 +5,6 @@
 
 class Avancer : public Command {
 private:
-	bool terminus;
 
 	double di;
 	double df;
@@ -14,6 +13,8 @@ private:
 
 	double pente;
 	double moyenne;
+
+	bool getDB;
 
 public:
 	Avancer();

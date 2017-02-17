@@ -4,10 +4,14 @@
 #include <Timer.h>
 #include "../Subsystems/Shooter.h"
 
-Shoot::Shoot() : Command("Shoot") {
+Shoot::Shoot() : Shoot(Shooter::VITESSE) {}
+
+Shoot::Shoot(double setpoint) : Command("Shoot") {
 
 	Requires(Robot::shooter.get());
 	Requires(Robot::remonteBalle.get());
+
+	this->setpoint = setpoint;
 
 }
 
@@ -16,7 +20,7 @@ void Shoot::Initialize() {
 
 #ifdef DASHBOARD_VARIABLES
 
-    Shooter::VITESSE = frc::Preferences::GetInstance()->GetDouble("shoot_vitesse", -0.3);
+    //Shooter::VITESSE = frc::Preferences::GetInstance()->GetDouble("shoot_vitesse", -0.3);
     Shooter::THRESHOLD = frc::Preferences::GetInstance()->GetDouble("shoot_threshold",0);
     Shooter::AJUST = frc::Preferences::GetInstance()->GetDouble("shoot_ajust",0);
     Shooter::INTERVAL_CLOSE = frc::Preferences::GetInstance()->GetDouble("interval_close",0);
@@ -29,7 +33,7 @@ void Shoot::Initialize() {
     Robot::shooter->SetServoOpen();
 
     Robot::shooter->SetAbsoluteTolerance(Shooter::THRESHOLD);
-    Robot::shooter->SetSetpoint(Shooter::VITESSE);
+    Robot::shooter->SetSetpoint(setpoint);
     Robot::shooter->Enable();
 
 }

@@ -4,7 +4,19 @@
 
 Tourner::Tourner() : Tourner(90) {}
 
-Tourner::Tourner(double angle) : Tourner(0, angle, 0, 0)  {}
+Tourner::Tourner(double angle) : Command("Tourner")
+{
+	Requires(Robot::basePilotable.get());
+
+	ai = 0;
+	af = angle;
+	vi = 0;
+	vf = 0;
+
+	pente = 0;
+
+	getDB = true;
+}
 
 Tourner::Tourner(double ai, double af, double vi, double vf) : Command ("Tourner"){
 
@@ -15,7 +27,9 @@ Tourner::Tourner(double ai, double af, double vi, double vf) : Command ("Tourner
 	this->vi = vi;
 	this->vf = vf;
 
-	pente=0;
+	pente = 0;
+
+	getDB = false;
 
 }
 
@@ -28,31 +42,28 @@ void Tourner::Initialize() {
 
 #ifdef DASHBOARD_VARIABLES
 
-	frc::Preferences* prefs = frc::Preferences::GetInstance();
+	if(getDB)
+	{
+		frc::Preferences* prefs = frc::Preferences::GetInstance();
 
-	ai = prefs->GetDouble("ai", 0.8 * af);
-	af = prefs->GetDouble("af", af);
-	vi = prefs->GetDouble("vi", 0.5);
-	vf = prefs->GetDouble("vf", 0.3);
+		ai = prefs->GetDouble("ai", 0.8 * af);
+		af = prefs->GetDouble("af", af);
+		vi = prefs->GetDouble("vi", 0.5);
+		vf = prefs->GetDouble("vf", 0.3);
+	}
+
 
 #endif
 
-	/*
+
 	pente = ((vf-vi)/(af-ai));
 
-	if (af > 0) {
-		vi = std::abs(vi);
-	}
-	else {
-		vi = -1 * std::abs(vi);
-	}
-*/
 }
 
 // Called repeatedly when this Command is scheduled to run
 void Tourner::Execute() {
 
-	if(Robot::basePilotable->GetGyro() < ai){
+	if(std::abs(Robot::basePilotable->GetGyro()) < std::abs(ai)){
 		Robot::basePilotable->Tourner(vi);
 	}
 	else {
