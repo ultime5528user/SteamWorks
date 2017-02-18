@@ -70,6 +70,8 @@ void Tourner::Execute() {
 		Robot::basePilotable->Tourner( pente * (Robot::basePilotable->GetGyro() - ai) + vi);
 	}
 
+	frc::SmartDashboard::PutNumber("Angle X", Robot::basePilotable->GetGyro());
+
 }
 
 // Make this return true when this Command no longer needs to run execute()

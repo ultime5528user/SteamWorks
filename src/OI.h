@@ -26,6 +26,8 @@ private:
 	std::shared_ptr<JoystickButton> bouton5;
 	std::shared_ptr<JoystickButton> bouton6;
 	std::shared_ptr<JoystickButton> bouton7;
+	std::shared_ptr<JoystickButton> bouton9;
+	std::shared_ptr<JoystickButton> bouton10;
 	std::shared_ptr<JoystickButton> bouton11;
 
 	std::shared_ptr<JoystickButton> gboutonA;

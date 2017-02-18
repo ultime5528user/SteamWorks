@@ -6,7 +6,9 @@
 
 class AutoBallesGearBleu : public CommandGroup {
 public:
-	AutoBallesGearBleu();
+	static double VITESSE_SHOOT;
+
+	AutoBallesGearBleu(double timeout = 3.0);
 };
 
 #endif  // AutoBallesGearBleu_H

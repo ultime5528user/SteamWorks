@@ -68,6 +68,7 @@ void Robot::DisabledPeriodic() {
 }
 
 void Robot::AutonomousInit() {
+
 	autonomousCommand.reset(chooser.GetSelected());
 
 	if (autonomousCommand.get() != nullptr)

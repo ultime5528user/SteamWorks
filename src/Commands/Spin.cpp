@@ -7,7 +7,6 @@
 Spin::Spin() : Command("Spin") {
 
 	Requires(Robot::shooter.get());
-	Requires(Robot::remonteBalle.get());
 
 }
 
@@ -36,8 +35,6 @@ void Spin::Initialize() {
 
 void Spin::Execute() {
 
-	Robot::remonteBalle->Monte();
-
 }
 
 
@@ -51,8 +48,6 @@ bool Spin::IsFinished() {
 void Spin::End() {
 
 	Robot::shooter->Disable();
-	Robot::remonteBalle->Stop();
-
 }
 
 // Called when another command which requires one or more of the same

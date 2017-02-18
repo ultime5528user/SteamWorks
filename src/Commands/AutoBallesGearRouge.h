@@ -6,6 +6,8 @@
 
 class AutoBallesGearRouge : public CommandGroup {
 public:
+	static double VITESSE_SHOOT;
+
 	AutoBallesGearRouge();
 };
 

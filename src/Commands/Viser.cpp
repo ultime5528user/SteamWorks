@@ -10,6 +10,8 @@ Viser::Viser():
 
 	Requires(Robot::camera.get());
 	Requires(Robot::basePilotable.get());
+
+	SetTimeout(1);
 }
 
 // Called just before this Command runs the first time
@@ -91,7 +93,8 @@ void Viser::Execute() {
 
 // Make this return true when this Command no longer needs to run execute()
 bool Viser::IsFinished() {
-	return (Robot::basePilotable->GetAccelY() < BasePilotable::ACCEL_THRESHOLD);
+
+	return (Robot::basePilotable->GetAccelY() < BasePilotable::ACCEL_THRESHOLD) && IsTimedOut();
 }
 
 // Called once after isFinished returns true

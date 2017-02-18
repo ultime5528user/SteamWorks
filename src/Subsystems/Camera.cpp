@@ -87,7 +87,7 @@ void Camera::EndGrip(){
 
 	visionRunning = false;
 
-	camera->SetExposureManual(25);
+	camera->SetExposureManual(35);
 }
 
 void Camera::Analyse(const cv::Mat& img, cv::Mat& output)
