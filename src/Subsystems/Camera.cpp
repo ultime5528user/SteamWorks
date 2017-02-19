@@ -2,12 +2,13 @@
 #include "Camera.h"
 #include "../RobotMap.h"
 #include <cmath>
+#include <iostream>
 
 
 int Camera::EXPOSURE(25);
 double Camera::X_THRESHOLD(0.05);
 double Camera::WIDTH_THRESHOLD(150);
-
+double Camera::OFFSET(0.4);
 
 Camera::Camera() :
 	Subsystem("Camera"),
@@ -24,7 +25,7 @@ Camera::Camera() :
 	//Thread vision
 	std::thread mainThread([this, cs](){
 
-		cv::Mat img;
+		cv::Mat img(240, 320, CV_8UC3, cv::Scalar(0, 255, 0));
 
 		//MainCamera
 		cs::CvSink cvSink("sink_MainCam");
@@ -46,15 +47,24 @@ Camera::Camera() :
 
 		while(true)
 		{
-			cvSink.GrabFrame(img);
-			mainStream.PutFrame(img);
-
-			if(visionRunning.load())
+			try
 			{
-				Analyse(img, output);
+				cvSink.GrabFrame(img);
+				mainStream.PutFrame(img);
+
+				if(visionRunning.load())
+				{
+					Analyse(img, output);
+				}
+
+				gripStream.PutFrame(output);
+			}
+			catch (cv::Exception & e)
+			{
+				std::cerr << e.what() << std::endl;
 			}
 
-			gripStream.PutFrame(output);
+
 		}
 
 	});
@@ -101,7 +111,6 @@ void Camera::Analyse(const cv::Mat& img, cv::Mat& output)
 	std::vector<std::vector<cv::Point> >* contours = pipeline.getfindContoursOutput();
 
 	double centreX, largeur;
-	int size = contours->size();
 	cv::Rect rect;
 
 
@@ -153,6 +162,9 @@ void Camera::Analyse(const cv::Mat& img, cv::Mat& output)
 		centreX = rect.x + rect.width / 2.0;
 		largeur = rect.width;
 		centreX = (2*(centreX/image->cols))-1;
+
+		cv::rectangle(output, rect, cv::Scalar(255, 255, 255));
+
 		if(callbackFunc)
 			callbackFunc(centreX, largeur);
 
