@@ -8,11 +8,10 @@
 // update. Deleting the comments indicating the section will prevent
 // it from being updated in the future.
 
-#include <Commands/AutoGearBleuDroite.h>
-#include <Commands/AutoGearRougeGauche.h>
 #include <Robot.h>
 #include "Commands/AutoBallesGearRouge.h"
 #include "Commands/AutoBallesGearBleu.h"
+#include "Commands/AutoGear.h"
 
 
 
@@ -26,6 +25,16 @@ std::shared_ptr<RemonteBalle> Robot::remonteBalle;
 
 std::unique_ptr<OI> Robot::oi;
 
+void Robot::SetupAutoModes()
+{
+	chooser.AddDefault("No_Motion" , nullptr);
+	chooser.AddObject("Porter_Gear_Devant", new Viser());
+	chooser.AddObject("Shoot 3s et Gear Rouge", new AutoBallesGearRouge(3));
+	chooser.AddObject("Shoot 4s et Gear Rouge", new AutoBallesGearRouge(4));
+	chooser.AddObject("Shoot 3s et Gear Bleu", new AutoBallesGearBleu(3));
+	chooser.AddObject("Shoot 4s et Gear Bleu", new AutoBallesGearBleu(4));
+	chooser.AddObject("Gear coin", new AutoGear());
+}
 
 void Robot::RobotInit() {
 
@@ -45,13 +54,8 @@ void Robot::RobotInit() {
 
 	oi.reset(new OI());
 	
-	chooser.AddDefault("No_Motion" , nullptr);
-	chooser.AddObject("Porter_Gear_Devant", new Viser());
-	chooser.AddObject("Auto_Balles_Gear_Rouge", new AutoBallesGearRouge());
-	chooser.AddObject("Auto_Balles_Gear_Bleu", new AutoBallesGearBleu());
-	chooser.AddObject("Auto_Gear_Bleu_Droite", new AutoGearBleuDroite());
-	chooser.AddObject("Auto_Gear_Rouge_Gauche", new AutoGearRougeGauche());
 
+	SetupAutoModes();
 	frc::SmartDashboard::PutData("Modes autonomes", &chooser);
 
 
@@ -61,6 +65,7 @@ void Robot::RobotInit() {
 
 void Robot::DisabledInit(){
 
+
 }
 
 void Robot::DisabledPeriodic() {
@@ -68,6 +73,8 @@ void Robot::DisabledPeriodic() {
 }
 
 void Robot::AutonomousInit() {
+
+	SetupAutoModes();
 
 	autonomousCommand.reset(chooser.GetSelected());
 

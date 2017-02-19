@@ -33,6 +33,8 @@ private:
 	LiveWindow *lw = LiveWindow::GetInstance();
 	frc::SendableChooser<frc::Command*> chooser;
 
+	void SetupAutoModes();
+
 public:
 
 
