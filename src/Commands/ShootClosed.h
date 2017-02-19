@@ -1,19 +1,17 @@
-#ifndef Shoot_H
-#define Shoot_H
+#ifndef ShootClosed_H
+#define ShootClosed_H
 
 #include "Commands/Command.h"
-#include <Timer.h>
 #include <Servo.h>
 
-class Shoot : public Command {
+class ShootClosed : public Command {
 private:
 
 	double setpoint;
-	bool getDB;
 
 public:
-	Shoot();
-	Shoot(double setpoint);
+	ShootClosed();
+	ShootClosed(double setpoint);
 
 	void Initialize();
 	void Execute();

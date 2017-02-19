@@ -37,6 +37,9 @@ void Viser::Initialize( ) {
 	BasePilotable::K_TURN = prefs->GetDouble("k_turn", 0.0);
 
 	BasePilotable::ACCEL_THRESHOLD = prefs->GetDouble("accel_threshold", -2);
+
+	Camera::OFFSET = prefs->GetDouble("offset", 0.4);
+
 #endif
 
 	Robot::camera->StartGrip(&Viser::SetParam, this);
@@ -55,6 +58,8 @@ void Viser::Execute() {
 	}
 
 	double move(0.0), turn(0.0);
+
+	centreX -= Camera::OFFSET;
 
 	if(std::abs(centreX) > Camera::X_THRESHOLD){
 		turn = centreX * BasePilotable::K_TURN + (centreX > 0 ? 1.0 : -1.0) * BasePilotable::B_TURN;

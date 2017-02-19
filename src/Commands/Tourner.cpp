@@ -2,7 +2,7 @@
 #include "Robot.h"
 #include <cmath>
 
-Tourner::Tourner() : Tourner(90) {}
+Tourner::Tourner() : Tourner(90.0) {}
 
 Tourner::Tourner(double angle) : Command("Tourner")
 {
@@ -18,7 +18,7 @@ Tourner::Tourner(double angle) : Command("Tourner")
 	getDB = true;
 }
 
-Tourner::Tourner(double ai, double af, double vi, double vf) : Command ("Tourner"){
+Tourner::Tourner(double ai, double af, double vi, double vf, double timeout) : Command ("Tourner"){
 
 	Requires(Robot::basePilotable.get());
 
@@ -30,6 +30,9 @@ Tourner::Tourner(double ai, double af, double vi, double vf) : Command ("Tourner
 	pente = 0;
 
 	getDB = false;
+
+	if(timeout > 0.05)
+		SetTimeout(timeout);
 
 }
 
@@ -76,14 +79,8 @@ void Tourner::Execute() {
 
 // Make this return true when this Command no longer needs to run execute()
 bool Tourner::IsFinished() {
-	bool terminus;
-	if(std::abs(Robot::basePilotable->GetGyro()) >= std::abs(af)){
-		terminus = true;
-	}
-	else{
-		terminus = false;
-	}
-	return terminus;
+
+	return std::abs(Robot::basePilotable->GetGyro()) >= std::abs(af) || IsTimedOut();
 }
 
 // Called once after isFinished returns true

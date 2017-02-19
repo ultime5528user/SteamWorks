@@ -19,7 +19,7 @@ private:
 public:
 	Avancer();
 	Avancer(double dist);
-	Avancer(double di, double df, double vi, double vf);
+	Avancer(double di, double df, double vi, double vf, double timeout = 0.0);
 
 	void Initialize();
 	void Execute();

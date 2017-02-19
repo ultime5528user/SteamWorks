@@ -18,7 +18,7 @@ Avancer::Avancer(double dist) : Command("Avancer")
 	getDB = true;
 }
 
-Avancer::Avancer(double di, double df, double vi, double vf) : Command("Avancer") {
+Avancer::Avancer(double di, double df, double vi, double vf, double timeout) : Command("Avancer") {
 
 	Requires(Robot::basePilotable.get());
 
@@ -32,6 +32,9 @@ Avancer::Avancer(double di, double df, double vi, double vf) : Command("Avancer"
 	pente = (vf-vi)/(df-di);
 
 	getDB = false;
+
+	if(timeout >= 0.05)
+		SetTimeout(timeout);
 
 }
 
@@ -78,7 +81,7 @@ void Avancer::Execute() {
 // Make this return true when this Command no longer needs to run execute()
 bool Avancer::IsFinished() {
 
-	return std::abs(Robot::basePilotable->GetEncoderD()) >= std::abs(df) || std::abs(Robot::basePilotable->GetEncoderG()) >= std::abs(df);
+	return std::abs(Robot::basePilotable->GetEncoderD()) >= std::abs(df) || std::abs(Robot::basePilotable->GetEncoderG()) >= std::abs(df) || IsTimedOut();
 
 }
 

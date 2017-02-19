@@ -1,31 +1,22 @@
-#include "Shoot.h"
+#include "ShootClosed.h"
 #include "Robot.h"
 #include <cmath>
 #include <Timer.h>
 #include "../Subsystems/Shooter.h"
 
-Shoot::Shoot()
-{
-	Requires(Robot::shooter.get());
-	Requires(Robot::remonteBalle.get());
+ShootClosed::ShootClosed() : ShootClosed(Shooter::VITESSE) {}
 
-	setpoint = Shooter::VITESSE;
-
-	getDB = true;
-}
-
-Shoot::Shoot(double setpoint) : Command("Shoot") {
+ShootClosed::ShootClosed(double setpoint) : Command("ShootClosed") {
 
 	Requires(Robot::shooter.get());
 	Requires(Robot::remonteBalle.get());
 
 	this->setpoint = setpoint;
-	getDB = false;
 
 }
 
 // Called just before this Command runs the first time
-void Shoot::Initialize() {
+void ShootClosed::Initialize() {
 
 #ifdef DASHBOARD_VARIABLES
 
@@ -39,14 +30,9 @@ void Shoot::Initialize() {
 
 #endif
 
-    Robot::shooter->SetServoOpen();
+    Robot::shooter->SetServoClose();
 
     Robot::shooter->SetAbsoluteTolerance(Shooter::THRESHOLD);
-
-    if(getDB)
-    	setpoint = Shooter::VITESSE;
-
-
     Robot::shooter->SetSetpoint(setpoint);
     Robot::shooter->Enable();
 
@@ -54,26 +40,25 @@ void Shoot::Initialize() {
 
 
 
-void Shoot::Execute() {
+void ShootClosed::Execute() {
 	Robot::remonteBalle->Monte();
 }
 
 
 
-bool Shoot::IsFinished() {
+bool ShootClosed::IsFinished() {
 	return false;
 }
 
 
 
-void Shoot::End() {
-	Robot::shooter->SetServoClose();
+void ShootClosed::End() {
 	Robot::shooter->Disable();
 	Robot::remonteBalle->Stop();
 }
 
 
 
-void Shoot::Interrupted() {
+void ShootClosed::Interrupted() {
 	End();
 }
