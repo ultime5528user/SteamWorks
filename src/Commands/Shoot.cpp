@@ -4,10 +4,23 @@
 #include <Timer.h>
 #include "../Subsystems/Shooter.h"
 
-Shoot::Shoot() : Command("Shoot") {
+Shoot::Shoot()
+{
+	Requires(Robot::shooter.get());
+	Requires(Robot::remonteBalle.get());
+
+	setpoint = Shooter::VITESSE;
+
+	getDB = true;
+}
+
+Shoot::Shoot(double setpoint) : Command("Shoot") {
 
 	Requires(Robot::shooter.get());
 	Requires(Robot::remonteBalle.get());
+
+	this->setpoint = setpoint;
+	getDB = false;
 
 }
 
@@ -16,20 +29,22 @@ void Shoot::Initialize() {
 
 #ifdef DASHBOARD_VARIABLES
 
-    Shooter::VITESSE = frc::Preferences::GetInstance()->GetDouble("shoot_vitesse", -0.3);
-    Shooter::THRESHOLD = frc::Preferences::GetInstance()->GetDouble("shoot_threshold",0);
-    Shooter::AJUST = frc::Preferences::GetInstance()->GetDouble("shoot_ajust",0);
-    Shooter::INTERVAL_CLOSE = frc::Preferences::GetInstance()->GetDouble("interval_close",0);
-    Shooter::INTERVAL_OPEN = frc::Preferences::GetInstance()->GetDouble("interval_open",0);
-    Shooter::SERVO_OPEN = frc::Preferences::GetInstance()->GetDouble("servo_open", 70);
-    Shooter::SERVO_CLOSE = frc::Preferences::GetInstance()->GetDouble("servo_close", 20);
+    Shooter::VITESSE = frc::Preferences::GetInstance()->GetDouble("shoot_vitesse", 79.0);
+    Shooter::THRESHOLD = frc::Preferences::GetInstance()->GetDouble("shoot_threshold", 5.0);
+    Shooter::SERVO_OPEN = frc::Preferences::GetInstance()->GetDouble("servo_open", 150.0);
+    Shooter::SERVO_CLOSE = frc::Preferences::GetInstance()->GetDouble("servo_close", 100.0);
 
 #endif
 
     Robot::shooter->SetServoOpen();
 
     Robot::shooter->SetAbsoluteTolerance(Shooter::THRESHOLD);
-    Robot::shooter->SetSetpoint(Shooter::VITESSE);
+
+    if(getDB)
+    	setpoint = Shooter::VITESSE;
+
+
+    Robot::shooter->SetSetpoint(setpoint);
     Robot::shooter->Enable();
 
 }

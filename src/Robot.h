@@ -16,7 +16,8 @@
 #include "Commands/Command.h"
 #include "RobotMap.h"
 #include "LiveWindow/LiveWindow.h"
-
+#include "SmartDashboard/Sendable.h"
+#include "SmartDashboard/SmartDashboard.h"
 #include "Subsystems/Shooter.h"
 #include "Subsystems/BasePilotable.h"
 #include "Subsystems/Camera.h"
@@ -28,11 +29,14 @@
 class Robot : public IterativeRobot {
 private:
 	Preferences *prefs;
-
-
-public:
 	std::unique_ptr<Command> autonomousCommand;
 	LiveWindow *lw = LiveWindow::GetInstance();
+	frc::SendableChooser<frc::Command*> chooser;
+
+	void SetupAutoModes();
+
+public:
+
 
 	static std::unique_ptr<OI> oi;
 

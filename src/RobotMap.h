@@ -40,6 +40,7 @@ public:
 
 	//Treuil
 	static std::shared_ptr<SpeedController> treuilMoteur;
+	static std::shared_ptr<frc::Servo> treuilServo;
 
 	//Camera
 	static std::shared_ptr<frc::Spark> cameraLight;

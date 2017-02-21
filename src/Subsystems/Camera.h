@@ -34,6 +34,7 @@ public:
 	static int EXPOSURE;
 	static double X_THRESHOLD;
 	static double WIDTH_THRESHOLD;
+	static double OFFSET;
 
 	Camera();
 	void InitDefaultCommand();

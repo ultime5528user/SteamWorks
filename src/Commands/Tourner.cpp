@@ -2,11 +2,23 @@
 #include "Robot.h"
 #include <cmath>
 
-Tourner::Tourner() : Tourner(90) {}
+Tourner::Tourner() : Tourner(90.0) {}
 
-Tourner::Tourner(double angle) : Tourner(0, angle, 0, 0)  {}
+Tourner::Tourner(double angle) : Command("Tourner")
+{
+	Requires(Robot::basePilotable.get());
 
-Tourner::Tourner(double ai, double af, double vi, double vf) : Command ("Tourner"){
+	ai = 0;
+	af = angle;
+	vi = 0;
+	vf = 0;
+
+	pente = 0;
+
+	getDB = true;
+}
+
+Tourner::Tourner(double ai, double af, double vi, double vf, double timeout) : Command ("Tourner"){
 
 	Requires(Robot::basePilotable.get());
 
@@ -15,7 +27,12 @@ Tourner::Tourner(double ai, double af, double vi, double vf) : Command ("Tourner
 	this->vi = vi;
 	this->vf = vf;
 
-	pente=0;
+	pente = 0;
+
+	getDB = false;
+
+	if(timeout > 0.05)
+		SetTimeout(timeout);
 
 }
 
@@ -28,49 +45,42 @@ void Tourner::Initialize() {
 
 #ifdef DASHBOARD_VARIABLES
 
-	frc::Preferences* prefs = frc::Preferences::GetInstance();
+	if(getDB)
+	{
+		frc::Preferences* prefs = frc::Preferences::GetInstance();
 
-	ai = prefs->GetDouble("ai", 0.8 * af);
-	af = prefs->GetDouble("af", af);
-	vi = prefs->GetDouble("vi", 0.5);
-	vf = prefs->GetDouble("vf", 0.3);
+		ai = prefs->GetDouble("ai", 0.8 * af);
+		af = prefs->GetDouble("af", af);
+		vi = prefs->GetDouble("vi", 0.5);
+		vf = prefs->GetDouble("vf", 0.3);
+	}
+
 
 #endif
 
-	/*
+
 	pente = ((vf-vi)/(af-ai));
 
-	if (af > 0) {
-		vi = std::abs(vi);
-	}
-	else {
-		vi = -1 * std::abs(vi);
-	}
-*/
 }
 
 // Called repeatedly when this Command is scheduled to run
 void Tourner::Execute() {
 
-	if(Robot::basePilotable->GetGyro() < ai){
+	if(std::abs(Robot::basePilotable->GetGyro()) < std::abs(ai)){
 		Robot::basePilotable->Tourner(vi);
 	}
 	else {
 		Robot::basePilotable->Tourner( pente * (Robot::basePilotable->GetGyro() - ai) + vi);
 	}
 
+	frc::SmartDashboard::PutNumber("Angle X", Robot::basePilotable->GetGyro());
+
 }
 
 // Make this return true when this Command no longer needs to run execute()
 bool Tourner::IsFinished() {
-	bool terminus;
-	if(std::abs(Robot::basePilotable->GetGyro()) >= std::abs(af)){
-		terminus = true;
-	}
-	else{
-		terminus = false;
-	}
-	return terminus;
+
+	return std::abs(Robot::basePilotable->GetGyro()) >= std::abs(af) || IsTimedOut();
 }
 
 // Called once after isFinished returns true

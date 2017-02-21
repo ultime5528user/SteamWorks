@@ -12,7 +12,6 @@
 #include "SmartDashboard/SmartDashboard.h"
 
 #include "Commands/ShootOnce.h"
-#include "Commands/TDescendre.h"
 #include "Commands/TMonter.h"
 #include "Commands/Viser.h"
 
@@ -24,6 +23,9 @@
 #include "Commands/StopShoot.h"
 
 #include "Commands/MonterBalle.h"
+
+#include "Commands/OpenTreuilServo.h"
+#include "Commands/CloseTreuilServo.h"
 
 OI::OI() {
 
@@ -48,6 +50,12 @@ OI::OI() {
 */
     //bouton6.reset(new JoystickButton(stick.get(), 6));
     //bouton6->ToggleWhenPressed(new MonterBalle());
+
+    bouton9.reset(new JoystickButton(stick.get(), 9));
+    bouton9->WhenPressed(new OpenTreuilServo());
+
+    bouton10.reset(new JoystickButton(stick.get(), 10));
+    bouton10->WhenPressed(new CloseTreuilServo());
 
     bouton11.reset(new JoystickButton(stick.get(), 11));
     bouton11->WhileHeld(new TMonter());

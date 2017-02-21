@@ -1,6 +1,5 @@
 #include "ShootOnce.h"
 #include "Robot.h"
-#include <cmath>
 
 
 ShootOnce::ShootOnce() : Command("ShootOnce") {

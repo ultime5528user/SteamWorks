@@ -5,7 +5,6 @@
 
 class Avancer : public Command {
 private:
-	bool terminus;
 
 	double di;
 	double df;
@@ -15,10 +14,12 @@ private:
 	double pente;
 	double moyenne;
 
+	bool getDB;
+
 public:
 	Avancer();
 	Avancer(double dist);
-	Avancer(double di, double df, double vi, double vf);
+	Avancer(double di, double df, double vi, double vf, double timeout = 0.0);
 
 	void Initialize();
 	void Execute();

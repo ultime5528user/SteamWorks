@@ -13,11 +13,12 @@ private:
 
 	double pente;
 
+	bool getDB;
 
 public:
 	Tourner();
 	Tourner(double angle);
-	Tourner(double ai, double af, double vi, double vf);
+	Tourner(double ai, double af, double vi, double vf, double timeout = 0.0);
 
 	void Initialize();
 	void Execute();
