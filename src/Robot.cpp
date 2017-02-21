@@ -12,7 +12,7 @@
 #include "Commands/AutoBallesGearRouge.h"
 #include "Commands/AutoBallesGearBleu.h"
 #include "Commands/AutoGear.h"
-#include "Commands/SafeViser.h"
+#include "Commands/TimedAvancer.h"
 
 
 std::shared_ptr<BasePilotable> Robot::basePilotable;
@@ -28,12 +28,14 @@ std::unique_ptr<OI> Robot::oi;
 void Robot::SetupAutoModes()
 {
 	chooser.AddDefault("No_Motion" , nullptr);
-	chooser.AddObject("Porter_Gear_Devant", new SafeViser());
+	chooser.AddObject("Porter_Gear_Devant", new Viser());
 	chooser.AddObject("Shoot 3s et Gear Rouge", new AutoBallesGearRouge(3));
 	chooser.AddObject("Shoot 4s et Gear Rouge", new AutoBallesGearRouge(4));
 	chooser.AddObject("Shoot 3s et Gear Bleu", new AutoBallesGearBleu(3));
 	chooser.AddObject("Shoot 4s et Gear Bleu", new AutoBallesGearBleu(4));
 	chooser.AddObject("Gear coin", new AutoGear());
+	chooser.AddObject("Avancer 2s", new TimedAvancer(0.65, 2.0));
+
 }
 
 void Robot::RobotInit() {

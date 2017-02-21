@@ -20,13 +20,10 @@ void ShootClosed::Initialize() {
 
 #ifdef DASHBOARD_VARIABLES
 
-    Shooter::VITESSE = frc::Preferences::GetInstance()->GetDouble("shoot_vitesse", -0.3);
-    Shooter::THRESHOLD = frc::Preferences::GetInstance()->GetDouble("shoot_threshold",0);
-    Shooter::AJUST = frc::Preferences::GetInstance()->GetDouble("shoot_ajust",0);
-    Shooter::INTERVAL_CLOSE = frc::Preferences::GetInstance()->GetDouble("interval_close",0);
-    Shooter::INTERVAL_OPEN = frc::Preferences::GetInstance()->GetDouble("interval_open",0);
-    Shooter::SERVO_OPEN = frc::Preferences::GetInstance()->GetDouble("servo_open", 70);
-    Shooter::SERVO_CLOSE = frc::Preferences::GetInstance()->GetDouble("servo_close", 20);
+    Shooter::VITESSE = frc::Preferences::GetInstance()->GetDouble("shoot_vitesse", 79.0);
+    Shooter::THRESHOLD = frc::Preferences::GetInstance()->GetDouble("shoot_threshold", 5.0);
+    Shooter::SERVO_OPEN = frc::Preferences::GetInstance()->GetDouble("servo_open", 150);
+    Shooter::SERVO_CLOSE = frc::Preferences::GetInstance()->GetDouble("servo_close", 100);
 
 #endif
 
@@ -41,7 +38,7 @@ void ShootClosed::Initialize() {
 
 
 void ShootClosed::Execute() {
-	Robot::remonteBalle->Monte();
+
 }
 
 
@@ -54,7 +51,7 @@ bool ShootClosed::IsFinished() {
 
 void ShootClosed::End() {
 	Robot::shooter->Disable();
-	Robot::remonteBalle->Stop();
+
 }
 
 

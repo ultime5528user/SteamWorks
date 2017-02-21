@@ -5,10 +5,10 @@
 #include <iostream>
 
 
-int Camera::EXPOSURE(25);
-double Camera::X_THRESHOLD(0.05);
-double Camera::WIDTH_THRESHOLD(150);
-double Camera::OFFSET(0.4);
+int Camera::EXPOSURE(5);
+double Camera::X_THRESHOLD(0.02);
+double Camera::WIDTH_THRESHOLD(5.0);
+double Camera::OFFSET(0.05);
 
 Camera::Camera() :
 	Subsystem("Camera"),

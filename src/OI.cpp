@@ -12,9 +12,8 @@
 #include "SmartDashboard/SmartDashboard.h"
 
 #include "Commands/ShootOnce.h"
-#include "Commands/TDescendre.h"
 #include "Commands/TMonter.h"
-#include "Commands/SafeViser.h"
+#include "Commands/Viser.h"
 
 #include "Commands/Pilotage.h"
 #include "Commands/Avancer.h"
@@ -41,7 +40,7 @@ OI::OI() {
 
 
     bouton3.reset(new JoystickButton(stick.get(), 3));
-    bouton3->ToggleWhenPressed(new SafeViser());
+    bouton3->ToggleWhenPressed(new Viser());
 /*
     bouton4.reset(new JoystickButton(stick.get(), 4));
     bouton4->WhenPressed(new StopShoot());

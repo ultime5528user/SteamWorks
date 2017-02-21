@@ -13,7 +13,7 @@ MonterBalle::MonterBalle() : Command("MonterBalle") {
 void MonterBalle::Initialize() {
 
 #ifdef DASHBOARD_VARIABLES
-	RemonteBalle::VITESSE_LENT = frc::Preferences::GetInstance()->GetDouble("vitesse_remonte_lent", -0.23);
+	RemonteBalle::VITESSE_LENT = frc::Preferences::GetInstance()->GetDouble("vitesse_remonte_lent", -0.4);
 #endif
 }
 

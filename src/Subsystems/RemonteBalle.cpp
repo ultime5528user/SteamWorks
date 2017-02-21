@@ -3,8 +3,8 @@
 #include "../RobotMap.h"
 #include "Robot.h"
 
-double RemonteBalle::VITESSE(-0.3);
-double RemonteBalle::VITESSE_LENT(-0.23);
+double RemonteBalle::VITESSE(-0.4);
+double RemonteBalle::VITESSE_LENT(-0.4);
 
 RemonteBalle::RemonteBalle() : Subsystem("RemonteBalle") {
 	moteur = RobotMap::remonteBalleMoteur;

@@ -6,7 +6,7 @@
 #include <Commands/WaitCommand.h>
 #include <Commands/PrintCommand.h>
 #include "StopShoot.h"
-#include "SafeViser.h"
+#include "Viser.h"
 #include "Spin.h"
 #include "TimedAvancer.h"
 #include "ShootClosed.h"
@@ -31,5 +31,5 @@ AutoBallesGearRouge::AutoBallesGearRouge(double timeout) {
 
 	AddSequential(new TimedAvancer(0.6, 0.65));
 
-	AddSequential(new SafeViser());
+	AddSequential(new Viser());
 }

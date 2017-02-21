@@ -11,7 +11,7 @@ Unload::Unload() {
 void Unload::Initialize() {
 
 #ifdef DASHBOARD_VARIABLES
-	Shooter::VALEUR_UNLOAD = frc::Preferences::GetInstance()->GetDouble("shooter_unload", -0.25);
+	Shooter::VALEUR_UNLOAD = frc::Preferences::GetInstance()->GetDouble("shooter_unload", -0.27);
 #endif
 
 }

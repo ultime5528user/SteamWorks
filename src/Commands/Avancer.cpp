@@ -41,8 +41,6 @@ Avancer::Avancer(double di, double df, double vi, double vf, double timeout) : C
 // Called just before this Command runs the first time
 void Avancer::Initialize() {
 
-#ifdef DASHBOARD_VARIABLES
-
 	if(getDB)
 	{
 			frc::Preferences* prefs = frc::Preferences::GetInstance();
@@ -52,8 +50,6 @@ void Avancer::Initialize() {
 			di = prefs->GetDouble("di", 0.8*df);
 			df = prefs->GetDouble("df", df);
 	}
-
-#endif
 
 	pente = ((vf-vi)/(df-di));
 

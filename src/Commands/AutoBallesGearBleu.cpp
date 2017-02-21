@@ -5,7 +5,7 @@
 #include "MonterBalle.h"
 #include "StopShoot.h"
 #include "Avancer.h"
-#include "SafeViser.h"
+#include "Viser.h"
 #include "Spin.h"
 #include "ShootClosed.h"
 #include <Commands/WaitCommand.h>
@@ -28,7 +28,7 @@ AutoBallesGearBleu::AutoBallesGearBleu(double timeout) {
 
 	AddSequential(new Tourner(-100, -136, -0.85, 0.68, 1.7));
 
-	AddSequential(new SafeViser());
+	AddSequential(new Viser());
 
 
 }

@@ -15,7 +15,7 @@ TMonter::TMonter() : Command("TMonter") {
 void TMonter::Initialize() {
 
 #ifdef DASHBOARD_VARIABLES
-	Treuil::VALEUR_MONTER = frc::Preferences::GetInstance()->GetDouble("treuil_monter", 1);
+	Treuil::VALEUR_MONTER = frc::Preferences::GetInstance()->GetDouble("treuil_monter", 1.0);
 #endif
 
 	Robot::treuil->Monter();

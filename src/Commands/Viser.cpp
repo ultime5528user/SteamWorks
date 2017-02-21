@@ -21,28 +21,29 @@ void Viser::Initialize( ) {
 
 	frc::Preferences* prefs = frc::Preferences::GetInstance();
 
-	grip::GripPipeline::H_MIN = prefs->GetDouble("h_min", 70.0);
-	grip::GripPipeline::H_MAX = prefs->GetDouble("h_max", 80.0);
-	grip::GripPipeline::S_MIN = prefs->GetDouble("s_min", 230.0);
+	grip::GripPipeline::H_MIN = prefs->GetDouble("h_min", 60.0);
+	grip::GripPipeline::H_MAX = prefs->GetDouble("h_max", 90.0);
+	grip::GripPipeline::S_MIN = prefs->GetDouble("s_min", 200.0);
 	grip::GripPipeline::S_MAX = prefs->GetDouble("s_max", 255.0);
 	grip::GripPipeline::V_MIN = prefs->GetDouble("v_min", 40.0);
 	grip::GripPipeline::V_MAX = prefs->GetDouble("v_max", 255.0);
 
-	Camera::EXPOSURE = (int)prefs->GetDouble("exposure", 0);
+	Camera::EXPOSURE = (int)prefs->GetDouble("exposure", 5.0);
 	Camera::WIDTH_THRESHOLD = prefs->GetDouble("width_threshold", 5.0);
-	Camera::X_THRESHOLD = prefs->GetDouble("x_threshold", 0.1);
-
-	BasePilotable::B_TURN = prefs->GetDouble("b_turn", 0.0);
-	BasePilotable::K_MOVE = prefs->GetDouble("k_move", 0.0);
-	BasePilotable::K_TURN = prefs->GetDouble("k_turn", 0.0);
-
-	BasePilotable::DI_MOVE = prefs->GetDouble("di_move", 0.2);
-	BasePilotable::A_MOVE = prefs->GetDouble("a_move", 0.1);
+	Camera::X_THRESHOLD = prefs->GetDouble("x_threshold", 0.02);
+	Camera::OFFSET = prefs->GetDouble("offset", 0.05);
 
 
-	BasePilotable::ACCEL_THRESHOLD = prefs->GetDouble("accel_threshold", 100);
+	BasePilotable::B_TURN = prefs->GetDouble("b_turn", 0.33);
+	BasePilotable::K_MOVE = prefs->GetDouble("k_move", 0.63);
+	BasePilotable::K_TURN = prefs->GetDouble("k_turn", 0.18);
 
-	Camera::OFFSET = prefs->GetDouble("offset", 0.4);
+	BasePilotable::DI_MOVE = prefs->GetDouble("di_move", 105.0);
+	BasePilotable::A_MOVE = prefs->GetDouble("a_move", 10.0);
+
+	BasePilotable::ACCEL_THRESHOLD = prefs->GetDouble("accel_threshold", 130.0);
+
+
 
 #endif
 

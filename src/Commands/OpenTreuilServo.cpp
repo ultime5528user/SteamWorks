@@ -10,7 +10,7 @@ void OpenTreuilServo::Initialize() {
 
 #ifdef DASHBOARD_VARIABLES
 
-	Treuil::SERVO_OPEN = frc::Preferences::GetInstance()->GetDouble("treuil_servo_open", 0);
+	Treuil::SERVO_OPEN = frc::Preferences::GetInstance()->GetDouble("treuil_servo_open", 170.0);
 
 #endif
 

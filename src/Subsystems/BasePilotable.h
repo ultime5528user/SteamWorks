@@ -39,7 +39,6 @@ public:
 	static double K_TURN;
 	static double B_TURN;
 	static double K_MOVE;
-	static double B_MOVE;
 	static double A_MOVE;
 	static double DI_MOVE;
 

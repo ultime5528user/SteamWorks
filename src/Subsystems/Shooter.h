@@ -18,8 +18,6 @@ public:
 	static double THRESHOLD;
 	static double VALEUR_INIT;
 	static double AJUST;
-	static double INTERVAL_CLOSE;
-	static double INTERVAL_OPEN;
 	static double SERVO_OPEN;
 	static double SERVO_CLOSE;
 	static double VALEUR_UNLOAD;

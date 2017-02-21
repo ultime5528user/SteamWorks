@@ -5,9 +5,9 @@
 
 namespace grip {
 
-double GripPipeline::H_MIN(70.0);
-double GripPipeline::H_MAX(80.0);
-double GripPipeline::S_MIN(230.0);
+double GripPipeline::H_MIN(60.0);
+double GripPipeline::H_MAX(90.0);
+double GripPipeline::S_MIN(200.0);
 double GripPipeline::S_MAX(255.0);
 double GripPipeline::V_MIN(40.0);
 double GripPipeline::V_MAX(255.0);

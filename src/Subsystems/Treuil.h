@@ -14,7 +14,6 @@ private:
 public:
 
 	static double VALEUR_MONTER;
-	static double VALEUR_MAINTIEN;
 
 	static double SERVO_OPEN;
 	static double SERVO_CLOSE;
@@ -23,7 +22,6 @@ public:
 	void InitDefaultCommand();
 
 	void Monter();
-	void Maintien();
 	void Stop();
 
 	void SetServoOpen();

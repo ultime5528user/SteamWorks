@@ -12,7 +12,7 @@ void CloseTreuilServo::Initialize() {
 
 #ifdef DASHBOARD_VARIABLES
 
-	Treuil::SERVO_CLOSE = frc::Preferences::GetInstance()->GetDouble("treuil_servo_close", 0);
+	Treuil::SERVO_CLOSE = frc::Preferences::GetInstance()->GetDouble("treuil_servo_close", 65.0);
 
 #endif
 
