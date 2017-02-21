@@ -21,7 +21,8 @@ double BasePilotable::K_TURN(1);
 double BasePilotable::B_TURN(0);
 double BasePilotable::B_MOVE(0);
 double BasePilotable::ACCEL_THRESHOLD(-2);
-
+double BasePilotable::DI_MOVE(0.2);
+double BasePilotable::A_MOVE(0.1);
 BasePilotable::BasePilotable() : Subsystem("BasePilotable")
 {
 

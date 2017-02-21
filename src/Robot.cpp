@@ -12,7 +12,7 @@
 #include "Commands/AutoBallesGearRouge.h"
 #include "Commands/AutoBallesGearBleu.h"
 #include "Commands/AutoGear.h"
-
+#include "Commands/SafeViser.h"
 
 
 std::shared_ptr<BasePilotable> Robot::basePilotable;
@@ -28,7 +28,7 @@ std::unique_ptr<OI> Robot::oi;
 void Robot::SetupAutoModes()
 {
 	chooser.AddDefault("No_Motion" , nullptr);
-	chooser.AddObject("Porter_Gear_Devant", new Viser());
+	chooser.AddObject("Porter_Gear_Devant", new SafeViser());
 	chooser.AddObject("Shoot 3s et Gear Rouge", new AutoBallesGearRouge(3));
 	chooser.AddObject("Shoot 4s et Gear Rouge", new AutoBallesGearRouge(4));
 	chooser.AddObject("Shoot 3s et Gear Bleu", new AutoBallesGearBleu(3));
@@ -99,6 +99,7 @@ void Robot::TeleopPeriodic() {
 	frc::SmartDashboard::PutNumber("Encodeur Gauche", basePilotable->GetEncoderG());
 	frc::SmartDashboard::PutNumber("Encodeur Droite", basePilotable->GetEncoderD());
 	frc::SmartDashboard::PutNumber("Angle X", basePilotable->GetGyro());
+	frc::SmartDashboard::PutNumber("Accel Y", basePilotable->GetAccelY());
 	Scheduler::GetInstance()->Run();
 }
 

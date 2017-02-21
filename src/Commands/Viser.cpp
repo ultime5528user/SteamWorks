@@ -31,12 +31,16 @@ void Viser::Initialize( ) {
 	Camera::EXPOSURE = (int)prefs->GetDouble("exposure", 0);
 	Camera::WIDTH_THRESHOLD = prefs->GetDouble("width_threshold", 5.0);
 	Camera::X_THRESHOLD = prefs->GetDouble("x_threshold", 0.1);
-	BasePilotable::B_MOVE = prefs->GetDouble("b_move", 0.0);
+
 	BasePilotable::B_TURN = prefs->GetDouble("b_turn", 0.0);
 	BasePilotable::K_MOVE = prefs->GetDouble("k_move", 0.0);
 	BasePilotable::K_TURN = prefs->GetDouble("k_turn", 0.0);
 
-	BasePilotable::ACCEL_THRESHOLD = prefs->GetDouble("accel_threshold", -2);
+	BasePilotable::DI_MOVE = prefs->GetDouble("di_move", 0.2);
+	BasePilotable::A_MOVE = prefs->GetDouble("a_move", 0.1);
+
+
+	BasePilotable::ACCEL_THRESHOLD = prefs->GetDouble("accel_threshold", 100);
 
 	Camera::OFFSET = prefs->GetDouble("offset", 0.4);
 
@@ -71,35 +75,39 @@ void Viser::Execute() {
 	if(largeur == 0) {
 		move = 0;
 	}
-	else {
+	else if(largeur < BasePilotable::DI_MOVE) {
 		move = BasePilotable::K_MOVE;
 	}
-
-	/*
-	if(largeur <= Camera::WIDTH_THRESHOLD){
-		move = BasePilotable::K_MOVE/largeur + BasePilotable::B_MOVE;
-	}
 	else {
-		move = 0;
+		move = BasePilotable::A_MOVE/(largeur - (BasePilotable::DI_MOVE - BasePilotable::A_MOVE / BasePilotable::K_MOVE));
 	}
-	 */
-
 
 	Robot::basePilotable->Drive(move, turn);
 
 	frc::SmartDashboard::PutNumber("Centre X", centreX);
-	frc::SmartDashboard::PutNumber("Largeur particule", largeur);
+	//frc::SmartDashboard::PutNumber("Largeur particule", largeur);
 	frc::SmartDashboard::PutNumber("X_Threshold", Camera::X_THRESHOLD);
 	frc::SmartDashboard::PutNumber("Width threshold", Camera::WIDTH_THRESHOLD);
 	frc::SmartDashboard::PutNumber("Move", move);
 	frc::SmartDashboard::PutNumber("Turn", turn);
+	frc::SmartDashboard::PutNumber("DI_MOVE", BasePilotable::DI_MOVE);
+	frc::SmartDashboard::PutNumber("A_MOVE", BasePilotable::A_MOVE);
 
 }
 
 // Make this return true when this Command no longer needs to run execute()
 bool Viser::IsFinished() {
 
-	return (Robot::basePilotable->GetAccelY() < BasePilotable::ACCEL_THRESHOLD) && IsTimedOut();
+	double largeur;
+	{
+		std::lock_guard<priority_mutex> lock(mutex);
+		largeur = m_largeur;
+	}
+
+	frc::SmartDashboard::PutNumber("Largeur particulue", largeur);
+	frc::SmartDashboard::PutNumber("Accel_Threshold", BasePilotable::ACCEL_THRESHOLD);
+
+	return (largeur > BasePilotable::ACCEL_THRESHOLD) && IsTimedOut();
 }
 
 // Called once after isFinished returns true
