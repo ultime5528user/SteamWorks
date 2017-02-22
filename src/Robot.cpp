@@ -36,6 +36,12 @@ void Robot::SetupAutoModes()
 	chooser.AddObject("Gear coin", new AutoGear());
 	chooser.AddObject("Avancer 2s", new TimedAvancer(0.65, 2.0));
 
+
+	double* value1 = new double(79.0);
+	double* value2 = new double(65.0);
+
+	shootChooser.AddDefault("Vitesse shoot : 79.0", value1);
+	shootChooser.AddObject("65.0", value2);
 }
 
 void Robot::RobotInit() {
@@ -58,8 +64,9 @@ void Robot::RobotInit() {
 	
 
 	SetupAutoModes();
-	frc::SmartDashboard::PutData("Modes autonomes", &chooser);
 
+	frc::SmartDashboard::PutData("Modes autonomes", &chooser);
+	frc::SmartDashboard::PutData("Vitesse shoot", &shootChooser);
 
 }
 
@@ -94,14 +101,21 @@ void Robot::TeleopInit() {
 	if (autonomousCommand.get() != nullptr)
 		autonomousCommand->Cancel();
 
+
+	double* result = shootChooser.GetSelected();
+
+	if(result != nullptr)
+		Shooter::VITESSE = *result;
+
 }
 
 void Robot::TeleopPeriodic() {
 
-	frc::SmartDashboard::PutNumber("Encodeur Gauche", basePilotable->GetEncoderG());
-	frc::SmartDashboard::PutNumber("Encodeur Droite", basePilotable->GetEncoderD());
-	frc::SmartDashboard::PutNumber("Angle X", basePilotable->GetGyro());
-	frc::SmartDashboard::PutNumber("Accel Y", basePilotable->GetAccelY());
+	//frc::SmartDashboard::PutNumber("Encodeur Gauche", basePilotable->GetEncoderG());
+	//frc::SmartDashboard::PutNumber("Encodeur Droite", basePilotable->GetEncoderD());
+	//frc::SmartDashboard::PutNumber("Angle X", basePilotable->GetGyro());
+	//frc::SmartDashboard::PutNumber("Accel Y", basePilotable->GetAccelY());
+
 	Scheduler::GetInstance()->Run();
 }
 

@@ -32,6 +32,7 @@ private:
 	std::unique_ptr<Command> autonomousCommand;
 	LiveWindow *lw = LiveWindow::GetInstance();
 	frc::SendableChooser<frc::Command*> chooser;
+	frc::SendableChooser<double*> shootChooser;
 
 	void SetupAutoModes();
 
