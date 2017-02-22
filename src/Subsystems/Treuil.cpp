@@ -13,6 +13,8 @@ Treuil::Treuil() : Subsystem("Treuil") {
 
 	moteur = RobotMap::treuilMoteur;
 	servo = RobotMap::treuilServo;
+
+	SetServoOpen();
 }
 
 void Treuil::InitDefaultCommand() {
@@ -29,10 +31,12 @@ void Treuil::Stop(){
 
 void Treuil::SetServoOpen()
 {
+	frc::SmartDashboard::PutBoolean("Servo treuil", true);
 	servo->SetAngle(SERVO_OPEN);
 }
 
 void Treuil::SetServoClose()
 {
+	frc::SmartDashboard::PutBoolean("Servo treuil", false);
 	servo->SetAngle(SERVO_CLOSE);
 }
