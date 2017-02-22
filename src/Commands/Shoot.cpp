@@ -64,6 +64,7 @@ bool Shoot::IsFinished() {
 
 
 void Shoot::End() {
+
 	Robot::shooter->SetServoClose();
 	Robot::shooter->Disable();
 	Robot::remonteBalle->Stop();

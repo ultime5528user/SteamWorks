@@ -51,12 +51,13 @@ void Shooter::SetServoClose(){
 
 double Shooter::ReturnPIDInput()
 {
+	//frc::SmartDashboard::PutNumber("Shooter rate", encoder->GetRate());
 	return encoder->GetRate();
 }
 
 void Shooter::UsePIDOutput(double output)
 {
-	frc::SmartDashboard::PutNumber("Shooter PID Output", output);
+	//frc::SmartDashboard::PutNumber("Shooter PID Output", output);
 	moteur->Set(output);
 }
 

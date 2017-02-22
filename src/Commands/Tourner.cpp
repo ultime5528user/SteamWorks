@@ -73,7 +73,7 @@ void Tourner::Execute() {
 		Robot::basePilotable->Tourner( pente * (Robot::basePilotable->GetGyro() - ai) + vi);
 	}
 
-	frc::SmartDashboard::PutNumber("Angle X", Robot::basePilotable->GetGyro());
+	//frc::SmartDashboard::PutNumber("Angle X", Robot::basePilotable->GetGyro());
 
 }
 

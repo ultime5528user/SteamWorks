@@ -85,14 +85,14 @@ void Viser::Execute() {
 
 	Robot::basePilotable->Drive(move, turn);
 
-	frc::SmartDashboard::PutNumber("Centre X", centreX);
+	//frc::SmartDashboard::PutNumber("Centre X", centreX);
 	//frc::SmartDashboard::PutNumber("Largeur particule", largeur);
-	frc::SmartDashboard::PutNumber("X_Threshold", Camera::X_THRESHOLD);
-	frc::SmartDashboard::PutNumber("Width threshold", Camera::WIDTH_THRESHOLD);
-	frc::SmartDashboard::PutNumber("Move", move);
-	frc::SmartDashboard::PutNumber("Turn", turn);
-	frc::SmartDashboard::PutNumber("DI_MOVE", BasePilotable::DI_MOVE);
-	frc::SmartDashboard::PutNumber("A_MOVE", BasePilotable::A_MOVE);
+	//frc::SmartDashboard::PutNumber("X_Threshold", Camera::X_THRESHOLD);
+	//frc::SmartDashboard::PutNumber("Width threshold", Camera::WIDTH_THRESHOLD);
+	//frc::SmartDashboard::PutNumber("Move", move);
+	//frc::SmartDashboard::PutNumber("Turn", turn);
+	//frc::SmartDashboard::PutNumber("DI_MOVE", BasePilotable::DI_MOVE);
+	//frc::SmartDashboard::PutNumber("A_MOVE", BasePilotable::A_MOVE);
 
 }
 
@@ -104,9 +104,6 @@ bool Viser::IsFinished() {
 		std::lock_guard<priority_mutex> lock(mutex);
 		largeur = m_largeur;
 	}
-
-	frc::SmartDashboard::PutNumber("Largeur particulue", largeur);
-	frc::SmartDashboard::PutNumber("Accel_Threshold", BasePilotable::ACCEL_THRESHOLD);
 
 	return (largeur > BasePilotable::ACCEL_THRESHOLD) && IsTimedOut();
 }

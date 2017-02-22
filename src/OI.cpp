@@ -69,10 +69,10 @@ OI::OI() {
     gboutonX.reset(new JoystickButton(gamepad.get(), 3));
     gboutonX->WhenPressed(new StopShoot());
 
-    SmartDashboard::PutData("Pilotage", new Pilotage());
-    SmartDashboard::PutData("Avancer", new Avancer());
-    SmartDashboard::PutData("Tourner", new Tourner());
-    SmartDashboard::PutData(frc::Scheduler::GetInstance());
+    //SmartDashboard::PutData("Pilotage", new Pilotage());
+    //SmartDashboard::PutData("Avancer", new Avancer());
+    //SmartDashboard::PutData("Tourner", new Tourner());
+    //SmartDashboard::PutData(frc::Scheduler::GetInstance());
 
 }
 
