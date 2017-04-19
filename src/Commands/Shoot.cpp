@@ -38,14 +38,13 @@ void Shoot::Initialize() {
 
     Robot::shooter->SetServoOpen();
 
-    Robot::shooter->SetAbsoluteTolerance(Shooter::THRESHOLD);
 
     if(getDB)
     	setpoint = Shooter::VITESSE;
 
 
-    Robot::shooter->SetSetpoint(setpoint);
-    Robot::shooter->Enable();
+    Robot::shooter->Shoot(setpoint);
+
 
 }
 

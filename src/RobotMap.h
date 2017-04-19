@@ -13,6 +13,7 @@
 #define ROBOTMAP_H
 #include "WPILib.h"
 #include "ADIS16448_IMU.h"
+#include <CANTalon.h>
 
 
 /**
@@ -34,8 +35,7 @@ public:
 
 
 	//Shooter
-	static std::shared_ptr<SpeedController> shooterMoteur;
-	static std::shared_ptr<Encoder> shooterEncoder;
+	static std::shared_ptr<CANTalon> shooterMoteur;
 	static std::shared_ptr<Servo> shooterServo;
 
 	//Treuil

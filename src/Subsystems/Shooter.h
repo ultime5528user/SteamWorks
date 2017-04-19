@@ -5,10 +5,11 @@
 #include <Commands/PIDSubsystem.h>
 #include <SpeedController.h>
 #include <Encoder.h>
+#include <CANTalon.h>
 
-class Shooter : public PIDSubsystem {
+class Shooter : public Subsystem {
 private:
-	std::shared_ptr<SpeedController> moteur;
+	std::shared_ptr<CANTalon> moteur;
 	std::shared_ptr<Encoder> encoder;
 	std::shared_ptr<Servo> servo;
 
@@ -31,9 +32,8 @@ public:
 	void SetServoOpen();
 	void SetServoClose();
 
-protected:
-	virtual double ReturnPIDInput();
-	virtual void UsePIDOutput(double output);
+	void Disable();
+
 
 };
 

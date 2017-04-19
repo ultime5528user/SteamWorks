@@ -22,9 +22,8 @@ std::shared_ptr<ADIS16448_IMU> RobotMap::basePilotableGyro;
 
 std::shared_ptr<Spark> RobotMap::cameraLight;
 
-std::shared_ptr<Encoder> RobotMap::shooterEncoder;
 std::shared_ptr<Servo> RobotMap::shooterServo;
-std::shared_ptr<SpeedController> RobotMap::shooterMoteur;
+std::shared_ptr<CANTalon> RobotMap::shooterMoteur;
 
 std::shared_ptr<SpeedController> RobotMap::treuilMoteur;
 std::shared_ptr<frc::Servo> RobotMap::treuilServo;
@@ -51,16 +50,13 @@ void RobotMap::init() {
         basePilotableRobotDrive->SetInvertedMotor(RobotDrive::kRearRightMotor, false);
     
 
-    shooterMoteur.reset(new VictorSP(7));
-    lw->AddActuator("Shooter", "Moteur", std::static_pointer_cast<VictorSP>(shooterMoteur));
+    shooterMoteur.reset(new CANTalon(0));
+    lw->AddActuator("Shooter", "Moteur", shooterMoteur);
 
 
     cameraLight.reset(new Spark(1));
     lw->AddActuator("Camera", "Light", cameraLight);
 
-    shooterEncoder.reset(new Encoder(4, 5));
-    lw->AddSensor("Shooter", "Encoder",  shooterEncoder);
-    shooterEncoder->SetDistancePerPulse(0.001544);
 
     basePilotableEncoderD.reset(new Encoder(0, 1));
     lw->AddSensor("BasePilotable", "EncoderD",  basePilotableEncoderD);
