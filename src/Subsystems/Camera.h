@@ -17,6 +17,7 @@ class Camera : public Subsystem {
 private:
 	cv::Mat source;
 	cs::UsbCamera* camera;
+	cs::UsbCamera* cameraCorde;
 	//cs::CvSink* cvSink;
 	//cs::CvSource* mainStream;
 	//cs::CvSource* gripStream;

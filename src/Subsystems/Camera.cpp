@@ -22,14 +22,25 @@ Camera::Camera() :
 	camera->SetResolution(320, 240);
 	camera->SetExposureManual(25);
 
+	cameraCorde = new cs::UsbCamera{"CamCorde", 1};
+	cameraCorde->SetResolution(320, 240);
+	cameraCorde->SetExposureManual(50);
+	cameraCorde->SetFPS(20);
+
 	//Thread vision
 	std::thread mainThread([this, cs](){
 
 		cv::Mat img(240, 320, CV_8UC3, cv::Scalar(0, 255, 0));
+		cv::Mat imgCorde(240, 320, CV_8UC3, cv::Scalar(0, 0, 255));
+
 
 		//MainCamera
 		cs::CvSink cvSink("sink_MainCam");
 		cvSink.SetSource(*camera);
+
+		//CamCorde
+		cs::CvSink cvSinkCorde("sink_CamCorde");
+		cvSinkCorde.SetSource(*cameraCorde);
 
 		//MainServer
 		cs::CvSource mainStream("MainStream", cs::VideoMode::kMJPEG, 320, 240, 30);
@@ -50,14 +61,16 @@ Camera::Camera() :
 			try
 			{
 				cvSink.GrabFrame(img);
-				mainStream.PutFrame(img);
+				//mainStream.PutFrame(img);
+				cvSinkCorde.GrabFrame(imgCorde);
+				mainStream.PutFrame(imgCorde);
 
 				if(visionRunning.load())
 				{
 					Analyse(img, output);
 				}
 
-				gripStream.PutFrame(output);
+				//gripStream.PutFrame(output);
 			}
 			catch (cv::Exception & e)
 			{

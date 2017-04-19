@@ -22,14 +22,14 @@ AutoBallesGearRouge::AutoBallesGearRouge(double timeout) {
 	AddSequential(new WaitCommand("Attente AutoBallesGearBleu", timeout));
 	AddParallel(new ShootClosed());
 
-	AddSequential(new Tourner(10, 10, 0.6, 0.6, 0.6));
+	AddSequential(new Tourner(15, 15, 0.6, 0.6, 0.6));
 	AddParallel(new StopShoot());
 
 	AddSequential(new Avancer(-5.9, -7.9, -0.805, 0.68, 2.5));
 
-	AddSequential(new Tourner(120, 140, 0.85, -0.60, 1.2));
+	AddSequential(new Tourner(154, 177.5, 0.85, -0.60, 2.0));
 
-	AddSequential(new TimedAvancer(0.6, 0.65));
+	//AddSequential(new TimedAvancer(0.6, 0.65));
 
 	AddSequential(new Viser());
 }
