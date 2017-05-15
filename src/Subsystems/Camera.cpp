@@ -43,16 +43,27 @@ Camera::Camera() :
 		cvSinkCorde.SetSource(*cameraCorde);
 
 		//MainServer
-		cs::CvSource mainStream("MainStream", cs::VideoMode::kMJPEG, 320, 240, 30);
+
+		cs::CvSource mainStream("MainStream", cs::VideoMode::kMJPEG, 320, 240, 20);
 		cs->AddCamera(mainStream);
 		auto mainServer = cs->AddServer("serve_MainStream");
 		mainServer.SetSource(mainStream);
 
+
 		//GripServer
+
 		cs::CvSource gripStream("GripStream", cs::VideoMode::kMJPEG, 320, 240, 30);
 		cs->AddCamera(gripStream);
 		auto gripServer = cs->AddServer("serve_GripStream");
 		gripServer.SetSource(gripStream);
+
+		//FrontServer
+
+		cs::CvSource frontStream("FrontStream", cs::VideoMode::kMJPEG, 320, 240, 30);
+		cs->AddCamera(frontStream);
+		auto frontServer = cs->AddServer("serve_FrontStream");
+		frontServer.SetSource(frontStream);
+
 
 		cv::Mat output(240, 320, CV_8UC3, cv::Scalar(255, 0, 0));
 
@@ -61,16 +72,18 @@ Camera::Camera() :
 			try
 			{
 				cvSink.GrabFrame(img);
-				//mainStream.PutFrame(img);
+				frontStream.PutFrame(img); //À ENLEVER
+
 				cvSinkCorde.GrabFrame(imgCorde);
 				mainStream.PutFrame(imgCorde);
+
 
 				if(visionRunning.load())
 				{
 					Analyse(img, output);
 				}
 
-				//gripStream.PutFrame(output);
+				gripStream.PutFrame(output); // À ENLEVER
 			}
 			catch (cv::Exception & e)
 			{
@@ -168,7 +181,8 @@ void Camera::Analyse(const cv::Mat& img, cv::Mat& output)
 	}
 	else {
 		if(callbackFunc)
-					callbackFunc(0, 0);
+			callbackFunc(0, 0);
+
 		return;
 	}
 
