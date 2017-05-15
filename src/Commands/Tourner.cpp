@@ -43,7 +43,7 @@ void Tourner::Initialize() {
 	Robot::basePilotable->GyroReset();
 
 
-#ifdef DASHBOARD_VARIABLES
+//#ifdef DASHBOARD_VARIABLES
 
 	if(getDB)
 	{
@@ -56,7 +56,7 @@ void Tourner::Initialize() {
 	}
 
 
-#endif
+//#endif
 
 
 	pente = ((vf-vi)/(af-ai));
@@ -73,7 +73,7 @@ void Tourner::Execute() {
 		Robot::basePilotable->Tourner( pente * (Robot::basePilotable->GetGyro() - ai) + vi);
 	}
 
-	//frc::SmartDashboard::PutNumber("Angle X", Robot::basePilotable->GetGyro());
+	//frc::SmartDashboard::PutNumber("Angle tourner", Robot::basePilotable->GetGyro());
 
 }
 

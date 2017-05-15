@@ -1,7 +1,7 @@
 #include "Shooter.h"
 #include "../RobotMap.h"
 
-double Shooter::VITESSE(79.0);
+double Shooter::VITESSE(84.0);
 double Shooter::THRESHOLD(5.0);
 double Shooter::VALEUR_INIT(0.75);
 double Shooter::SERVO_OPEN(150);
@@ -51,13 +51,13 @@ void Shooter::SetServoClose(){
 
 double Shooter::ReturnPIDInput()
 {
-	//frc::SmartDashboard::PutNumber("Shooter rate", encoder->GetRate());
+	frc::SmartDashboard::PutNumber("Shooter rate", encoder->GetRate()); 					//À ENLEVER
 	return encoder->GetRate();
 }
 
 void Shooter::UsePIDOutput(double output)
 {
-	//frc::SmartDashboard::PutNumber("Shooter PID Output", output);
+	frc::SmartDashboard::PutNumber("Shooter PID Output", output); 					//À ENLEVER
 	moteur->Set(output);
 }
 

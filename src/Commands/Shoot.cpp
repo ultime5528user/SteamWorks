@@ -28,9 +28,9 @@ Shoot::Shoot(double setpoint) : Command("Shoot") {
 void Shoot::Initialize() {
 
 #ifdef DASHBOARD_VARIABLES
-
-    Shooter::VITESSE = frc::Preferences::GetInstance()->GetDouble("shoot_vitesse", 79.0);
+    Shooter::VITESSE = frc::Preferences::GetInstance()->GetDouble("shoot_vitesse", 84.0);
     Shooter::THRESHOLD = frc::Preferences::GetInstance()->GetDouble("shoot_threshold", 5.0);
+//#ifdef DASHBOARD_VARIABLES
     Shooter::SERVO_OPEN = frc::Preferences::GetInstance()->GetDouble("servo_open", 150.0);
     Shooter::SERVO_CLOSE = frc::Preferences::GetInstance()->GetDouble("servo_close", 100.0);
 
